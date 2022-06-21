@@ -7,4 +7,12 @@
 # include <fcntl.h>
 # include <errno.h>
 
+typedef struct s_data
+{
+	char	*path;
+	char	**path_split;
+
+} t_data;
+
+
 #endif
