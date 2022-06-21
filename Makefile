@@ -23,6 +23,7 @@ O_FLAG			= -o
 C_FLAG			= -c
 RF_FLAG			= -rf
 F_FLAG			= -f
+DEBUG_FLAG		= -g
 
 #--DIR PATH--# > path to the file
 SRC_DIR			= src/
@@ -43,7 +44,7 @@ $(OBJ_DIR)%.o:		%.c
 
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
-				@$(GCC) $(ERROR_FLAGS) $(PRE_OBJ) $(O_FLAG) $(NAME)
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME)
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)
