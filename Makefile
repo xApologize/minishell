@@ -35,7 +35,7 @@ PRE_SRC			= $(addprefix $(SRC_DIR), $(C_FILES))
 PRE_OBJ			= $(addprefix $(OBJ_DIR), $(O_FILES))
 
 #--VPATH--#
-VAPTH			= $(SRC_DIR)
+VPATH			= $(SRC_DIR)
 
 #--ACTIONS--# > all the thing you want your Makefile to do
 $(OBJ_DIR)%.o:		%.c
