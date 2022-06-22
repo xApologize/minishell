@@ -14,6 +14,7 @@ NAME			= $(PROJECT_NAME)
 GCC				= gcc
 MKDIR			= mkdir
 RM				= rm
+MAKE			= make
 NORMINETTE		= norminette
 
 #--FLAGS--# > flags used by the command above
@@ -24,18 +25,21 @@ C_FLAG			= -c
 RF_FLAG			= -rf
 F_FLAG			= -f
 DEBUG_FLAG		= -g
+MAKE_C_FLAG		= -C
+LIB_FLAG		= -L./libft -lft
 
 #--DIR PATH--# > path to the file
 SRC_DIR			= src/
 OBJ_DIR			= obj/
 INC_DIR			= include/
+LIBFT_DIR		= libft/
 
 #--PREFIX--#
 PRE_SRC			= $(addprefix $(SRC_DIR), $(C_FILES))
 PRE_OBJ			= $(addprefix $(OBJ_DIR), $(O_FILES))
 
 #--VPATH--#
-VAPTH			= $(SRC_DIR)
+VPATH			= $(SRC_DIR)
 
 #--ACTIONS--# > all the thing you want your Makefile to do
 $(OBJ_DIR)%.o:		%.c
@@ -44,19 +48,22 @@ $(OBJ_DIR)%.o:		%.c
 
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
-				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME)
+				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG)
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)
 
 clean:
 				@echo "Removing $(PROJECT_NAME) object files..."
+				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR) clean
 				@$(RM) $(F_FLAG) $(PRE_OBJ)
 				@$(RM) $(RF_FLAG) $(OBJ_DIR)
 				@echo "Removing $(PROJECT_NAME) object files done."
 
 fclean:				clean
 				@echo "Removing $(PROJECT_NAME) program..."
+				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR) fclean
 				@$(RM) $(F_FLAG) $(NAME)
 				@echo "Removing $(PROJECT_NAME) program done."
 
