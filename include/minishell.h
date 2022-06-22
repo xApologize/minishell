@@ -6,7 +6,7 @@ typedef struct s_data
 
 }	t_data;
 
-# include "libft/include/libft.h"
+# include "../libft/include/libft.h"
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
