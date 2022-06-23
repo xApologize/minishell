@@ -16,10 +16,7 @@ int main(void)
 	char	*line;
 
 	while (1)
-	{
-		line = readline("Minicougar>$");
-		if (line && *line)
-			add_history(line);
-	}
+		line = rl_gets();
+	
 	return (0);
 }
