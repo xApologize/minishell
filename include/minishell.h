@@ -14,4 +14,6 @@ typedef struct s_data
 # include <readline/readline.h>
 # include <readline/history.h>
 
+char	*rl_gets(void);
+
 #endif
