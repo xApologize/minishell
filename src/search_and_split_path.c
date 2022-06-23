@@ -1,4 +1,4 @@
-#include "include/minishell.h"
+#include "../include/minishell.h"
 
 void	search_split_path(char **envp, t_data *data)
 {
