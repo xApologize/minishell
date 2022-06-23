@@ -18,7 +18,7 @@ int main(void)
 	while (1)
 	{
 		line = readline("Minicougar>$");
-		if (line)
+		if (line && *line)
 			add_history(line);
 	}
 	return (0);
