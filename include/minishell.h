@@ -11,5 +11,9 @@ typedef struct s_data
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
+char	*rl_gets(void);
 
 #endif
