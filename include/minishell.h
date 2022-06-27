@@ -21,5 +21,6 @@ typedef struct s_data
 
 char	*rl_gets(void);
 void	sigint_handler(int signum);
+void	sig_handling(void);
 
 #endif
