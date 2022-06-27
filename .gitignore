@@ -1,7 +1,7 @@
 *.out
 *.o
 *.swp
-*.a
+libft/libft.a
 .DS_Store
 .vscode
 minishell
