@@ -7,4 +7,5 @@ char	*rl_gets(void)
 	line = readline("Minicougar>$");
 	if (line && *line)
 		add_history(line);
+	return (line);
 }
