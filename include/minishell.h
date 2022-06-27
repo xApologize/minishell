@@ -7,6 +7,8 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_data
 {
@@ -14,8 +16,9 @@ typedef struct s_data
 	char	**path_split;
 	char	*argvs_join;
 
-} t_data;
+}			t_data;
 
+char	*rl_gets(void);
 int		main(int argc, char **argv, char **envp);
 void	parsing(int argc, char **argv, char **envp, t_data *data);
 void	join_all_argv(char **argv, t_data *data);
