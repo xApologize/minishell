@@ -27,6 +27,7 @@ F_FLAG			= -f
 DEBUG_FLAG		= -g
 MAKE_C_FLAG		= -C
 LIB_FLAG		= -L./libft -lft
+RL_FLAG			= -lreadline
 
 #--DIR PATH--# > path to the file
 SRC_DIR			= src/
@@ -49,7 +50,7 @@ $(OBJ_DIR)%.o:		%.c
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
 				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
-				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG)
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG) $(RL_FLAG)
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)
