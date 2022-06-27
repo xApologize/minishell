@@ -18,16 +18,16 @@ MAKE			= make
 NORMINETTE		= norminette
 
 #--FLAGS--# > flags used by the command above
-ERROR_FLAGS		= -Werror -Wall -Wextra
+ERROR_FLAGS = -Werror -Wall -Wextra
 P_FLAG			= -p
 O_FLAG			= -o
 C_FLAG			= -c
 RF_FLAG			= -rf
 F_FLAG			= -f
 DEBUG_FLAG		= -g
-MAKE_C_FLAG		= -C
+MAKE_C_FLAG 	= -C
 LIB_FLAG		= -L./libft -lft
-RL_FLAG			= -lreadline
+RL_FLAG			= -L./lib -lreadline
 
 #--DIR PATH--# > path to the file
 SRC_DIR			= src/
@@ -50,7 +50,7 @@ $(OBJ_DIR)%.o:		%.c
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
 				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
-				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG) $(RL_FLAG)
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG) $(RL_FLAG) -lcurses
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)
