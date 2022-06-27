@@ -13,6 +13,7 @@ typedef struct s_data
 # include <errno.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 
 char	*rl_gets(void);
 
