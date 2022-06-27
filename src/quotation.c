@@ -9,7 +9,7 @@ void	error_quotation(t_data *data)
 	pair = true;
 	while (data->argvs_join[i] != '\0')
 	{
-		if (data->argvs_join[i] == '\'')
+		if (data->argvs_join[i] == '\'') // retour de readline au lieu de data->argvs_join
 		{
 			if (pair == true)
 				pair = false;

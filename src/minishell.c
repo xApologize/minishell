@@ -15,9 +15,9 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_data	data;
 
-	parsing(argc, argv, envp, &data);
 	while (1)
 		line = rl_gets();
+	parsing(line, envp, &data);
 	
 	return (0);
 }
