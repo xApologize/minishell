@@ -10,20 +10,19 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-
 int main(void)
 {
 	char	*line;
-	struct sigaction sa;
+	struct sigaction sa_sigint;
 
-	sa.sa_handler = sigint_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
+	sa_sigint.sa_handler = sigint_handler;
+	sigemptyset(&sa_sigint.sa_mask);
+	sa_sigint.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa_sigint, NULL);
 	while (1)
 	{
 		line = rl_gets();
-		if (strcmp(line, "exit") == 0)
+		if (line == NULL || strcmp(line, "exit") == 0)
 			exit(0);
 	}
 	return (0);
