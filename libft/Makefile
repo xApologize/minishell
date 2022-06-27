@@ -62,7 +62,7 @@ $(OBJ_DIR)%.o:	%.c
 $(LIB_NAME):	$(PRE_OBJ_M)
 					@echo "Compiling libft..."
 					@$(AR) $(AR_FLAG) $(LIB_NAME) $(PRE_OBJ_M)
-					@$(MV) $(LIB_NAME) $(LIB_NAME)
+					@$(MV) $(LIB_NAME) $(LIB_DIR)
 					@echo "Compiling libft done."
 
 all:			$(LIB_NAME)
