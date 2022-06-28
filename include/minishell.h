@@ -11,8 +11,6 @@ typedef struct s_data
 # include <unistd.h>
 # include <fcntl.h>
 # include <errno.h>
-# include <readline/readline.h>
-# include <readline/history.h>
 # include <signal.h>
 # include <string.h>
 # include "readline/readline.h"
@@ -22,10 +20,10 @@ typedef struct s_data
 char	*rl_gets(void);
 void	sigint_handler(int signum);
 void	sig_handling(void);
-void	handle_builtin(char *line);
+void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char **opt);
-void	handle_env(char **opt);
+void	handle_env(char **opt, char **envp);
 void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
