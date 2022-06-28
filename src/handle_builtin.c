@@ -12,6 +12,8 @@ void	handle_builtin(char *line, char **envp)
 {
 	char	**opt;
 
+	if (ft_strlen(line) == 0)
+		return ;
 	opt = ft_split(line, ' ');
 	if (ft_strncmp(opt[0], "echo", ft_strlen(opt[0])) == 0)
 		handle_echo(opt);
