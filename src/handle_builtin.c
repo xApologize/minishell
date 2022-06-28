@@ -15,19 +15,19 @@ void	handle_builtin(char *line, char **envp)
 	if (ft_strlen(line) == 0)
 		return ;
 	opt = ft_split(line, ' ');
-	if (ft_strncmp(opt[0], "echo", ft_strlen(opt[0])) == 0)
+	if (ft_strcmp(opt[0], "echo") == 0)
 		handle_echo(opt);
-	else if (ft_strncmp(opt[0], "cd", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "cd") == 0)
 		handle_cd(opt);
-	else if (ft_strncmp(opt[0], "pwd", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "pwd") == 0)
 		handle_pwd(opt);
-	else if (ft_strncmp(opt[0], "export", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "export") == 0)
 		handle_export(opt);
-	else if (ft_strncmp(opt[0], "unset", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "unset") == 0)
 		handle_unset(opt);
-	else if (ft_strncmp(opt[0], "env", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "env") == 0)
 		handle_env(opt, envp);
-	else if (ft_strncmp(opt[0], "exit", ft_strlen(opt[0])) == 0)
+	else if (ft_strcmp(opt[0], "exit") == 0)
 		handle_exit(opt);
 	else
 		return ;
