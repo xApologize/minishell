@@ -29,6 +29,6 @@ void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
 void	handle_unset(char **opt);
-char	**envp_cp(char **envp)
+char	**envp_cp(char **envp);
 
 #endif
