@@ -14,6 +14,7 @@ typedef struct s_data
 # include <signal.h>
 # include <string.h>
 # include "readline/readline.h"
+# include "readline/history.h"
 
 // option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
 
@@ -28,5 +29,6 @@ void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
 void	handle_unset(char **opt);
+char	**envp_cp(char **envp)
 
 #endif
