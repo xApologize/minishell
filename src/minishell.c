@@ -10,16 +10,21 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-int main(char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	char	*line;
+	char	**envp_copy;
 
+	envp_copy = envp_cp(envp);
+	(void)argc;
+	(void)argv;
 	sig_handling();
 	while (1)
 	{
 		line = rl_gets();
-		if (line == NULL || strcmp(line, "exit") == 0)
+		if (line == NULL)
 			exit(0);
+		handle_builtin(line, envp_copy);
 	}
 	return (0);
 }
