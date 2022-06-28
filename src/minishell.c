@@ -16,6 +16,8 @@ int	main(int argc, char **argv, char **envp)
 	t_data	data;
 	struct sigaction sa;
 
+	(void)argc;
+	(void)argv;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
