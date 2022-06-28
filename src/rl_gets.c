@@ -4,7 +4,7 @@ char	*rl_gets(void)
 {
 	char	*line;
 
-	line = readline("Minicougar>$");
+	line = readline("Minicougar>$ ");
 	if (line && *line)
 		add_history(line);
 	return (line);
