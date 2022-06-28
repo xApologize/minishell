@@ -8,7 +8,7 @@
 // ◦ env sans aucune option ni argument
 // ◦ exit sans aucune option
 
-void	handle_builtin(char *line)
+void	handle_builtin(char *line, char **envp)
 {
 	char	**opt;
 
@@ -24,7 +24,7 @@ void	handle_builtin(char *line)
 	else if (ft_strncmp(opt[0], "unset", ft_strlen(opt[0])) == 0)
 		handle_unset(opt);
 	else if (ft_strncmp(opt[0], "env", ft_strlen(opt[0])) == 0)
-		handle_env(opt);
+		handle_env(opt, envp);
 	else if (ft_strncmp(opt[0], "exit", ft_strlen(opt[0])) == 0)
 		handle_exit(opt);
 	else
