@@ -28,7 +28,7 @@ void	handle_env(char **opt, char **envp);
 void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
-void	handle_unset(char **opt);
+void	handle_unset(char **opt, char **envp_copy);
 char	**envp_cp(char **envp);
 
 #endif
