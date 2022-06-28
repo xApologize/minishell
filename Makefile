@@ -26,7 +26,7 @@ RF_FLAG				= -rf
 F_FLAG				= -f
 DEBUG_FLAG		= -g
 MAKE_C_FLAG 	= -C
-LIBRARY_FLAG	= -L./lib -lft
+LIBRARY_FLAG	= -L./libft -lft
 RL_FLAG				= -L./lib -lreadline
 LCURSES				= -lcurses
 
@@ -51,7 +51,7 @@ $(OBJ_DIR)%.o:		%.c
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
 				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
-				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIB_FLAG) $(RL_FLAG) $(LCURSES)
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG) $(LCURSES)
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)
