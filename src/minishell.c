@@ -10,7 +10,7 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-int main(void)
+int main(char **envp)
 {
 	char	*line;
 
