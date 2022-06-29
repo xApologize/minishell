@@ -10,23 +10,8 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-int	main(void)
-{
-	char		*line;
-	t_data		data;
-	t_cmd		cmd;
-	extern char	**environ;
-	char		**envp_copy;
 
-	envp_copy = envp_cp(environ);
-	sig_handling();
-	while (1)
-	{
-		line = rl_gets();
-		if (line == NULL)
-			exit(0);
-		handle_builtin(line, envp_copy);
-		parsing(line, &data, &cmd, environ);
-	}
-	return (0);
+void	handle_export(char **opt)
+{
+	printf("%s\n", opt[0]);
 }

@@ -1,10 +1,10 @@
 #include "../include/minishell.h"
 
-void	parsing(char *line, t_data *data, t_cmd *cmd)
+void	parsing(char *line, t_data *data, t_cmd *cmd, char **environ)
 {
 	split_line(line, data);
+	env_split(data, environ);
 	search_cmd(data);
-	env_split(data);
 	//error_quotation(data);
 }
 

@@ -22,8 +22,9 @@ void	search_cmd(t_data *data)
 	}
 }
 
-void	env_split(t_data *data)
+void	env_split(t_data *data, char **environ)
 {
+	// retrouver le environ et le split
 	data->path_split = ft_split(getenv("PATH="), ':');
 }
 
