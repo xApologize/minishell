@@ -11,7 +11,10 @@ void	handle_pwd(char **opt)
 		args++;
 	if (args > 1)
 		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);
-	path = getcwd(path, 0);
-	printf("%s\n", path);
-	free(path);
+	else
+	{
+		path = getcwd(path, 0);
+		printf("%s\n", path);
+		free(path);
+	}
 }
