@@ -10,12 +10,15 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-int	main(char **envp)
+int	main(int argc, char **argv, char **envp)
 {
 	char	*line;
 	t_data	data;
+	t_cmd	cmd;
 	struct sigaction sa;
 
+	(void)argc;
+	(void)argv;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
@@ -26,6 +29,6 @@ int	main(char **envp)
 		if (strcmp(line, "exit") == 0)
 			exit(0);
 	}
-	parsing(line, envp, &data);
+	parsing(line, &data, &cmd);
 	return (0);
 }

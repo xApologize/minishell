@@ -27,17 +27,16 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	struct s_cmd	*next;
-}					t_struct;
+}					t_cmd;
 
 void	sigint_handler(int signum);
 char	*rl_gets(void);
-int		main(int argc, char **argv, char **envp);
-void	parsing(char *line, char **envp, t_data *data);
+void	parsing(char *line, t_data *data, t_cmd *cmd);
 void	split_path(t_data *data);
 void	error_quotation(t_data *data);
 void	search_last_quote(t_data *data, int i);
 void	search_cmd(t_data *data);
-void	split_line(char *line, t_data *data);
+void	split_line(char *line, t_data *data, t_cmd *cmd);
 void	env_split(t_data *data);
 void	trim_path(t_data *data);
 
