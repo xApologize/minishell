@@ -38,9 +38,9 @@ void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char *line, char **opt);
 void	handle_env(char **opt, char **envp_copy);
-void	handle_exit(void);
+void	handle_exit(char *line, char **opt, char **envp_copy);
 void	handle_export(char **opt, char **envp_copy);
-void	handle_pwd(char **opt);
+void	handle_pwd(void);
 void	handle_unset(char **opt, char **envp_copy);
 void	parsing(char *line, char **envp_copy, t_data *data);
 void	split_path(t_data *data);
@@ -52,5 +52,6 @@ void	env_split(t_data *data);
 void	trim_path(t_data *data);
 void	print_echo_without_n(char *line);
 void	print_echo_with_n(char *line);
+void	freeopt(char **opt);
 
 #endif
