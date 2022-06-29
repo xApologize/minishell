@@ -33,6 +33,7 @@ typedef struct s_cmd
 void	sigint_handler(int signum);
 char	*rl_gets(void);
 void	sig_handling(void);
+char	**envp_cp(char **envp);
 void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char **opt);
