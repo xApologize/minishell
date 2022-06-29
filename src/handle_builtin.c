@@ -15,8 +15,8 @@ void	handle_builtin(char *line, char **envp_copy)
 	if (ft_strlen(line) == 0)
 		return ;
 	opt = ft_split(line, ' ');
-	if (ft_strcmp(line, "echo") == 0)
-		handle_echo(line);
+	if (ft_strcmp(opt[0], "echo") == 0)
+		handle_echo(line, opt);
 	else if (ft_strcmp(opt[0], "cd") == 0)
 		handle_cd(opt);
 	else if (ft_strcmp(opt[0], "pwd") == 0)
