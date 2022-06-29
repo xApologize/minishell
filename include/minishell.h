@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <string.h>
 # include "readline/readline.h"
+# include "readline/history.h"
 # include <stdbool.h>
 # include <signal.h>
 # include <string.h>
@@ -35,13 +36,12 @@ void	sig_handling(void);
 void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char **opt);
-void	handle_env(char **opt, char **envp);
+void	handle_env(char **opt, char **envp_copy);
 void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
-void	handle_unset(char **opt);
-int		main(int argc, char **argv, char **envp);
-void	parsing(char *line, char **envp, t_data *data);
+void	handle_unset(char **opt, char **envp_copy);
+void	parsing(char *line, char **envp_copy, t_data *data);
 void	split_path(t_data *data);
 void	error_quotation(t_data *data);
 void	search_last_quote(t_data *data, int i);
