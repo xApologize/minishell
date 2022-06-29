@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
 // Implementation of env builtin
-void	handle_env(char **opt, char **envp)
+void	handle_env(char **opt, char **envp_copy)
 {
 	int i;
 
@@ -9,9 +9,9 @@ void	handle_env(char **opt, char **envp)
 	if (opt[1] != NULL)
 		dprintf(STDERR_FILENO, "env: too many arguments\n");
 	else
-		while (envp[i])
+		while (envp_copy[i])
 		{
-			printf("%s\n", envp[i]);
+			printf("%s\n", envp_copy[i]);
 			i++;
 		}
 }
