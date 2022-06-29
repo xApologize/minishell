@@ -36,7 +36,7 @@ void	sig_handling(void);
 char	**envp_cp(char **environ);
 void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
-void	handle_echo(char *line);
+void	handle_echo(char *line, char **opt);
 void	handle_env(char **opt, char **envp_copy);
 void	handle_exit(char **opt);
 void	handle_export(char **opt, char **envp_copy);
@@ -50,5 +50,7 @@ void	search_cmd(t_data *data);
 void	split_line(char *line, t_data *data);
 void	env_split(t_data *data);
 void	trim_path(t_data *data);
+void	print_echo_without_n(char *line);
+void	print_echo_with_n(char *line);
 
 #endif
