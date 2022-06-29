@@ -10,14 +10,12 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
-int	main(int argc, char **argv, char **envp)
+int	main(char **envp)
 {
 	char	*line;
 	t_data	data;
 	struct sigaction sa;
 
-	(void)argc;
-	(void)argv;
 	sa.sa_handler = sigint_handler;
 	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_RESTART;
