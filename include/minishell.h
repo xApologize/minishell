@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <string.h>
 # include "readline/readline.h"
+# include "readline/history.h"
 # include <stdbool.h>
 # include <signal.h>
 # include <string.h>
@@ -40,7 +41,6 @@ void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
 void	handle_unset(char **opt);
-int		main(int argc, char **argv, char **envp);
 void	parsing(char *line, char **envp, t_data *data);
 void	split_path(t_data *data);
 void	error_quotation(t_data *data);
