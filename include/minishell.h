@@ -31,6 +31,7 @@ typedef struct s_cmd
 
 void	sigint_handler(int signum);
 char	*rl_gets(void);
+void	sig_handling(void);
 int		main(int argc, char **argv, char **envp);
 void	parsing(char *line, char **envp, t_data *data);
 void	split_path(t_data *data);

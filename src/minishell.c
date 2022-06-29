@@ -16,14 +16,11 @@ int	main(char **envp)
 	t_data	data;
 	struct sigaction sa;
 
-	sa.sa_handler = sigint_handler;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_RESTART;
-	sigaction(SIGINT, &sa, NULL);
+	sig_handling();
 	while (1)
 	{
 		line = rl_gets();
-		if (strcmp(line, "exit") == 0)
+		if (line == NULL || strcmp(line, "exit") == 0)
 			exit(0);
 	}
 	parsing(line, envp, &data);
