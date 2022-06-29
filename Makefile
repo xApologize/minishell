@@ -26,7 +26,7 @@ RF_FLAG				= -rf
 F_FLAG				= -f
 DEBUG_FLAG		= -g
 MAKE_C_FLAG 	= -C
-LIBRARY_FLAG	= -L./lib -lft
+LIBRARY_FLAG	= -L./libft -lft
 RL_FLAG				= -L./lib -lreadline
 LCURSES				= -lcurses
 
