@@ -28,7 +28,7 @@ void	handle_builtin(char *line, char **envp_copy)
 	else if (ft_strcmp(opt[0], "env") == 0)
 		handle_env(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "exit") == 0)
-		handle_exit(opt);
+		handle_exit();
 	else
 		return ;
 }

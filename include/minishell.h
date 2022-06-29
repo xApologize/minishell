@@ -38,7 +38,7 @@ void	handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char *line, char **opt);
 void	handle_env(char **opt, char **envp_copy);
-void	handle_exit(char **opt);
+void	handle_exit(void);
 void	handle_export(char **opt, char **envp_copy);
 void	handle_pwd(char **opt);
 void	handle_unset(char **opt, char **envp_copy);
