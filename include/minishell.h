@@ -40,7 +40,7 @@ void	handle_env(char **opt, char **envp);
 void	handle_exit(char **opt);
 void	handle_export(char **opt);
 void	handle_pwd(char **opt);
-void	handle_unset(char **opt);
+void	handle_unset(char **opt, char **envp_copy);
 void	parsing(char *line, char **envp, t_data *data);
 void	split_path(t_data *data);
 void	error_quotation(t_data *data);
