@@ -25,7 +25,7 @@ int	main(void)
 		if (line == NULL)
 			exit(0);
 		handle_builtin(line, envp_copy);
+		parsing(line, envp, &data);
 	}
-	parsing(line, envp, &data);
 	return (0);
 }
