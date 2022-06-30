@@ -49,5 +49,6 @@ void	search_cmd(t_data *data);
 void	split_line(char *line, t_data *data, t_cmd *cmd);
 void	env_split(t_data *data, char **environ);
 void	trim_path(t_data *data);
+char	**envp_cp(char **envp);
 
 #endif
