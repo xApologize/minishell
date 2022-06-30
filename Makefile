@@ -11,11 +11,11 @@ O_FILES			= $(C_FILES:.c=.o)
 NAME			= $(PROJECT_NAME)
 
 #--COMMANDS--# > all the bash command you will use in the Makefile
-GCC						= gcc
-MKDIR					= mkdir
-RM						= rm
-MAKE					= make
-NORMINETTE		= norminette
+GCC					= gcc
+MKDIR				= mkdir
+RM					= rm
+MAKE				= make
+NORMINETTE			= norminette
 
 #--FLAGS--# > flags used by the command above
 ERROR_FLAGS 	= -Werror -Wall -Wextra
@@ -24,9 +24,9 @@ O_FLAG				= -o
 C_FLAG				= -c
 RF_FLAG				= -rf
 F_FLAG				= -f
-DEBUG_FLAG		= -g
-MAKE_C_FLAG 	= -C
-LIBRARY_FLAG	= -L./libft -lft
+DEBUG_FLAG			= -g
+MAKE_C_FLAG 		= -C
+LIBRARY_FLAG		= -L./lib -lft
 RL_FLAG				= -L./lib -lreadline
 LCURSES				= -lcurses
 
@@ -41,7 +41,7 @@ PRE_SRC				= $(addprefix $(SRC_DIR), $(C_FILES))
 PRE_OBJ				= $(addprefix $(OBJ_DIR), $(O_FILES))
 
 #--VPATH--#
-VPATH					= $(SRC_DIR)
+VPATH				= $(SRC_DIR)
 
 #--ACTIONS--# > all the thing you want your Makefile to do
 $(OBJ_DIR)%.o:		%.c

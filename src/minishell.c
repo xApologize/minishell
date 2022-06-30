@@ -14,10 +14,10 @@ int	main(void)
 {
 	char		*line;
 	t_data		data;
-	extern char	**envp;
+	extern char	**environ;
 	char		**envp_copy;
 
-	envp_copy = envp_cp(envp);
+	envp_copy = envp_cp(environ);
 	sig_handling();
 	while (1)
 	{
@@ -26,6 +26,6 @@ int	main(void)
 			exit(0);
 		handle_builtin(line, envp_copy);
 	}
-	parsing(line, envp, &data);
+	parsing(line, envp_copy, &data);
 	return (0);
 }
