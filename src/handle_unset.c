@@ -2,6 +2,6 @@
 
 void	handle_unset(char **opt, char **envp_copy)
 {
-	envp_copy = NULL;
+	(void)envp_copy;
 	printf("%s\n", opt[0]);	
 }
