@@ -53,5 +53,6 @@ void	trim_path(t_data *data);
 void	print_echo_without_n(char *line);
 void	print_echo_with_n(char *line);
 void	freeopt(char **opt);
+char	**envp_cp(char **envp);
 
 #endif
