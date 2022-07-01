@@ -7,7 +7,7 @@ void	handle_env(char **opt, char **envp_copy)
 
 	i = 0;
 	if (opt[1] != NULL)
-		dprintf(STDERR_FILENO, "env: too many arguments\n");
+		dprintf(STDERR_FILENO, "env: %s: No such file or directory\n", opt[1]);
 	else
 		while (envp_copy[i])
 		{
