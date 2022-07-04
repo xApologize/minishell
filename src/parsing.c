@@ -2,7 +2,7 @@
 
 void	parsing(char *line, char **envp, t_data *data)
 {
-	envp = NULL;
+	access(envp[0], F_OK);
 	split_line(line, data);
 	search_cmd(data);
 	env_split(data);
