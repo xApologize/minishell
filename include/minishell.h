@@ -30,33 +30,57 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_struct;
 
-void	sigint_handler(int signum);
-char	*rl_gets(void);
-void	sig_handling(void);
-char	**envp_cp(char **environ);
-char	**handle_builtin(char *line, char **envp);
+//envp_cp
+char	**envp_cp(char **envp);
+
+//handle_builtin
+void	handle_builtin(char *line, char **envp);
+
+//handle_cd
 void	handle_cd(char **opt);
-void	handle_echo(char *line, char **opt);
+
+//handle_echo
+void	handle_echo(char **opt);
+
+//handle_env
 void	handle_env(char **opt, char **envp_copy);
-void	handle_exit(char *line, char **opt, char **envp_copy);
-char	**handle_export(char **opt, char **envp_copy);
+
+//handle_exit
+void	handle_exit(char **opt);
+
+//handle_export
+void	handle_export(char **opt);
+
+//handle_pwd
 void	handle_pwd(char **opt);
+
+//handle_unset
 void	handle_unset(char **opt, char **envp_copy);
+
+//minishell
+
+//parsing
 void	parsing(char *line, char **envp_copy, t_data *data);
-void	split_path(t_data *data);
+void	split_line(char *line, t_data *data);
+
+//quotation.c
 void	error_quotation(t_data *data);
 void	search_last_quote(t_data *data, int i);
+
+//rl_gets.c
+char	*rl_gets(void);
+
+//search_cmd.c
 void	search_cmd(t_data *data);
-void	split_line(char *line, t_data *data);
 void	env_split(t_data *data);
 void	trim_path(t_data *data);
-void	print_echo_without_n(char *line);
-void	print_echo_with_n(char *line);
-void	freeopt(char **opt);
-char	**envp_cp(char **envp);
-void	print_intro(void);
-void	pepe(void);
-int		checkvalidenv(char *arg);
-char	**addtoenv(char *arg, char **envp_copy);
+
+//sig_handling.c
+void	sig_handling(void);
+
+//sigint_handler.c
+void	sigint_handler(int signum);
+
+//void	split_path(t_data *data);
 
 #endif
