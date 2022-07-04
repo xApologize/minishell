@@ -28,7 +28,7 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	struct s_cmd	*next;
-}					t_struct;
+}					t_cmd;
 
 void	sigint_handler(int signum);
 char	*rl_gets(void);
