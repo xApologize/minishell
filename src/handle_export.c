@@ -11,22 +11,15 @@
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
 
-void	handle_export(char **opt, char **envp_copy)
+char	**handle_export(char **opt, char **envp_copy)
 {
-	int args;
-
-	args = 0;
-	while (opt[args])
-		args++;
-	if (args > 1)
-		ft_putstr_fd("export: too many arguments\n", STDERR_FILENO);
-	else
+	int	i;
+	i = 1;
+	while (opt[i])
 	{
-		args = 0;
-		while (envp_copy[args])
-		{
-			printf("declare -x %s\n", envp_copy[args]);
-			args++;
-		}
+		if (checkvalidenv(opt[i]) == 1)
+			envp_copy = addtoenv(opt[i], envp_copy);
+		i++;
 	}
+	return (envp_copy);
 }

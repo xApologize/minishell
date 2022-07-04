@@ -8,12 +8,13 @@ char	**envp_cp(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	envp_copy = malloc(i * sizeof(char *));
+	envp_copy = malloc((i + 1) * sizeof(char *));
 	i = 0;
 	while (envp[i])
 	{
 		envp_copy[i] = ft_strdup(envp[i]);
 		i++;
 	}
+	envp[i] = NULL;
 	return (envp_copy);
 }

@@ -1,7 +1,8 @@
 #include "../include/minishell.h"
 
+// Unset without any options. Adding option triggers an error message. bash: unset: (option used): invalid option
 void	handle_unset(char **opt, char **envp_copy)
 {
-	envp_copy = NULL;
-	printf("%s\n", opt[0]);	
+	(void)opt;
+	(void)envp_copy;
 }
