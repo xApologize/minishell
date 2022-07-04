@@ -26,46 +26,49 @@ typedef struct s_data
 
 typedef struct s_cmd
 {
+	int				first;
 	char			*cmd;
 	char			**argv;
 	char			**envp;
 	struct s_cmd	*next;
 }					t_cmd;
 
-//envp_cp
+//envp_cp.c
 char	**envp_cp(char **envp);
-void	pipex(t_cmd *cmd);
-void	exec_cmd(t_cmd *cmd);
 
-//handle_builtin
+//handle_builtin.c
 void	handle_builtin(char *line, char **envp);
 
-//handle_cd
+//handle_cd.c
 void	handle_cd(char **opt);
 
-//handle_echo
+//handle_echo.c
 void	handle_echo(char **opt);
 
-//handle_env
+//handle_env.c
 void	handle_env(char **opt, char **envp_copy);
 
-//handle_exit
+//handle_exit.c
 void	handle_exit(char **opt);
 
-//handle_export
+//handle_export.c
 void	handle_export(char **opt);
 
-//handle_pwd
+//handle_pwd.c
 void	handle_pwd(char **opt);
 
-//handle_unset
+//handle_unset.c
 void	handle_unset(char **opt, char **envp_copy);
 
-//minishell
+//minishell.c
 
-//parsing
+//parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);
 void	split_line(char *line, t_data *data);
+
+//pipex.c
+void	pipex(t_cmd *cmd);
+void	exec_cmd(t_cmd *cmd, int pipe_fd[2]);
 
 //quotation.c
 void	error_quotation(t_data *data);
