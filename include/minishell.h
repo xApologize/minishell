@@ -34,13 +34,13 @@ void	sigint_handler(int signum);
 char	*rl_gets(void);
 void	sig_handling(void);
 char	**envp_cp(char **environ);
-void	handle_builtin(char *line, char **envp);
+char	**handle_builtin(char *line, char **envp);
 void	handle_cd(char **opt);
 void	handle_echo(char *line, char **opt);
 void	handle_env(char **opt, char **envp_copy);
 void	handle_exit(char *line, char **opt, char **envp_copy);
-void	handle_export(char **opt, char **envp_copy);
-void	handle_pwd(void);
+char	**handle_export(char **opt, char **envp_copy);
+void	handle_pwd(char **opt);
 void	handle_unset(char **opt, char **envp_copy);
 void	parsing(char *line, char **envp_copy, t_data *data);
 void	split_path(t_data *data);
@@ -54,5 +54,9 @@ void	print_echo_without_n(char *line);
 void	print_echo_with_n(char *line);
 void	freeopt(char **opt);
 char	**envp_cp(char **envp);
+void	print_intro(void);
+void	pepe(void);
+int		checkvalidenv(char *arg);
+char	**addtoenv(char *arg, char **envp_copy);
 
 #endif
