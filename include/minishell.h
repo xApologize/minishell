@@ -27,6 +27,8 @@ typedef struct s_data
 typedef struct s_cmd
 {
 	char			*cmd;
+	char			**argv;
+	char			**envp;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -50,5 +52,7 @@ void	split_line(char *line, t_data *data);
 void	env_split(t_data *data);
 void	trim_path(t_data *data);
 char	**envp_cp(char **envp);
+void	pipex(t_cmd *cmd);
+void	exec_cmd(t_cmd *cmd);
 
 #endif
