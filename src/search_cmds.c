@@ -20,6 +20,7 @@ void	search_cmd(t_data *data)
 		}
 		i++;
 	}
+	access(check_path, F_OK);
 }
 
 void	env_split(t_data *data)
