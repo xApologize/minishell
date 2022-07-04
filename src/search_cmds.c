@@ -19,6 +19,7 @@ void	search_cmd(t_data *data)
 			j++;
 		}
 		i++;
+		(void) check_path;
 	}
 }
 
