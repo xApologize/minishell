@@ -11,7 +11,15 @@
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
 
-void	handle_export(char **opt)
+char	**handle_export(char **opt, char **envp_copy)
 {
-	printf("%s\n", opt[0]);
+	int	i;
+	i = 1;
+	while (opt[i])
+	{
+		if (checkvalidenv(opt[i]) == 1)
+			envp_copy = addtoenv(opt[i], envp_copy);
+		i++;
+	}
+	return (envp_copy);
 }

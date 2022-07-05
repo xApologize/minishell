@@ -43,23 +43,23 @@ int	clear_whitespace(int i, char *str);
 //envp_cp.c
 char	**envp_cp(char **envp);
 
-//handle_builtin.c
-void	handle_builtin(char *line, char **envp);
+//handle_builtin
+char	**handle_builtin(char *line, char **envp);
 
 //handle_cd.c
 void	handle_cd(char **opt);
 
-//handle_echo.c
-void	handle_echo(char **opt);
+//handle_echo
+void	handle_echo(char *line, char **opt);
 
 //handle_env.c
 void	handle_env(char **opt, char **envp_copy);
 
-//handle_exit.c
-void	handle_exit(char **opt);
+//handle_exit
+void	handle_exit(char *line, char **opt, char **envp_copy);
 
-//handle_export.c
-void	handle_export(char **opt);
+//handle_export
+char	**handle_export(char **opt, char **envp_copy);
 
 //handle_pwd.c
 void	handle_pwd(char **opt);
@@ -67,7 +67,31 @@ void	handle_pwd(char **opt);
 //handle_unset.c
 void	handle_unset(char **opt, char **envp_copy);
 
-//minishell.c
+//freeopt
+void	freeopt(char **opt);
+
+//pepe
+void	pepe(void);
+
+//print_echo_with_n
+void	print_echo_with_n(char *line);
+
+//print_echo_without_n
+void	print_echo_without_n(char *line);
+
+//addtoenv
+char	**addtoenv(char *arg, char **envp_copy);
+
+//checkvalidenv
+int	checkvalidenv(char *arg);
+
+//print_intro
+void	print_intro(void);
+
+//check_n
+int	check_n(char *opt);
+
+//minishell
 
 //parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);

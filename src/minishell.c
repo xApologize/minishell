@@ -18,6 +18,7 @@ int	main(void)
 	char		**envp_copy;
 
 	envp_copy = envp_cp(environ);
+	print_intro();
 	sig_handling();
 	while (1)
 	{

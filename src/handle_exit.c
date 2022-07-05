@@ -1,14 +1,10 @@
 #include "../include/minishell.h"
 
-void	handle_exit(char **opt)
+void	handle_exit(char *line, char **opt, char **envp_copy)
 {
-	int args;
-
-	args = 0;
-	while (opt[args])
-		args++;
-	if (args > 1)
-		ft_putstr_fd("exit: too many arguments\n", STDERR_FILENO);
-	else
-		exit(0);
+	if (line != NULL)
+		free(line);
+	freeopt(opt);
+	freeopt(envp_copy);
+	exit(0);
 }
