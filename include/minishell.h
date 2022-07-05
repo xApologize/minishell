@@ -43,24 +43,14 @@ int	clear_whitespace(int i, char *str);
 //envp_cp.c
 char	**envp_cp(char **envp);
 
-<<<<<<< HEAD
 //handle_builtin
 char	**handle_builtin(char *line, char **envp);
-=======
-//handle_builtin.c
-void	handle_builtin(char *line, char **envp);
->>>>>>> e5351a11d851a9b9794b14c4b80178c4a9c25628
 
 //handle_cd.c
 void	handle_cd(char **opt);
 
-<<<<<<< HEAD
 //handle_echo
 void	handle_echo(char *line, char **opt);
-=======
-//handle_echo.c
-void	handle_echo(char **opt);
->>>>>>> e5351a11d851a9b9794b14c4b80178c4a9c25628
 
 //handle_env.c
 void	handle_env(char **opt, char **envp_copy);
