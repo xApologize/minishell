@@ -1,12 +1,13 @@
 #include "../include/minishell.h"
 
-void	search_cmd(t_data *data)
+void	search_cmd(t_data *data, t_cmd *cmd)
 {
 	int		i;
 	char	*cmd_join;
 	int		j;
 	char	*check_path;
 
+	(void)cmd;
 	i = 0;
 	j = 0;
 	trim_path(data);
@@ -24,15 +25,32 @@ void	search_cmd(t_data *data)
 
 void	env_split(t_data *data, char **environ)
 {
-	// retrouver le environ et le split
-	data->path_split = ft_split(getenv("PATH="), ':');
+	int	find;
+
+	find = 0;
+	data->path_split = NULL;
+	while (environ[find])
+	{
+		if (ft_strncmp(environ[find], "PATH=", 5) == 0)
+			break ;
+		find++;
+	}
+	if (environ[find] != NULL)
+		data->path_split = ft_split(environ[find], ':');
 }
 
 void	trim_path(t_data *data)
 {
 	char	*tmp;
+	int		i;
 
+	i = 0;
 	tmp = ft_strdup(data->path_split[0]);
 	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
 	free(tmp);
+	while (data->path_split[i])
+	{
+		printf("path_split = %s\n", data->path_split[i]);
+		i++;
+	}
 }
