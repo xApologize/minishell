@@ -15,6 +15,8 @@
 # include <string.h>
 
 // option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
+# define PIPE_READ 0
+# define PIPE_WRITE 1
 
 typedef struct s_data
 {
@@ -24,12 +26,15 @@ typedef struct s_data
 
 }			t_data;
 
+//cmd = path au complet. ex: /usr/bin/cat, le access.
+//argv = le split de la command. ex argv[0] : cat, argv[1] : file, argv[2] : NULL.
+//environ = envp/environ du main.
+//next = la prochaine node.
 typedef struct s_cmd
 {
-	int				first;
 	char			*cmd;
 	char			**argv;
-	char			**envp;
+	char			**environ;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -69,6 +74,7 @@ void	split_line(char *line, t_data *data);
 //pipex.c
 void	pipex(t_cmd *cmd);
 void	exec_cmd(t_cmd *cmd, int pipe_fd[2]);
+void	redir(int pipe_fd[2], int pid);
 
 //quotation.c
 void	error_quotation(t_data *data);
