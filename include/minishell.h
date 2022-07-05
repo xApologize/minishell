@@ -23,7 +23,6 @@ typedef struct s_data
 	char	**path_split;
 	char	**line_split;
 	char	**cmd_tab;
-
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -77,7 +76,7 @@ void	check_first(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
-void	exec_cmd(t_cmd *cmd, int pipe_fd[2]);
+void	exec_cmd(t_cmd *cmd);
 void	redir(int pipe_fd[2], int pid);
 
 //quotation.c

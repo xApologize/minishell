@@ -15,7 +15,7 @@ void	pipex(t_cmd *cmd)
 		{
 			pid = fork();
 			if (pid == 0)
-				exec_cmd(cmd, pipe_fd);
+				exec_cmd(cmd);
 		}
 		cmd = cmd->next;
 	}
@@ -23,7 +23,7 @@ void	pipex(t_cmd *cmd)
 	close(pipe_fd[1]);
 }
 
-void	exec_cmd(t_cmd *cmd, int pipe_fd[2])
+void	exec_cmd(t_cmd *cmd)
 {
 	execve(cmd->cmd, cmd->argv, cmd->environ);
 	dprintf(2, "something went wrong: %s\n", cmd->cmd);
