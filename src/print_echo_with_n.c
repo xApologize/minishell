@@ -15,7 +15,9 @@ void	print_echo_with_n(char *line)
 		i++;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-	i += 2;
+	i++;
+	while (ft_isalpha(line[i]) == 1)
+		i++;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	str = ft_substr(line, i, (j - i));
