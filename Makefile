@@ -27,7 +27,8 @@ F_FLAG				= -f
 DEBUG_FLAG			= -g
 MAKE_C_FLAG 		= -C
 LIBRARY_FLAG		= -L./lib -lft
-RL_FLAG				= -L./lib -lreadline
+RL_FLAG_MAC			= L./lib -lreadline
+RL_FLAG_LINUX		= -lreadline
 LCURSES				= -lcurses
 
 #--DIR PATH--# > path to the file
@@ -43,6 +44,9 @@ PRE_OBJ				= $(addprefix $(OBJ_DIR), $(O_FILES))
 #--VPATH--#
 VPATH				= $(SRC_DIR)
 
+#--VAR--#
+MY_VAR := $(shell uname)
+
 #--ACTIONS--# > all the thing you want your Makefile to do
 $(OBJ_DIR)%.o:		%.c
 				@$(MKDIR) $(P_FLAG) $(OBJ_DIR)
@@ -51,7 +55,13 @@ $(OBJ_DIR)%.o:		%.c
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
 				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
-				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG) $(LCURSES)
+ifeq ($(MY_VAR), Linux)
+	@mv lib/libreadline.a ../
+	@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG_LINUX) $(LCURSES)
+	@mv ../libreadline.a ./lib
+else
+	@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG_MAC) $(LCURSES)
+endif
 				@echo "Compiling $(PROJECT_NAME) done."
 
 all:				$(NAME)

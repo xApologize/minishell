@@ -14,7 +14,6 @@ int	main(void)
 {
 	char		*line;
 	t_data		data;
-	t_cmd		cmd;
 	extern char	**environ;
 	char		**envp_copy;
 
@@ -26,7 +25,7 @@ int	main(void)
 		if (line == NULL)
 			exit(0);
 		handle_builtin(line, envp_copy);
-		parsing(line, &data, &cmd, environ);
+		parsing(line, envp_copy, &data);
 	}
 	return (0);
 }

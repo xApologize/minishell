@@ -21,6 +21,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		}
 		i++;
 	}
+	access(check_path, F_OK);
 }
 
 void	env_split(t_data *data, char **environ)

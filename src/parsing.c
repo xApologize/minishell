@@ -1,11 +1,12 @@
 #include "../include/minishell.h"
 
-void	parsing(char *line, t_data *data, t_cmd *cmd, char **environ)
+void	parsing(char *line, char **envp_copy, t_data *data)
 {
+	access(envp_copy[0], F_OK);
 	split_line(line, data);
-	env_split(data, environ);
+	env_split(data);
 	check_first(line, data);
-	search_cmd(data, cmd);
+	search_cmd(data);
 	//error_quotation(data);
 }
 
