@@ -4,7 +4,7 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 {
 	access(envp_copy[0], F_OK);
 	split_line(line, data);
-	env_split(data);
+	env_split(data, envp_copy);
 	check_first(line, data);
 	search_cmd(data);
 	//error_quotation(data);

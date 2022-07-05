@@ -88,7 +88,7 @@ char	*rl_gets(void);
 
 //search_cmd.c
 void	search_cmd(t_data *data);
-void	env_split(t_data *data);
+void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
 //sig_handling.c
