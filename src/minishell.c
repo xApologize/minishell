@@ -13,7 +13,7 @@
 int	main(void)
 {
 	char		*line;
-	//t_data		data;
+	t_data		data;
 	extern char	**environ;
 	char		**envp_copy;
 
@@ -25,9 +25,8 @@ int	main(void)
 		line = rl_gets();
 		if (line == NULL)
 			exit(0);
-		envp_copy = handle_builtin(line, envp_copy);
-		//parsing(line, envp_copy, &data);
-		free(line);
+		handle_builtin(line, envp_copy);
+		parsing(line, envp_copy, &data);
 	}
 	return (0);
 }

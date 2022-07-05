@@ -5,3 +5,4 @@ lib/libft.a
 .DS_Store
 .vscode
 minishell
+src/pipex
