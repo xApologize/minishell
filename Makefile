@@ -27,7 +27,7 @@ F_FLAG				= -f
 DEBUG_FLAG			= -g
 MAKE_C_FLAG 		= -C
 LIBRARY_FLAG		= -L./lib -lft
-RL_FLAG_MAC			= L./lib -lreadline
+RL_FLAG_MAC			= -L./lib -lreadline
 RL_FLAG_LINUX		= -lreadline
 LCURSES				= -lcurses
 
