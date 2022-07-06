@@ -18,6 +18,7 @@ int	main(void)
 	char		**envp_copy;
 
 	envp_copy = envp_cp(environ);
+	print_intro();
 	sig_handling();
 	while (1)
 	{
@@ -25,7 +26,7 @@ int	main(void)
 		if (line == NULL)
 			exit(0);
 		handle_builtin(line, envp_copy);
+		parsing(line, envp_copy, &data);
 	}
-	parsing(line, envp_copy, &data);
 	return (0);
 }
