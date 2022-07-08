@@ -65,7 +65,7 @@ char	**handle_export(char **opt, char **envp_copy);
 void	handle_pwd(char **opt);
 
 //handle_unset.c
-void	handle_unset(char **opt, char **envp_copy);
+char	**handle_unset(char **opt, char **envp_copy);
 
 //freeopt
 void	freeopt(char **opt);
