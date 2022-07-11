@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:30:20 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:32:27 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 void	parsing(char *line, char **envp_copy, t_data *data)
@@ -7,7 +19,6 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 	env_split(data, envp_copy);
 	check_first(line, data);
 	search_cmd(data);
-	//error_quotation(data);
 }
 
 void	split_line(char *line, t_data *data)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:35:18 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:35:23 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -14,7 +26,9 @@
 # include <signal.h>
 # include <string.h>
 
-// option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
+// option de compil macos + homebrew: gcc minishell.c rl_gets.c  
+// -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I 
+// /opt/homebrew/Cellar//readline/8.1.2/include
 # define PIPE_READ 0
 # define PIPE_WRITE 1
 
@@ -26,7 +40,8 @@ typedef struct s_data
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
-//argv = le split de la command. ex argv[0] : cat, argv[1] : file, argv[2] : NULL.
+//argv = le split de la command. 
+//ex argv[0] : cat, argv[1] : file, argv[2] : NULL.
 //environ = envp/environ du main.
 //next = la prochaine node.
 typedef struct s_cmd
@@ -38,7 +53,7 @@ typedef struct s_cmd
 }					t_cmd;
 
 //clear_whitespace.c
-int	clear_whitespace(int i, char *str);
+int		clear_whitespace(int i, char *str);
 
 //envp_cp.c
 char	**envp_cp(char **envp);
@@ -83,13 +98,13 @@ void	print_echo_without_n(char *line);
 char	**addtoenv(char *arg, char **envp_copy);
 
 //checkvalidenv
-int	checkvalidenv(char *arg);
+int		checkvalidenv(char *arg);
 
 //print_intro
 void	print_intro(void);
 
 //check_n
-int	check_n(char *opt);
+int		check_n(char *opt);
 
 //minishell
 
@@ -120,7 +135,5 @@ void	sig_handling(void);
 
 //sigint_handler.c
 void	sigint_handler(int signum);
-
-//void	split_path(t_data *data);
 
 #endif

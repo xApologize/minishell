@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_export.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:29:59 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:30:00 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 // readline, rl_clear_history, rl_on_new_line,
@@ -14,6 +26,7 @@
 char	**handle_export(char **opt, char **envp_copy)
 {
 	int	i;
+
 	i = 1;
 	while (opt[i])
 	{

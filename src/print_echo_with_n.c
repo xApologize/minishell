@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_echo_with_n.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:30:37 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:30:38 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 void	print_echo_with_n(char *line)
 {
 	int		i;
 	int		j;
-	char 	*str;
-	char 	*pstr;
+	char	*str;
+	char	*pstr;
 
 	i = 0;
 	j = ft_strlen(line);

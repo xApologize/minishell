@@ -1,24 +1,16 @@
-#include "../include/minishell.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_intro.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:30:47 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:32:16 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-// void	print_intro(void)
-// {
-// 	printf("MMMMMMMM               MMMMMMMM    SSSSSSSSSSSSSSS  HHHHHHHHH     HHHHHHHHH\n\
-// M:::::::M             M:::::::M  SS:::::::::::::::S H:::::::H     H:::::::H\n\
-// M::::::::M           M::::::::M S:::::SSSSSS::::::S H:::::::H     H:::::::H\n\
-// M:::::::::M         M:::::::::M S:::::S     SSSSSSS HH::::::H     H::::::HH\n\
-// M::::::::::M       M::::::::::M S:::::S               H:::::H     H:::::H  \n\
-// M:::::::::::M     M:::::::::::M S:::::S               H:::::H     H:::::H  \n\
-// M:::::::M::::M   M::::M:::::::M  S::::SSSS            H::::::HHHHH::::::H  \n\
-// M::::::M M::::M M::::M M::::::M   SS::::::SSSSS       H:::::::::::::::::H  \n\
-// M::::::M  M::::M::::M  M::::::M     SSS::::::::SS     H:::::::::::::::::H  \n\
-// M::::::M   M:::::::M   M::::::M        SSSSSS::::S    H::::::HHHHH::::::H  \n\
-// M::::::M    M:::::M    M::::::M             S:::::S   H:::::H     H:::::H  \n\
-// M::::::M     MMMMM     M::::::M             S:::::S   H:::::H     H:::::H  \n\
-// M::::::M               M::::::M SSSSSSS     S:::::S HH::::::H     H::::::HH\n\
-// M::::::M               M::::::M S::::::SSSSSS:::::S H:::::::H     H:::::::H\n\
-// M::::::M               M::::::M S:::::::::::::::SS  H:::::::H     H:::::::H\n\
-// MMMMMMMM               MMMMMMMM  SSSSSSSSSSSSSSS    HHHHHHHHH     HHHHHHHHH\n");
-// }
+#include "../include/minishell.h"
 
 void	print_intro(void)
 {
@@ -31,5 +23,5 @@ void	print_intro(void)
 #+#       #+# #+#    #+# #+#    #+#\n\
 ###       ###  ########  ###    ###\n\
 ");
-printf("\033[0;35m");
+	printf("\033[0;35m");
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_builtin.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:29:32 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:33:59 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 // ◦ echo et l’option -n
@@ -15,7 +27,7 @@ char	**handle_builtin(char *line, char **envp_copy)
 	char	**opt;
 
 	if (ft_strlen(line) == 0)
-		return envp_copy;
+		return (envp_copy);
 	opt = ft_split(line, ' ');
 	if (ft_strcmp(opt[0], "echo") == 0)
 		handle_echo(line, opt);
@@ -34,8 +46,6 @@ char	**handle_builtin(char *line, char **envp_copy)
 		handle_env(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "exit") == 0)
 		handle_exit(line, opt, envp_copy);
-	else if (ft_strcmp(opt[0], "pepe") == 0)
-		pepe();
 	else
 		freeopt(opt);
 	return (envp_copy);

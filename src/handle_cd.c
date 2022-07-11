@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_cd.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:29:37 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:29:38 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 //cd builtin implementation using chdir
 
 void	handle_cd(char **opt)
 {
-	int args;
+	int	args;
 
 	args = 0;
 	while (opt[args])

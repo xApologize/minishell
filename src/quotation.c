@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jrossign <jrossign@student.42quebec.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/11 15:30:53 by jrossign          #+#    #+#             */
+/*   Updated: 2022/07/11 15:31:57 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 // void	error_quotation(t_data *data)
@@ -9,7 +21,8 @@
 // 	pair = true;
 // 	while (data->argvs_join[i] != '\0')
 // 	{
-// 		if (data->argvs_join[i] == '\'') // retour de readline au lieu de data->argvs_join
+// 		if (data->argvs_join[i] == '\'') // retour de readline 
+// 										 // au lieu de data->argvs_join
 // 		{
 // 			if (pair == true)
 // 				pair = false;
@@ -27,5 +40,4 @@
 // {
 // 	while (data->argvs_join[i] != '\'')
 // 		i--;
-	
 // }
