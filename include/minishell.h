@@ -67,6 +67,9 @@ void	handle_pwd(char **opt);
 //handle_unset.c
 void	handle_unset(char **opt, char **envp_copy);
 
+//heredoc.c
+void	heredoc(char *delimiter, int fd);
+
 //freeopt
 void	freeopt(char **opt);
 
