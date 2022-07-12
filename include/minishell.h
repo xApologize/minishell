@@ -17,11 +17,14 @@
 // option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
 # define PIPE_READ 0
 # define PIPE_WRITE 1
+# define METACHAR "|<>\n"
+# define WS "\v\t\n\f\r "
 
 typedef struct s_data
 {
 	char	**path_split;
 	char	**line_split;
+	char	**nb_tab;
 	char	**cmd_tab;
 }			t_data;
 
@@ -38,7 +41,7 @@ typedef struct s_cmd
 }					t_cmd;
 
 //clear_whitespace.c
-int	clear_whitespace(int i, char *str);
+int		clear_whitespace(int i, char *str);
 
 //envp_cp.c
 char	**envp_cp(char **envp);
@@ -83,20 +86,25 @@ void	print_echo_without_n(char *line);
 char	**addtoenv(char *arg, char **envp_copy);
 
 //checkvalidenv
-int	checkvalidenv(char *arg);
+int		checkvalidenv(char *arg);
 
 //print_intro
 void	print_intro(void);
 
 //check_n
-int	check_n(char *opt);
+int		check_n(char *opt);
 
 //minishell
 
 //parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);
-void	split_line(char *line, t_data *data);
+void	find_cmds(char *line, t_data *data);
 void	check_first(char *line, t_data *data);
+
+// parsing_utils.c
+void	check_pipe(char *line, t_data *data);
+int		find_nb_tb(char *line, t_data *data);
+void	tokenize_quote(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
