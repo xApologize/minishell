@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int	find_nb_tb(char *line, t_data *data)
+int	find_nb_tb(char *line)
 {
 	int	i;
 	int	nb_squotes;
@@ -21,7 +21,7 @@ int	find_nb_tb(char *line, t_data *data)
 	if (nb_dquotes % 2 != 0 || nb_squotes % 2 != 0)
 	{
 		dprintf(2, "error odd quotes");
-		quit();
+		//quit();
 	}
 	nb_tab = nb_tabs(line);
 	return (nb_tab);

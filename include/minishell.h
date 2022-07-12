@@ -24,7 +24,7 @@ typedef struct s_data
 {
 	char	**path_split;
 	char	**line_split;
-	char	**nb_tab;
+	int		nb_tab;
 	char	**cmd_tab;
 }			t_data;
 
@@ -103,7 +103,6 @@ void	check_first(char *line, t_data *data);
 
 // parsing_utils.c
 void	check_pipe(char *line, t_data *data);
-int		find_nb_tb(char *line, t_data *data);
 void	tokenize_quote(char *line, t_data *data);
 
 //pipex.c
@@ -130,5 +129,9 @@ void	sig_handling(void);
 void	sigint_handler(int signum);
 
 //void	split_path(t_data *data);
+
+//tab_create.c
+int		nb_tabs(char *line);
+int		find_nb_tb(char *line);
 
 #endif

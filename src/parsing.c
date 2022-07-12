@@ -17,34 +17,34 @@ void	find_cmds(char *line, t_data *data)
 
 	i = 0;
 	quotes = 0;
-	data->nb_tab = find_nb_tb(line, data);
-	while (line[i])
-	{
-		if (line[i] == '\"' || line[i] == '\'')
-			tokenize_quotes(line, data);
-		if ((line[i] >= 9 && line[i] <= 13) || line[i] == 32 && quotes != 1)
-		{
-			while ()
-			i++;
-		}
-	}
+	data->nb_tab = find_nb_tb(line);
+	// while (line[i])
+	// {
+	// 	if (line[i] == '\"' || line[i] == '\'')
+	// 		tokenize_quotes(line, data);
+	// 	if ((line[i] >= 9 && line[i] <= 13) || (line[i] == 32 && quotes != 1))
+	// 	{
+	// 		while ()
+	// 		i++;
+	// 	}
+	// }
 }
 
-void	split_whitespaces(t_data *data)
-{
-	int	i;
+// void	split_whitespaces(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	while (data->line_split[i])
-	{
-		data->line_split[i] = check_quotes(data->line_split[i]);
-	}
-}
+// 	i = 0;
+// 	while (data->line_split[i])
+// 	{
+// 		data->line_split[i] = check_quotes(data->line_split[i]);
+// 	}
+// }
 
-void	tokenize_quote(char *line, t_data *data)
-{
+// void	tokenize_quote(char *line, t_data *data)
+// {
 
-}
+// }
 
 // char	*check_quotes(char *line)
 // {
