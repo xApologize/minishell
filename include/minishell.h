@@ -19,6 +19,7 @@
 # define PIPE_WRITE 1
 # define METACHAR "|<>\n"
 # define WS "\v\t\n\f\r "
+# define DEBUG printf("debug\n");
 
 typedef struct s_data
 {

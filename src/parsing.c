@@ -2,6 +2,7 @@
 
 void	parsing(char *line, char **envp_copy, t_data *data)
 {
+	DEBUG;
 	access(envp_copy[0], F_OK);
 	find_cmds(line, data);
 	env_split(data, envp_copy);
@@ -18,6 +19,8 @@ void	find_cmds(char *line, t_data *data)
 	i = 0;
 	quotes = 0;
 	data->nb_tab = find_nb_tb(line);
+	printf("nb_tab = %d\n", data->nb_tab);
+	data->cmd_tab = (char **)malloc(sizeof(data->nb_tab) + 1);
 	// while (line[i])
 	// {
 	// 	if (line[i] == '\"' || line[i] == '\'')
