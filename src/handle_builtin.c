@@ -15,22 +15,20 @@ char	**handle_builtin(char *line, char **envp_copy)
 	char	**opt;
 
 	opt = ft_split(line, ' ');
-	if (ft_strcmp(opt[0], "echo\n") == 0)
+	if (ft_strcmp(opt[0], "echo") == 0)
 		handle_echo(line, opt);
-	else if (ft_strcmp(opt[0], "cd\n") == 0)
+	else if (ft_strcmp(opt[0], "cd") == 0)
 		handle_cd(opt);
-	else if (ft_strcmp(opt[0], "pwd\n") == 0)
+	else if (ft_strcmp(opt[0], "pwd") == 0)
 		handle_pwd(opt);
-	else if (ft_strcmp(opt[0], "export\n") == 0)
+	else if (ft_strcmp(opt[0], "export") == 0)
 		envp_copy = handle_export(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "unset\n") == 0)
+	else if (ft_strcmp(opt[0], "unset") == 0)
 		envp_copy = handle_unset(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "env\n") == 0)
+	else if (ft_strcmp(opt[0], "env") == 0)
 		handle_env(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "exit\n") == 0)
+	else if (ft_strcmp(opt[0], "exit") == 0)
 		handle_exit(line, opt, envp_copy);
-	else if (ft_strcmp(opt[0], "pepe\n") == 0)
-		pepe();
 	freeopt(opt);
 	return (envp_copy);
 }
