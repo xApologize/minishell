@@ -14,12 +14,15 @@
 char	**handle_export(char **opt, char **envp_copy)
 {
 	int	i;
-	i = 1;
-	while (opt[i])
+
+	i = 0;
+	while (opt[++i])
 	{
-		if (checkvalidenv(opt[i]) == 1)
+		if (checkvalidenv(opt[i]) == 1 && check_dup_env(opt[i], envp_copy) == 0)
 			envp_copy = addtoenv(opt[i], envp_copy);
-		i++;
+		if (check_modify_env(opt[i], envp_copy) == 1)
+			envp_copy = modify_var(opt[i], envp_copy);
+
 	}
 	return (envp_copy);
 }
