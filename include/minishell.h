@@ -67,29 +67,35 @@ void	handle_pwd(char **opt);
 //handle_unset.c
 char	**handle_unset(char **opt, char **envp_copy);
 
-//freeopt
+//freeopt.c
 void	freeopt(char **opt);
 
-//pepe
+//pepe.c
 void	pepe(void);
 
-//print_echo_with_n
+//print_echo_with_n.c
 void	print_echo_with_n(char *line);
 
-//print_echo_without_n
+//print_echo_without_n.c
 void	print_echo_without_n(char *line);
 
-//addtoenv
+//addtoenv.c
 char	**addtoenv(char *arg, char **envp_copy);
 
-//checkvalidenv
+//checkvalidenv.c
 int	checkvalidenv(char *arg);
 
-//print_intro
+//print_intro.c
 void	print_intro(void);
 
-//check_n
+//check_n.c
 int	check_n(char *opt);
+
+//check_dup_env.c
+int	check_dup_env(char *arg, char **envp_copy);
+
+//check_modify_env.c
+int	check_modify_env(char *arg, char **envp_copy);
 
 //minishell
 
