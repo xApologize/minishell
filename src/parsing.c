@@ -2,11 +2,9 @@
 
 void	parsing(char *line, char **envp_copy, t_data *data)
 {
-	DEBUG;
 	access(envp_copy[0], F_OK);
 	find_cmds(line, data);
 	env_split(data, envp_copy);
-	check_first(line, data);
 	search_cmd(data);
 	//error_quotation(data);
 }
@@ -15,66 +13,71 @@ void	find_cmds(char *line, t_data *data)
 {
 	int	i;
 	int	quotes;
+	int	cmd_lenght;
 
 	i = 0;
 	quotes = 0;
+	cmd_lenght = 0;
 	data->nb_tab = find_nb_tb(line);
+	data->cmd_tab = (char **)malloc(data->nb_tab + 1 * sizeof(char *));
+	data->l_t = 0;
 	printf("nb_tab = %d\n", data->nb_tab);
-	data->cmd_tab = (char **)malloc(sizeof(data->nb_tab) + 1);
-	// while (line[i])
-	// {
-	// 	if (line[i] == '\"' || line[i] == '\'')
-	// 		tokenize_quotes(line, data);
-	// 	if ((line[i] >= 9 && line[i] <= 13) || (line[i] == 32 && quotes != 1))
-	// 	{
-	// 		while ()
-	// 		i++;
-	// 	}
-	// }
+	lines_lenght(line, data);
 }
 
-// void	split_whitespaces(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (data->line_split[i])
-// 	{
-// 		data->line_split[i] = check_quotes(data->line_split[i]);
-// 	}
-// }
-
-// void	tokenize_quote(char *line, t_data *data)
-// {
-
-// }
-
-// char	*check_quotes(char *line)
-// {
-// 	int	i;
-// 	int	count_quote;
-
-// 	i = 0;
-// 	count_quote = 0;
-// 	while (line[i] != '\0')
-// 	{
-// 		if (line[i] == '\'')
-// 			count_quote++;
-// 		i++;
-// 	}
-// 	if ((count_quote % 2) == 0)
-// 	{
-// 		if (count_quote == 2 && count_quote != 0)
-			
-// 	}
-// }
-
-void	check_first(char *line, t_data *data)
+void	lines_lenght(char *line, t_data *d)
 {
-	int	i;
+	int		i;
+	//char	*str;
+	int		tab;
 
 	i = 0;
-	(void)data;
-	i = clear_whitespace(i, line) + 1;
-	printf("%d\n", i);
+	tab = 0;
+	while (line[d->l_t] != '\0')
+	{
+		skip_ws(i, line, d);
+		i = d->l_t;
+		printf("line[i], line[l_t] : %c->%c\n", line[i], line[d->l_t]);
+		skip_quotes(line, d);
+		while (!ft_strchr(WS, line[d->l_t]))
+			d->l_t++;
+		// if (ft_strchr(WS, line[d->l_t]) && !ft_strchr(WS, line[d->l_t + 1]))
+		d->cmd_tab[tab] = ft_substr(line, i, d->l_t - i);
+		//printf("str = %s\n", str);
+		printf("tab = %d\n", tab);
+		printf("d->cmd_tab = %s\n", d->cmd_tab[tab]);
+		// if (tab < d->nb_tab)
+		// {
+		// 	d->cmd_tab[tab] = str;
+		// 	tab++;
+		// }
+	}
+}
+
+
+int skip_ws(int i, char *line, t_data *data)
+{
+	while (ft_strchr(WS, line[data->l_t]))
+	{
+		i++;
+		data->l_t++;
+	}
+	return (i);
+}
+
+void	skip_quotes(char *line, t_data *data)
+{
+	if (line[data->l_t] == '\'')
+	{
+		data->l_t++;
+		while (line[data->l_t] != '\'')
+			data->l_t++;
+	}
+	if (line[data->l_t] == '\"')
+	{
+		data->l_t++;
+		while (line[data->l_t] != '\"')
+			data->l_t++;
+	}
+	data->l_t++;
 }

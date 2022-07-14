@@ -34,6 +34,12 @@ int	nb_tabs(char *line)
 
 	i = 0;
 	nb_tab = 0;
+	nb_tab = nb_tabs_next(line, nb_tab, i);
+	return (nb_tab);
+}
+
+int	nb_tabs_next(char *line, int nb_tab, int i)
+{
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\'')
@@ -41,17 +47,19 @@ int	nb_tabs(char *line)
 			i++;
 			while (line[i] != '\'')
 				i++;
-			nb_tab++;
 		}
 		if (line[i] == '\"')
 		{
 			i++;
 			while (line[i] != '\"')
 				i++;
-			nb_tab++;
 		}
 		if (ft_strchr(WS, line[i]) && !ft_strchr(WS, line[i + 1]))
 			nb_tab++;
+		i++;
 	}
+	if (ft_strlen(line) != 0)
+		nb_tab++;
 	return (nb_tab);
 }
+

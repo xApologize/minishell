@@ -27,6 +27,8 @@ typedef struct s_data
 	char	**line_split;
 	int		nb_tab;
 	char	**cmd_tab;
+	char	*cmd_line;
+	int		l_t;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -100,7 +102,6 @@ int		check_n(char *opt);
 //parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);
 void	find_cmds(char *line, t_data *data);
-void	check_first(char *line, t_data *data);
 
 // parsing_utils.c
 void	check_pipe(char *line, t_data *data);
@@ -133,6 +134,10 @@ void	sigint_handler(int signum);
 
 //tab_create.c
 int		nb_tabs(char *line);
+int		nb_tabs_next(char *line, int nb_tab, int i);
 int		find_nb_tb(char *line);
-
+void	lines_lenght(char *line, t_data *data);
+char	*allocation(int i, char *line, t_data *data);
+int 	skip_ws(int i, char *line, t_data *data);
+void	skip_quotes(char *line, t_data *data);
 #endif
