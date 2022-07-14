@@ -7,6 +7,5 @@ char	*rl_gets(void)
 	line = readline("Minicougar>$ ");
 	if (line && *line)
 		add_history(line);
-	line = ft_strjoinfree(line, "\n");
 	return (line);
 }
