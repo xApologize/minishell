@@ -22,7 +22,7 @@ char	**handle_builtin(char *line, char **envp_copy)
 	else if (ft_strcmp(opt[0], "pwd") == 0)
 		handle_pwd(opt);
 	else if (ft_strcmp(opt[0], "export") == 0)
-		envp_copy = handle_export(opt, envp_copy);
+		envp_copy = handle_export(line, envp_copy);
 	else if (ft_strcmp(opt[0], "unset") == 0)
 		envp_copy = handle_unset(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "env") == 0)

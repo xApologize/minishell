@@ -59,7 +59,7 @@ void	handle_env(char **opt, char **envp_copy);
 void	handle_exit(char *line, char **opt, char **envp_copy);
 
 //handle_export
-char	**handle_export(char **opt, char **envp_copy);
+char	**handle_export(char *line, char **envp_copy);
 
 //handle_pwd.c
 void	handle_pwd(char **opt);
@@ -96,6 +96,12 @@ int	check_dup_env(char *arg, char **envp_copy);
 
 //check_modify_env.c
 int	check_modify_env(char *arg, char **envp_copy);
+
+//find_var.c
+int	find_var(char *arg, char **envp_copy);
+
+//modify_var.c
+char	**modify_var(char *arg, char **envp_copy);
 
 //minishell
 

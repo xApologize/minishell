@@ -11,18 +11,25 @@
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
 
-char	**handle_export(char **opt, char **envp_copy)
+char	**handle_export(char *line, char **envp_copy)
 {
 	int	i;
+	char	**opt;
 
 	i = 0;
+	opt = ft_split(line, ' ');
 	while (opt[++i])
 	{
-		if (checkvalidenv(opt[i]) == 1 && check_dup_env(opt[i], envp_copy) == 0)
-			envp_copy = addtoenv(opt[i], envp_copy);
-		if (check_modify_env(opt[i], envp_copy) == 1)
+		if (checkvalidenv(opt[i]) == 1 && check_modify_env(opt[i], envp_copy) == 1)
+		{
+			printf("Entered modify env\n");
 			envp_copy = modify_var(opt[i], envp_copy);
-
+		}
+		if (checkvalidenv(opt[i]) == 1 && check_dup_env(opt[i], envp_copy) == 0)
+		{
+			printf("Entered valid env\n");
+			envp_copy = addtoenv(opt[i], envp_copy);
+		}
 	}
 	return (envp_copy);
 }
