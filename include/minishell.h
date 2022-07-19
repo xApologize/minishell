@@ -130,6 +130,9 @@ void	trim_path(t_data *data);
 //sig_handling.c
 void	sig_handling(void);
 
+//sig_reset.c
+void	sig_reset(void);
+
 //sigint_handler.c
 void	sigint_handler(int signum);
 

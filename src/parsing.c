@@ -2,11 +2,13 @@
 
 void	parsing(char *line, char **envp_copy, t_data *data)
 {
+	sig_reset();
 	access(envp_copy[0], F_OK);
 	find_cmds(line, data);
 	env_split(data, envp_copy);
 	search_cmd(data);
 	//error_quotation(data);
+	sig_handling();
 }
 
 void	find_cmds(char *line, t_data *data)
