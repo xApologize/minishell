@@ -50,8 +50,5 @@ void	trim_path(t_data *data)
 	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
 	free(tmp);
 	while (data->path_split[i])
-	{
-		printf("path_split = %s\n", data->path_split[i]);
 		i++;
-	}
 }

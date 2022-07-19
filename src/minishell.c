@@ -19,7 +19,7 @@ int	main(void)
 
 	envp_copy = envp_cp(environ);
 	print_intro();
-	sig_handling();
+	//sig_handling();
 	while (1)
 	{
 		line = rl_gets();
