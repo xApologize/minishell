@@ -21,16 +21,14 @@ void	find_cmds(char *line, t_data *data)
 	quotes = 0;
 	cmd_lenght = 0;
 	data->nb_tab = find_nb_tb(line);
-	data->cmd_tab = (char **)malloc(data->nb_tab + 1 * sizeof(char *));
+	data->cmd_tab = (char **)ft_calloc(data->nb_tab + 1, sizeof(char *));
 	data->l_t = 0;
-	printf("nb_tab = %d\n", data->nb_tab);
 	lines_lenght(line, data);
 }
 
 void	lines_lenght(char *line, t_data *d)
 {
 	int		i;
-	//char	*str;
 	int		tab;
 
 	i = 0;
@@ -38,48 +36,52 @@ void	lines_lenght(char *line, t_data *d)
 	while (line[d->l_t] != '\0')
 	{
 		skip_ws(i, line, d);
+		printf("l_t = %d\n", d->l_t);
 		i = d->l_t;
-		printf("line[i], line[l_t] : %c->%c\n", line[i], line[d->l_t]);
-		skip_quotes(line, d);
+		printf("i = %d\n", i);
+		while (!ft_strchr(WS, line[d->l_t]) && !ft_strchr(QUOTES, line[d->l_t]) && line[d->l_t])
+			d->l_t++;
+		if (ft_strchr(QUOTES, line[d->l_t]))
+			i = skip_quotes(i, line, d);
+		d->cmd_tab[tab] = ft_substr(line, i, d->l_t - i);
 		while (!ft_strchr(WS, line[d->l_t]))
 			d->l_t++;
-		// if (ft_strchr(WS, line[d->l_t]) && !ft_strchr(WS, line[d->l_t + 1]))
-		d->cmd_tab[tab] = ft_substr(line, i, d->l_t - i);
-		//printf("str = %s\n", str);
 		printf("tab = %d\n", tab);
 		printf("d->cmd_tab = %s\n", d->cmd_tab[tab]);
-		// if (tab < d->nb_tab)
-		// {
-		// 	d->cmd_tab[tab] = str;
-		// 	tab++;
-		// }
 	}
 }
 
-
-int skip_ws(int i, char *line, t_data *data)
+void skip_ws(int i, char *line, t_data *data)
 {
-	while (ft_strchr(WS, line[data->l_t]))
+	while (ft_strchr(WS, line[data->l_t]) && !ft_strchr(QUOTES, line[data->l_t]))
 	{
 		i++;
 		data->l_t++;
 	}
-	return (i);
 }
 
-void	skip_quotes(char *line, t_data *data)
+int	skip_quotes(int i, char *line, t_data *data)
 {
-	if (line[data->l_t] == '\'')
-	{
-		data->l_t++;
-		while (line[data->l_t] != '\'')
-			data->l_t++;
-	}
+	//printf("l_t: %i et line: %s\n", data->l_t, line);
 	if (line[data->l_t] == '\"')
 	{
+		while (!ft_strchr(WS_METACHAR, line[i - 1]) && i >= 0)
+			i--;
 		data->l_t++;
 		while (line[data->l_t] != '\"')
 			data->l_t++;
+		while (!ft_strchr(WS, line[data->l_t + 1]))
+			data->l_t++;
 	}
 	data->l_t++;
+	printf("no_meta = %d\n", data->if_no_meta);
+	return (i);
 }
+// if (line[data->l_t] == '\'')
+// 	{
+// 		// while (!ft_strchr(WS_METACHAR, line[data->l_t - 1]))
+// 		// 	data->l_t--;
+// 		data->l_t++;
+// 		while (line[data->l_t] != '\'')
+// 			data->l_t++;
+// 	}

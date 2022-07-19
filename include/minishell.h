@@ -20,6 +20,8 @@
 # define METACHAR "|<>\n"
 # define WS "\v\t\n\f\r "
 # define DEBUG printf("debug\n");
+# define WS_METACHAR "|<>\n\v\t\n\f\r "
+# define QUOTES "\'\""
 
 typedef struct s_data
 {
@@ -29,6 +31,7 @@ typedef struct s_data
 	char	**cmd_tab;
 	char	*cmd_line;
 	int		l_t;
+	int		if_no_meta;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -55,13 +58,13 @@ char	**handle_builtin(char *line, char **envp);
 //handle_cd.c
 void	handle_cd(char **opt);
 
-//handle_echo
+//handle_echo.c
 void	handle_echo(char *line, char **opt);
 
 //handle_env.c
 void	handle_env(char **opt, char **envp_copy);
 
-//handle_exit
+//handle_exit.c
 void	handle_exit(char *line, char **opt, char **envp_copy);
 
 //handle_export
@@ -153,6 +156,6 @@ int		nb_tabs_next(char *line, int nb_tab, int i);
 int		find_nb_tb(char *line);
 void	lines_lenght(char *line, t_data *data);
 char	*allocation(int i, char *line, t_data *data);
-int 	skip_ws(int i, char *line, t_data *data);
-void	skip_quotes(char *line, t_data *data);
+void 	skip_ws(int i, char *line, t_data *data);
+int		skip_quotes(int i, char *line, t_data *data);
 #endif

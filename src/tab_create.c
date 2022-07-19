@@ -24,6 +24,7 @@ int	find_nb_tb(char *line)
 		//quit();
 	}
 	nb_tab = nb_tabs(line);
+	printf("nb_tab = %d\n", nb_tab);
 	return (nb_tab);
 }
 
@@ -54,7 +55,7 @@ int	nb_tabs_next(char *line, int nb_tab, int i)
 			while (line[i] != '\"')
 				i++;
 		}
-		if (ft_strchr(WS, line[i]) && !ft_strchr(WS, line[i + 1]))
+		if (ft_strchr(WS_METACHAR, line[i]) && !ft_strchr(WS, line[i + 1]))
 			nb_tab++;
 		i++;
 	}
