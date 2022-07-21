@@ -146,4 +146,6 @@ void	lines_lenght(char *line, t_data *data);
 char	*allocation(int i, char *line, t_data *data);
 void 	skip_ws(int i, char *line, t_data *data);
 int		skip_quotes(int i, char *line, t_data *data);
+int		check_meta(char *line, int i, int *nb_tabs);
+int		meta_check(int i, t_data *d, char *line);
 #endif

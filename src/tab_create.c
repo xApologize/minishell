@@ -41,6 +41,10 @@ int	nb_tabs(char *line)
 
 int	nb_tabs_next(char *line, int nb_tab, int i)
 {
+	if (ft_strlen(line) != 0)
+		nb_tab++;
+	while (ft_strchr(WS, line[i]))
+		i++;
 	while (line[i] != '\0')
 	{
 		if (line[i] == '\'')
@@ -55,12 +59,44 @@ int	nb_tabs_next(char *line, int nb_tab, int i)
 			while (line[i] != '\"')
 				i++;
 		}
-		if (ft_strchr(WS_METACHAR, line[i]) && !ft_strchr(WS, line[i + 1]))
+		printf("i = %d\n", i);
+		i = check_meta(line, i, &nb_tab);
+		if (ft_strchr(WS, line[i]) && !ft_strchr(WS, line[i + 1]))
 			nb_tab++;
 		i++;
 	}
-	if (ft_strlen(line) != 0)
-		nb_tab++;
 	return (nb_tab);
 }
 
+//check pour | "|" | sa donne un tab de trop pour trouver la hauteur du tableau
+int	check_meta(char *line, int i, int *nb_tabs)
+{
+	if (ft_strchr(METACHAR, line[i]))
+	{
+		i++;
+		nb_tabs++;
+		if (line[i] == '\0')
+			return (i);
+		if (ft_strchr(METACHAR, line[i]))
+		{
+			printf("i 2 = %d\n", i);
+			i++;
+		}
+		if (ft_strchr(WS, line[i]))
+		{
+			DEBUG;
+			*nb_tabs += 1;
+		}
+		else
+			*nb_tabs += 2;
+		if (line[i + 1] == '\0')
+			i++;
+	}
+	return (i);
+}
+
+// int	meta_check(int i, t_data *d, char *line)
+// {
+	
+// 	return (i);
+// }
