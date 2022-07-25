@@ -92,7 +92,7 @@ void	print_echo_without_n(char *line);
 char	**addtoenv(char *arg, char **envp_copy);
 
 //checkvalidenv.c
-int	checkvalidenv(char *arg);
+bool	checkvalidenv(char *arg);
 
 //print_intro.c
 void	print_intro(void);
@@ -111,6 +111,12 @@ int	find_var(char *arg, char **envp_copy);
 
 //modify_var.c
 char	**modify_var(char *arg, char **envp_copy);
+
+//checkvalidassign.c
+bool	checkvalidassign(bool env_stat, char *arg);
+
+//checkassign.c
+bool checkassign(char *arg);
 
 //minishell
 
