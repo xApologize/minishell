@@ -19,18 +19,10 @@ char	**handle_export(char *line, char **envp_copy)
 	{
 		valid_env = checkvalidenv(opt[i]);
 		valid_assign = checkvalidassign(valid_env, opt[i]);
-		// printf("valid_env = %d\n", valid_env);
-		// printf("valid_assign = %d\n", valid_assign);
 		if (valid_assign == true && check_modify_env(opt[i], envp_copy) == 1)
-		{
-			printf("Entered modify\n");
 			envp_copy = modify_var(opt[i], envp_copy);
-		}
 		if (valid_assign == true && check_dup_env(opt[i], envp_copy) == 0)
-		{
-			printf("Entered valid env\n");
 			envp_copy = addtoenv(opt[i], envp_copy);
-		}
 	}
 	return (envp_copy);
 }
