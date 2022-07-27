@@ -88,6 +88,14 @@ char	**addtoenv(char *arg, char **envp_copy);
 char	**modify_var(char *arg, char **envp_copy);
 int		check_dup_env(char *arg, char **envp_copy);
 
+//unset_utils.c
+char	**handle_unset(char **opt, char **envp_copy);
+bool	checkvalidarg(char *arg);
+void	modifyvar(char *var, char **envp_copy);
+bool	checkifunset(char *var, char *envp_var);
+char	**copynewenvp(char **envp_copy);
+int		countnewvars(char **envp_copy);
+
 //sig_utils.c
 void	sig_handling(void);
 void	sig_reset(void);
@@ -95,9 +103,6 @@ void	sigint_handler(int signum);
 
 //pwd_utils.c
 void	handle_pwd(char **opt);
-
-//handle_unset.c
-char	**handle_unset(char **opt, char **envp_copy);
 
 //freeopt.c
 void	freeopt(char **opt);
@@ -109,7 +114,10 @@ void	pepe(void);
 void	print_intro(void);
 
 //find_var.c
-int	find_var(char *arg, char **envp_copy);
+int		find_var(char *arg, char **envp_copy);
+
+//get_home.c
+char	*get_home(char **envp_copy);
 
 //minishell
 
