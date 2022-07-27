@@ -8,7 +8,7 @@
 // ◦ env sans aucune option ni argument
 // ◦ exit sans aucune option
 
-// Need to finish handle_unset && handle_export
+// Need to finish handle_unset
 char	**handle_builtin(char *line, char **envp_copy)
 {
 	char	**opt;

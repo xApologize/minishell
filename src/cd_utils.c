@@ -71,31 +71,36 @@ void	update_pwd(char **envp_copy)
 	char	**old_path;
 
 	new_path = NULL;
+	old_path = NULL;
 	new_path = getcwd(new_path, 0);
-	index_pwd = find_pwd(envp_copy);
 	index_oldpwd = find_oldpwd(envp_copy);
-	old_path = ft_split(envp_copy[index_pwd], '=');
-	free(envp_copy[index_oldpwd]);
-	free(envp_copy[index_pwd]);
-	envp_copy[index_oldpwd] = ft_strjoin("OLDPWD=", old_path[1]);
-	envp_copy[index_pwd] = ft_pwdjoinfree("PWD=", new_path);
-	freeopt(old_path);
+	index_pwd = find_pwd(envp_copy);
+	if (index_pwd != -1)
+	{
+		old_path = ft_split(envp_copy[index_pwd], '=');
+		free(envp_copy[index_pwd]);
+		envp_copy[index_pwd] = ft_pwdjoinfree("PWD=", new_path);
+	}
+	if (index_oldpwd != -1)
+	{
+		if (old_path[1])
+		{
+			free(envp_copy[index_oldpwd]);
+			envp_copy[index_oldpwd] = ft_strjoin("OLDPWD=", old_path[1]);
+			freeopt(old_path);
+		}
+	}
 }
 
 void	handle_cd(char **opt, char **envp_copy)
 {
-	int args;
 	int	res;
 
-	args = 0;
-	while (opt[args])
-		args++;
-	if (args > 2)
-		ft_putstr_fd("cd: too many arguments\n", STDERR_FILENO);
-	if (args == 1)
-		dprintf(STDERR_FILENO, "cd: not enough arguments\n");
-	res = chdir(opt[1]);
+	if (opt[1] == NULL)
+		res = chdir(get_home(envp_copy));
+	else
+		res = chdir(opt[1]);
 	update_pwd(envp_copy);
-	if (res == -1 && args == 2)
+	if (res == -1)
 		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), opt[1]);
 }
