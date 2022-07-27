@@ -9,7 +9,6 @@
 // ◦ exit sans aucune option
 
 // Need to finish handle_unset && handle_export
-
 char	**handle_builtin(char *line, char **envp_copy)
 {
 	char	**opt;
@@ -18,7 +17,7 @@ char	**handle_builtin(char *line, char **envp_copy)
 	if (ft_strcmp(opt[0], "echo") == 0)
 		handle_echo(line, opt);
 	else if (ft_strcmp(opt[0], "cd") == 0)
-		handle_cd(opt);
+		handle_cd(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "pwd") == 0)
 		handle_pwd(opt);
 	else if (ft_strcmp(opt[0], "export") == 0)
