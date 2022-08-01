@@ -81,7 +81,7 @@ void	update_pwd(char **envp_copy)
 		free(envp_copy[index_pwd]);
 		envp_copy[index_pwd] = ft_pwdjoinfree("PWD=", new_path);
 	}
-	if (index_oldpwd != -1)
+	if (index_oldpwd != -1 && index_pwd != -1)
 	{
 		if (old_path[1])
 		{
