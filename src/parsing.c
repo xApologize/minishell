@@ -13,13 +13,13 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 
 void	find_cmds(char *line, t_data *data)
 {
-	int	i;
-	int	quotes;
-	int	cmd_lenght;
+	// int	i;
+	// int	quotes;
+	// int	cmd_lenght;
 
-	i = 0;
-	quotes = 0;
-	cmd_lenght = 0;
+	// i = 0;
+	// quotes = 0;
+	// cmd_lenght = 0;
 	data->nb_tab = find_nb_tb(line);
 	data->cmd_tab = (char **)ft_calloc(data->nb_tab + 1, sizeof(char *));
 	data->l_t = 0;
