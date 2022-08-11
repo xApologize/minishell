@@ -14,5 +14,4 @@ void	handle_env(char **opt, char **envp_copy)
 			printf("%s\n", envp_copy[i]);
 			i++;
 		}
-	freeopt(opt);
 }

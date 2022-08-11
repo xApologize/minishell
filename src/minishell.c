@@ -13,20 +13,21 @@
 int	main(void)
 {
 	char		*line;
-	t_data		data;
+	//t_data		data;
 	extern char	**environ;
 	char		**envp_copy;
 
 	envp_copy = envp_cp(environ);
 	print_intro();
-	//sig_handling();
+	sig_handling();
 	while (1)
 	{
 		line = rl_gets();
 		if (line == NULL)
 			exit(0);
-		handle_builtin(line, envp_copy);
-		parsing(line, envp_copy, &data);
+		envp_copy = handle_builtin(line, envp_copy);
+		//parsing(line, envp_copy, &data);
+		free(line);
 	}
 	return (0);
 }
