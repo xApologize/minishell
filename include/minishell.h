@@ -32,6 +32,7 @@ typedef struct s_data
 	char	*cmd_line;
 	int		l_t;
 	int		if_no_meta;
+	char	*indexmeta;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -105,10 +106,13 @@ int		check_n(char *opt);
 //parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);
 void	find_cmds(char *line, t_data *data);
+void	tokenize(char *line, t_data *data);
 
 // parsing_utils.c
 void	check_pipe(char *line, t_data *data);
 void	tokenize_quote(char *line, t_data *data);
+int		quote(int i, char *line);
+void	findlenght(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
