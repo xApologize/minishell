@@ -116,6 +116,7 @@ void	tokenize(char *line, t_data *data)
 		i++;
 	}
 	printf("%s\n", data->indexmeta);
+	printf("%s\n", line);
 }
 
 int	quote(int i, char *line)
@@ -136,7 +137,7 @@ int	quote(int i, char *line)
 			i++;
 		}
 	}
-	printf("line[i] = %c\n", line[i]);
+	//printf("line[i] = %c\n", line[i]);
 	i++;
 	return (i);
 }
@@ -150,12 +151,12 @@ void	findlenght(char *line, t_data *data)
 	lenght = 0;
 	while (line[i] != '\0')
 	{
-		if (ft_strchr(QUOTES, line[i]))
+		if (ft_strchr(QUOTES, line[i]) && line[i])
 			i = quote(i, line);
-		if (ft_strchr(METACHAR, line[i]))
+		if (ft_strchr(METACHAR, line[i]) && line[i])
 		{
+			printf("in strchr line[%d] = %c\n", i, line[i]);
 			lenght++;
-			DEBUG;
 		}
 		i++;
 	}
