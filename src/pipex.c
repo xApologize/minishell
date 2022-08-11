@@ -4,23 +4,11 @@ void	pipex(t_cmd *cmd)
 {
 	while (cmd->next != NULL)
 	{
-		file_redir(cmd);
 		pipex_redir(cmd);
 		cmd = cmd->next;
 	}
 	pipex_redir(cmd);
 	exec_cmd(cmd);
-}
-
-void	file_redir(t_cmd *cmd)
-{
-	int	result_access;
-
-	cmd->file_read = PIPE_READ;
-	if (cmd->redir != NULL)
-	{
-		if (access(file_to_read, F_OK))
-	}
 }
 
 void	pipex_redir(t_cmd *cmd, int file_descriptor)
