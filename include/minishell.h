@@ -40,6 +40,9 @@ typedef struct s_data
 //next = la prochaine node.
 typedef struct s_cmd
 {
+	int				file_read;
+	int				file_write;
+	char			*redir_file;
 	char			*cmd;
 	char			**argv;
 	char			**environ;
@@ -113,7 +116,7 @@ void	tokenize_quote(char *line, t_data *data);
 //pipex.c
 void	pipex(t_cmd *cmd);
 void	exec_cmd(t_cmd *cmd);
-void	redir(t_cmd *cmd);
+void	pipex_redir(t_cmd *cmd);
 
 //quotation.c
 void	error_quotation(t_data *data);

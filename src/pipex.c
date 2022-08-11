@@ -4,14 +4,26 @@ void	pipex(t_cmd *cmd)
 {
 	while (cmd->next != NULL)
 	{
-		redir(cmd);
+		file_redir(cmd);
+		pipex_redir(cmd);
 		cmd = cmd->next;
 	}
-	redir(cmd);
+	pipex_redir(cmd);
 	exec_cmd(cmd);
 }
 
-void	redir(t_cmd *cmd)
+void	file_redir(t_cmd *cmd)
+{
+	int	result_access;
+
+	cmd->file_read = PIPE_READ;
+	if (cmd->redir != NULL)
+	{
+		if (access(file_to_read, F_OK))
+	}
+}
+
+void	pipex_redir(t_cmd *cmd, int file_descriptor)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -21,12 +33,12 @@ void	redir(t_cmd *cmd)
 	if (pid > 0)
 	{
 		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-		close(pipe_fd[PIPE_READ]);
+		dup2(pipe_fd[cmd->file_read], STDIN_FILENO);
+		close(pipe_fd[cmd->file_read]);
 	}
 	if (pid == 0)
 	{
-		close(pipe_fd[PIPE_READ]);
+		close(pipe_fd[cmd->file_read]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
