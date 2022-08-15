@@ -98,4 +98,5 @@ void	print_line(char *line, t_data *data)
 		len--;
 	}
 	printf("\n");
+	// ecrit la ligne avec les \0
 }
