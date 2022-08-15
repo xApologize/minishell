@@ -151,7 +151,6 @@ void	search_cmd(t_data *data);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
-<<<<<<< HEAD
 //sig_handling.c
 void	sig_handling(void);
 
@@ -160,17 +159,4 @@ void	sig_reset(void);
 
 //sigint_handler.c
 void	sigint_handler(int signum);
-
-=======
-//void	split_path(t_data *data);
-
-//tab_create.c
-int		nb_tabs(char *line);
-int		nb_tabs_next(char *line, int nb_tab, int i);
-int		find_nb_tb(char *line);
-void	lines_lenght(char *line, t_data *data);
-char	*allocation(int i, char *line, t_data *data);
-void 	skip_ws(int i, char *line, t_data *data);
-int		skip_quotes(int i, char *line, t_data *data);
->>>>>>> cf41e5875c333301f623eeb58f97354a3d205e74
 #endif
