@@ -4,11 +4,10 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 {
 	sig_reset();
 	access(envp_copy[0], F_OK);
-	//find_cmds(line, data);
+	data->error_status = error_quotation(line);
 	tokenize(line, data);
 	env_split(data, envp_copy);
 	//search_cmd(data);
-	//error_quotation(data);
 	sig_handling();
 }
 
@@ -27,7 +26,7 @@ void	tokenize(char *line, t_data *data)
 	{
 		if (ft_strchr(QUOTES, line[i]))
 			i = quote(i, line);
-		if(ft_strchr(METACHAR, line[i]))
+		if (ft_strchr(WS_METACHAR, line[i]))
 		{
 			data->indexmeta[j] = line[i];
 			line[i] = '\0';
@@ -57,7 +56,6 @@ int	quote(int i, char *line)
 			i++;
 		}
 	}
-	//printf("line[i] = %c\n", line[i]);
 	i++;
 	return (i);
 }
@@ -65,7 +63,7 @@ int	quote(int i, char *line)
 void	findlenght(char *line, t_data *data)
 {
 	int	i;
-	int lenght;
+	int	lenght;
 
 	i = 0;
 	lenght = 0;
@@ -73,7 +71,7 @@ void	findlenght(char *line, t_data *data)
 	{
 		if (ft_strchr(QUOTES, line[i]) && line[i])
 			i = quote(i, line);
-		if (ft_strchr(METACHAR, line[i]) && line[i])
+		if (ft_strchr(WS_METACHAR, line[i]) && line[i])
 		{
 			printf("in strchr line[%d] = %c\n", i, line[i]);
 			lenght++;
@@ -84,6 +82,7 @@ void	findlenght(char *line, t_data *data)
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));
 }
 
+// ecrit la ligne avec les \0
 void	print_line(char *line, t_data *data)
 {
 	int i;
@@ -91,12 +90,16 @@ void	print_line(char *line, t_data *data)
 
 	i = 0;
 	len = data->line_lenght;
-	while (len >= 0)
+	while (len > 0)
 	{
+		// if (line[i] == '\0')
+		// {
+		// 	printf("\n");
+		// 	i++;
+		// }
 		printf("%c", line[i]);
 		i++;
 		len--;
 	}
 	printf("\n");
-	// ecrit la ligne avec les \0
 }

@@ -30,6 +30,7 @@ typedef struct s_data
 	int		if_no_meta;
 	char	*indexmeta;
 	int		line_lenght;
+	bool	error_status;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -117,7 +118,7 @@ void	exec_cmd(t_cmd *cmd);
 void	redir(t_cmd *cmd);
 
 //quotation.c
-void	error_quotation(t_data *data);
+bool	error_quotation(char *line);
 void	search_last_quote(t_data *data, int i);
 
 //rl_gets.c
