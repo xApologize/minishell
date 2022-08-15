@@ -104,6 +104,9 @@ void	sigint_handler(int signum);
 //pwd_utils.c
 void	handle_pwd(char **opt);
 
+//heredoc.c
+void	heredoc(char *delimiter, int fd);
+
 //freeopt.c
 void	freeopt(char **opt);
 
