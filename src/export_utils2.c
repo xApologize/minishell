@@ -18,3 +18,26 @@ char	**addtoenv(char *arg, char **envp_copy)
 	freeopt(envp_copy);
 	return (new_envp);
 }
+
+char	**modify_var(char *arg, char **envp_copy)
+{
+	int	index;
+
+	index = find_var(arg, envp_copy);
+	free(envp_copy[index]);
+	envp_copy[index] = ft_strdup(arg);
+	return (envp_copy);
+}
+
+int	check_dup_env(char *arg, char **envp_copy)
+{
+	int	i;
+
+	i = -1;
+	while (envp_copy[++i])
+	{
+		if (ft_strcmp(envp_copy[i], arg) == 0)
+			return (1);
+	}
+	return (0);
+}

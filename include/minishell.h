@@ -54,50 +54,72 @@ char	**envp_cp(char **envp);
 //handle_builtin
 char	**handle_builtin(char *line, char **envp);
 
-//handle_cd.c
-void	handle_cd(char **opt);
+//cd_utils.c
+void	handle_cd(char **opt, char **envp_copy);
+void	update_pwd(char **envp_copy);
+int		find_oldpwd(char **envp_copy);
+int		find_pwd(char **envp_copy);
 
-//handle_echo
+//echo_utils.c
 void	handle_echo(char *line, char **opt);
+void	print_echo_with_n(char *line);
+void	print_echo_without_n(char *line);
+int		skip_n(char *line);
+
+//check_n.c
+int		check_n(char *opt);
 
 //handle_env.c
 void	handle_env(char **opt, char **envp_copy);
 
-//handle_exit
+//handle_exit.c
 void	handle_exit(char *line, char **opt, char **envp_copy);
 
-//handle_export
-char	**handle_export(char **opt, char **envp_copy);
+//export_utils.c
+char	**handle_export(char *line, char **envp_copy);
+bool	checkvalidenv(char *arg);
+bool	checkvalidassign(bool env_stat, char *arg);
+bool	checkassign(char *arg);
+int		check_modify_env(char *arg, char **envp_copy);
 
-//handle_pwd.c
+//export_utils2.c
+char	**addtoenv(char *arg, char **envp_copy);
+char	**modify_var(char *arg, char **envp_copy);
+int		check_dup_env(char *arg, char **envp_copy);
+
+//unset_utils.c
+char	**handle_unset(char **opt, char **envp_copy);
+bool	checkvalidarg(char *arg);
+void	modifyvar(char *var, char **envp_copy);
+bool	checkifunset(char *var, char *envp_var);
+char	**copynewenvp(char **envp_copy);
+int		countnewvars(char **envp_copy);
+
+//sig_utils.c
+void	sig_handling(void);
+void	sig_reset(void);
+void	sigint_handler(int signum);
+
+//pwd_utils.c
 void	handle_pwd(char **opt);
 
-//handle_unset.c
-void	handle_unset(char **opt, char **envp_copy);
+//heredoc.c
+void	heredoc(char *delimiter, int fd);
 
-//freeopt
+//freeopt.c
 void	freeopt(char **opt);
 
-//pepe
+//pepe.c
 void	pepe(void);
 
-//print_echo_with_n
-void	print_echo_with_n(char *line);
-
-//print_echo_without_n
-void	print_echo_without_n(char *line);
-
-//addtoenv
-char	**addtoenv(char *arg, char **envp_copy);
-
-//checkvalidenv
-int		checkvalidenv(char *arg);
-
-//print_intro
+//print_intro.c
 void	print_intro(void);
 
-//check_n
-int		check_n(char *opt);
+//find_var.c
+int		find_var(char *arg, char **envp_copy);
+
+//get_home.c
+char	*get_home(char **envp_copy);
 
 //minishell
 
@@ -129,6 +151,7 @@ void	search_cmd(t_data *data);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
+<<<<<<< HEAD
 //sig_handling.c
 void	sig_handling(void);
 
@@ -138,4 +161,16 @@ void	sig_reset(void);
 //sigint_handler.c
 void	sigint_handler(int signum);
 
+=======
+//void	split_path(t_data *data);
+
+//tab_create.c
+int		nb_tabs(char *line);
+int		nb_tabs_next(char *line, int nb_tab, int i);
+int		find_nb_tb(char *line);
+void	lines_lenght(char *line, t_data *data);
+char	*allocation(int i, char *line, t_data *data);
+void 	skip_ws(int i, char *line, t_data *data);
+int		skip_quotes(int i, char *line, t_data *data);
+>>>>>>> cf41e5875c333301f623eeb58f97354a3d205e74
 #endif
