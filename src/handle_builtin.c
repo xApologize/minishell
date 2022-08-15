@@ -8,35 +8,28 @@
 // ◦ env sans aucune option ni argument
 // ◦ exit sans aucune option
 
-// Need to finish handle_unset && handle_export
-
+// Need to finish handle_unset
 char	**handle_builtin(char *line, char **envp_copy)
 {
 	char	**opt;
 
-	if (ft_strlen(line) == 0)
-		return envp_copy;
 	opt = ft_split(line, ' ');
+	if (opt[0] == NULL)
+		return (envp_copy);
 	if (ft_strcmp(opt[0], "echo") == 0)
 		handle_echo(line, opt);
 	else if (ft_strcmp(opt[0], "cd") == 0)
-		handle_cd(opt);
+		handle_cd(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "pwd") == 0)
 		handle_pwd(opt);
 	else if (ft_strcmp(opt[0], "export") == 0)
-	{
-		envp_copy = handle_export(opt, envp_copy);
-		return (envp_copy);
-	}
+		envp_copy = handle_export(line, envp_copy);
 	else if (ft_strcmp(opt[0], "unset") == 0)
-		handle_unset(opt, envp_copy);
+		envp_copy = handle_unset(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "env") == 0)
 		handle_env(opt, envp_copy);
 	else if (ft_strcmp(opt[0], "exit") == 0)
 		handle_exit(line, opt, envp_copy);
-	else if (ft_strcmp(opt[0], "pepe") == 0)
-		pepe();
-	else
-		freeopt(opt);
+	freeopt(opt);
 	return (envp_copy);
 }
