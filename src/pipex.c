@@ -1,32 +1,31 @@
 #include "../include/minishell.h"
+#include <sys/wait.h>
 
 void	pipex(t_cmd *cmd)
 {
-	while (cmd->next != NULL)
-	{
-		pipex_redir(cmd);
-		cmd = cmd->next;
-	}
 	pipex_redir(cmd);
 	exec_cmd(cmd);
 }
 
-void	pipex_redir(t_cmd *cmd, int file_descriptor)
+void	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
 	int	pipe_fd[2];
+	int	*status;
 
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid > 0)
 	{
 		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[cmd->file_read], STDIN_FILENO);
-		close(pipe_fd[cmd->file_read]);
+		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
+		close(pipe_fd[PIPE_READ]);
+		waitpid(pid, status, 0);
+		set_exit_code(WEXITSTATUS(status));
 	}
 	if (pid == 0)
 	{
-		close(pipe_fd[cmd->file_read]);
+		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
