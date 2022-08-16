@@ -14,7 +14,7 @@ int main()
 
 	cmd1->cmd = "/bin/cat";
 	cmd1->argv[0] = "cat";
-	cmd1->argv[1] = "main_test.c";
+	cmd1->argv[1] = "main_test_pipex.c";
 
 	cmd2->cmd = "/usr/bin/grep";
 	cmd2->argv[0] = "grep";
