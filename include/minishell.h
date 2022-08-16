@@ -112,6 +112,7 @@ void	tokenize_quote(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
+void	pipex_redir(t_cmd *cmd);
 void	exec_cmd(t_cmd *cmd);
 
 //quotation.c
