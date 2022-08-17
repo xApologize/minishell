@@ -3,6 +3,7 @@
 
 void	pipex(t_cmd *cmd)
 {
+
 	int	pid;
 
 	pid = fork();
@@ -15,11 +16,13 @@ void	pipex(t_cmd *cmd)
 		}
 		exec_cmd(cmd);
 	}
+	waitpid(pid, NULL, 0);
 }
 
 void	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
+	int	status;
 	int	pipe_fd[2];
 
 	pipe(pipe_fd);
