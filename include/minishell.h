@@ -31,6 +31,8 @@ typedef struct s_data
 	char	*indexmeta;
 	int		line_lenght;
 	bool	error_status;
+	bool	error_quotes;
+	bool	error_first_cmd;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -140,8 +142,9 @@ void	exec_cmd(t_cmd *cmd);
 void	redir(t_cmd *cmd);
 
 //quotation.c
-bool	error_quotation(char *line);
-void	search_last_quote(t_data *data, int i);
+bool	error_quotation(char *line, t_data *data);
+int		squotes(char *line, int i, t_data *data);
+int		dquotes(char *line, int i, t_data *data);
 
 //rl_gets.c
 char	*rl_gets(void);
@@ -159,4 +162,7 @@ void	sig_reset(void);
 
 //sigint_handler.c
 void	sigint_handler(int signum);
+
+//status_error.c
+void	status(t_data *data, char *line);
 #endif

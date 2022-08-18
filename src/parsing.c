@@ -4,8 +4,9 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 {
 	sig_reset();
 	access(envp_copy[0], F_OK);
-	data->error_status = error_quotation(line);
+	error_quotation(line, data);
 	tokenize(line, data);
+	status(data, line);
 	env_split(data, envp_copy);
 	//search_cmd(data);
 	sig_handling();
@@ -92,11 +93,10 @@ void	print_line(char *line, t_data *data)
 	len = data->line_lenght;
 	while (len > 0)
 	{
-		// if (line[i] == '\0')
-		// {
-		// 	printf("\n");
-		// 	i++;
-		// }
+		if (line[i] == '\0')
+		{
+			printf("\n");
+		}
 		printf("%c", line[i]);
 		i++;
 		len--;
