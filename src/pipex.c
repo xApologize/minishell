@@ -1,25 +1,32 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 #include <sys/wait.h>
 
 void	pipex(t_cmd *cmd)
 {
 
 	int	pid;
+	int	cmd_count;
+	int	i;
+	int *pid_child;
 
+	cmd_count = table_length(cmd);
+	pid_child = malloc(sizeof(int) * cmd_count);
+	i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		while (cmd->next != NULL)
+		while (cmd != NULL)
 		{
-			pipex_redir(cmd);
+			i = pipex_redir(cmd);
+			printf("i: %d\n", i);
 			cmd = cmd->next;
 		}
-		exec_cmd(cmd);
 	}
 	waitpid(pid, NULL, 0);
 }
 
-void	pipex_redir(t_cmd *cmd)
+int	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
 	int	status;
@@ -40,6 +47,7 @@ void	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
+	return (pid);
 }
 
 void	exec_cmd(t_cmd *cmd)
@@ -47,4 +55,19 @@ void	exec_cmd(t_cmd *cmd)
 	execve(cmd->cmd, cmd->argv, cmd->environ);
 	dprintf(2, "something went wrong: %s\n", cmd->cmd);
 	exit(0);
+}
+
+int	table_length(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	tmp = cmd;
+	i = 0;
+	while (tmp != NULL)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }
