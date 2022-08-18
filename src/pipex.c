@@ -4,25 +4,28 @@
 
 void	pipex(t_cmd *cmd)
 {
-
 	int	pid;
-	int	cmd_count;
 	int	i;
-	int *pid_child;
+	int	*pid_child;
+	int	status;
 
-	cmd_count = table_length(cmd);
-	pid_child = malloc(sizeof(int) * cmd_count);
+	pid_child = malloc(sizeof(int) * table_length(cmd));
 	i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
 		while (cmd != NULL)
 		{
-			i = pipex_redir(cmd);
-			printf("i: %d\n", i);
+			if (cmd->next != NULL)
+				pid_child[i] = pipex_redir(cmd);
+			else
+				pid_child[i] = exec_fork_cmd(cmd);
+			i++;
 			cmd = cmd->next;
 		}
 	}
+	while (i >= 0)
+		waitpid(pid_child[--i], &status, WNOHANG);
 	waitpid(pid, NULL, 0);
 }
 
@@ -47,6 +50,16 @@ int	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
+	return (pid);
+}
+
+int	exec_fork_cmd(t_cmd	*cmd)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+		exec_cmd(cmd);
 	return (pid);
 }
 
