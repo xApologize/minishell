@@ -27,11 +27,12 @@ typedef struct s_data
 {
 	char	**path_split;
 	char	**line_split;
-	int		nb_tab;
-	char	**cmd_tab;
-	char	*cmd_line;
-	int		l_t;
 	int		if_no_meta;
+	char	*indexmeta;
+	int		line_lenght;
+	bool	error_status;
+	bool	error_quotes;
+	bool	error_first_cmd;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -104,6 +105,9 @@ void	sigint_handler(int signum);
 //pwd_utils.c
 void	handle_pwd(char **opt);
 
+//heredoc.c
+void	heredoc(char *delimiter, int fd);
+
 //freeopt.c
 void	freeopt(char **opt);
 
@@ -123,11 +127,14 @@ char	*get_home(char **envp_copy);
 
 //parsing.c
 void	parsing(char *line, char **envp_copy, t_data *data);
-void	find_cmds(char *line, t_data *data);
+void	tokenize(char *line, t_data *data);
 
 // parsing_utils.c
 void	check_pipe(char *line, t_data *data);
 void	tokenize_quote(char *line, t_data *data);
+int		quote(int i, char *line);
+void	findlenght(char *line, t_data *data);
+void	print_line(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
@@ -135,8 +142,9 @@ void	exec_cmd(t_cmd *cmd);
 void	redir(t_cmd *cmd);
 
 //quotation.c
-void	error_quotation(t_data *data);
-void	search_last_quote(t_data *data, int i);
+bool	error_quotation(char *line, t_data *data);
+int		squotes(char *line, int i, t_data *data);
+int		dquotes(char *line, int i, t_data *data);
 
 //rl_gets.c
 char	*rl_gets(void);
@@ -146,7 +154,14 @@ void	search_cmd(t_data *data);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
-//void	split_path(t_data *data);
+//sig_handling.c
+void	sig_handling(void);
+
+//sig_reset.c
+void	sig_reset(void);
+
+//sigint_handler.c
+void	sigint_handler(int signum);
 
 //tab_create.c
 int		nb_tabs(char *line);
@@ -180,4 +195,8 @@ char	*charjoinfree(const char *s1, const char c);
 
 //skip_dollar.c
 char	*skip_dollar(char *line);
+
+//status_error.c
+void	status(t_data *data, char *line);
+
 #endif
