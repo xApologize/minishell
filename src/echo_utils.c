@@ -9,6 +9,8 @@ void	handle_echo(char *line, char **opt)
 		else
 			print_echo_without_n(line);
 	}
+	else
+		printf("\n");
 }
 
 int	skip_echo(char *line)
