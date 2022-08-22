@@ -4,7 +4,7 @@ char	*return_var(char *line)
 {
 	char	*var;
 
-	var = malloc(1);
+	var = ft_calloc(1, 1);
 	line++;
 	while (*line)
 	{
@@ -13,6 +13,5 @@ char	*return_var(char *line)
 		var = charjoinfree(var, *line);
 		line++;
 	}
-	var = charjoinfree(var, '\0');
 	return (var);
 }

@@ -3,6 +3,7 @@
 char *unwrap_dollar(char *line, char **envp_copy)
 {
 	char	*new_line;
+	char	*value;
 
 	new_line = malloc(1);
 	while (*line)
@@ -11,8 +12,10 @@ char *unwrap_dollar(char *line, char **envp_copy)
 			skip_single_quote(line);
 		if (*line == '$')
 		{
-			new_line = ft_strjoinfree(new_line, return_dollar(line, envp_copy));
-			//skip_dollar(line);
+			value = return_dollar(line, envp_copy);
+			new_line = ft_strjoinfree(new_line, value);
+			free(value);
+			line = skip_dollar(line);
 		}
 		new_line = charjoinfree(new_line, *line);
 		line++;

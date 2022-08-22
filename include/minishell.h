@@ -179,5 +179,5 @@ char	*return_var(char *line);
 char	*charjoinfree(const char *s1, const char c);
 
 //skip_dollar.c
-//void	skip_dollar(char *line);
+char	*skip_dollar(char *line);
 #endif
