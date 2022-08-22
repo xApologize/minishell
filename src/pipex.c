@@ -25,7 +25,7 @@ void	pipex(t_cmd *cmd)
 		}
 	}
 	while (i >= 0)
-		waitpid(pid_child[--i], &status, WNOHANG);
+		waitpid(pid_child[--i], &status, 0);
 	waitpid(pid, NULL, 0);
 }
 
