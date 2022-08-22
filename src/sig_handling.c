@@ -10,5 +10,5 @@ void	sig_handling(void)
 	sigemptyset(&sa_sigint.sa_mask);
 	sa_sigint.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa_sigint, NULL);
-	sigaction(SIGQUIT, &sa_sigquit, NULL);	
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
