@@ -164,5 +164,5 @@ void	sig_reset(void);
 void	sigint_handler(int signum);
 
 //status_error.c
-void	status(t_data *data, char *line);
+void	status_error(t_data *data, char *line);
 #endif

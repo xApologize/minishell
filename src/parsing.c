@@ -6,7 +6,8 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 	access(envp_copy[0], F_OK);
 	error_quotation(line, data);
 	tokenize(line, data);
-	status(data, line);
+	status_error(data, line); //execution des cmd pour executer le strerror / JB
+	redirection(line, data);
 	env_split(data, envp_copy);
 	//search_cmd(data);
 	sig_handling();
