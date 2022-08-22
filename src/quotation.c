@@ -1,31 +1,46 @@
 #include "../include/minishell.h"
 
-// void	error_quotation(t_data *data)
-// {
-// 	int		i;
-// 	bool	pair;
+bool	error_quotation(char *line, t_data *data)
+{
+	int	i;
 
-// 	i = 0;
-// 	pair = true;
-// 	while (data->argvs_join[i] != '\0')
-// 	{
-// 		if (data->argvs_join[i] == '\'') // retour de readline au lieu de data->argvs_join
-// 		{
-// 			if (pair == true)
-// 				pair = false;
-// 			else
-// 				pair = true;
-// 			i++;
-// 		}
-// 		i++;
-// 	}
-// 	if (pair == false)
-// 		search_last_quote(data, i);
-// }
+	data->error_quotes = false;
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '\'')
+		{
+			i++;
+			i = squotes(line, i, data);
+		}
+		if (line[i] == '\"')
+		{
+			i++;
+			i = dquotes(line, i, data);
+		}
+		i++;
+	}
+	return (false);
+}
 
-// void	search_last_quote(t_data *data, int i)
-// {
-// 	while (data->argvs_join[i] != '\'')
-// 		i--;
-	
-// }
+int	squotes(char *line, int i, t_data *data)
+{
+	while (line[i] != '\'')
+	{
+		if (line[i] == '\0')
+			data->error_quotes = true;
+		i++;
+	}
+	return (i);
+}
+
+int	dquotes(char *line, int i, t_data *data)
+{
+	while (line[i] != '\"')
+	{
+		if (line[i] == '\0')
+			data->error_quotes = true;
+		i++;
+	}
+	return (i);
+}
