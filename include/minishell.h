@@ -168,4 +168,16 @@ char	*unwrap_dollar(char *line, char **envp_copy);
 
 //skip_single_quote.c
 void	skip_single_quote(char *line);
+
+//return_dollar.c
+char	*return_dollar(char *line, char **envp_copy);
+
+//return_var.c
+char	*return_var(char *line);
+
+//charjoinfree.c
+char	*charjoinfree(const char *s1, const char c);
+
+//skip_dollar.c
+//void	skip_dollar(char *line);
 #endif

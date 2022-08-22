@@ -12,7 +12,7 @@ char *unwrap_dollar(char *line, char **envp_copy)
 		if (*line == '$')
 		{
 			new_line = ft_strjoinfree(new_line, return_dollar(line, envp_copy));
-			skip_dollar(line);
+			//skip_dollar(line);
 		}
 		new_line = charjoinfree(new_line, *line);
 		line++;
