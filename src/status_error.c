@@ -5,6 +5,7 @@ void	status_error(t_data *data, char *line)
 	int	i;
 
 	i = 0;
+	(void)line;
 	if (data->error_quotes == true)
 		dprintf(2, "quotes is odd\n");
 	// if (data->error_first_cmd == true)
