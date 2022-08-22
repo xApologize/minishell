@@ -156,4 +156,16 @@ void	lines_lenght(char *line, t_data *data);
 char	*allocation(int i, char *line, t_data *data);
 void 	skip_ws(int i, char *line, t_data *data);
 int		skip_quotes(int i, char *line, t_data *data);
+
+//dollar_sign.c
+bool	check_dollar(char *line);
+
+//handle_dollar.c
+char	*handle_dollar(char *line, char **envp_copy);
+
+//unwrap_dollar.c
+char	*unwrap_dollar(char *line, char **envp_copy);
+
+//skip_single_quote.c
+void	skip_single_quote(char *line);
 #endif
