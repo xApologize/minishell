@@ -138,6 +138,10 @@ void	sigint_handler(int signum);
 
 //void	split_path(t_data *data);
 
+//singleton_statuscode.c
+int		*get_exit_code(void);
+void	set_exit_code(int status_code);
+
 //tab_create.c
 int		nb_tabs(char *line);
 int		nb_tabs_next(char *line, int nb_tab, int i);
