@@ -11,7 +11,6 @@ void	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
 	int	pipe_fd[2];
-	int	*status;
 
 	pipe(pipe_fd);
 	pid = fork();
@@ -20,8 +19,6 @@ void	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[PIPE_WRITE]);
 		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
 		close(pipe_fd[PIPE_READ]);
-		waitpid(pid, status, 0);
-		set_exit_code(WEXITSTATUS(status));
 	}
 	if (pid == 0)
 	{
