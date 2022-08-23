@@ -16,7 +16,7 @@ bool	check_dollar(char *line)
 			quote = true;
 			i++;
 		}
-		if (line[i] == '$' && quote == false)
+		if (line[i] == '$' && ft_isalnum(line[i + 1]) == 1 && quote == false)
 			return (true);
 		if (line[i] == '\'' && quote == true)
 			quote = false;

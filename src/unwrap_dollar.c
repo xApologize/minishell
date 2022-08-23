@@ -5,7 +5,7 @@ char *unwrap_dollar(char *line, char **envp_copy)
 	char	*new_line;
 	char	*value;
 
-	new_line = malloc(1);
+	new_line = ft_calloc(1, 1);
 	while (*line)
 	{
 		if (*line == '\'')
