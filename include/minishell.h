@@ -138,8 +138,10 @@ void	print_line(char *line, t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
-void	pipex_redir(t_cmd *cmd);
 void	exec_cmd(t_cmd *cmd);
+int		pipex_redir(t_cmd *cmd);
+int		exec_fork_cmd(t_cmd	*cmd);
+int		table_length(t_cmd *cmd);
 
 //quotation.c
 bool	error_quotation(char *line, t_data *data);
@@ -178,6 +180,31 @@ char	*allocation(int i, char *line, t_data *data);
 void 	skip_ws(int i, char *line, t_data *data);
 int		skip_quotes(int i, char *line, t_data *data);
 
+//dollar_sign.c
+bool	check_dollar(char *line);
+
+//handle_dollar.c
+char	*handle_dollar(char *line, char **envp_copy);
+
+//unwrap_dollar.c
+char	*unwrap_dollar(char *line, char **envp_copy);
+
+//skip_single_quote.c
+void	skip_single_quote(char *line);
+
+//return_dollar.c
+char	*return_dollar(char *line, char **envp_copy);
+
+//return_var.c
+char	*return_var(char *line);
+
+//charjoinfree.c
+char	*charjoinfree(const char *s1, const char c);
+
+//skip_dollar.c
+char	*skip_dollar(char *line);
+
 //status_error.c
 void	status(t_data *data, char *line);
+
 #endif

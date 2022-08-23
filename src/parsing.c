@@ -35,7 +35,8 @@ void	tokenize(char *line, t_data *data)
 		}
 		i++;
 	}
-	printf("%s\n", data->indexmeta);
+	printf("indexmeta: %s\n", data->indexmeta);
+	printf("data->line_length: %i\n", data->line_lenght);
 	print_line(line, data);
 }
 
