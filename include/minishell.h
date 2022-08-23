@@ -165,6 +165,40 @@ void	sig_reset(void);
 //sigint_handler.c
 void	sigint_handler(int signum);
 
+//tab_create.c
+int		nb_tabs(char *line);
+int		nb_tabs_next(char *line, int nb_tab, int i);
+int		find_nb_tb(char *line);
+void	lines_lenght(char *line, t_data *data);
+char	*allocation(int i, char *line, t_data *data);
+void 	skip_ws(int i, char *line, t_data *data);
+int		skip_quotes(int i, char *line, t_data *data);
+
+//dollar_sign.c
+bool	check_dollar(char *line);
+
+//handle_dollar.c
+char	*handle_dollar(char *line, char **envp_copy);
+
+//unwrap_dollar.c
+char	*unwrap_dollar(char *line, char **envp_copy);
+
+//skip_single_quote.c
+void	skip_single_quote(char *line);
+
+//return_dollar.c
+char	*return_dollar(char *line, char **envp_copy);
+
+//return_var.c
+char	*return_var(char *line);
+
+//charjoinfree.c
+char	*charjoinfree(const char *s1, const char c);
+
+//skip_dollar.c
+char	*skip_dollar(char *line);
+
 //status_error.c
 void	status(t_data *data, char *line);
+
 #endif
