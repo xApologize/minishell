@@ -3,7 +3,6 @@
 void	parsing(char *line, char **envp_copy, t_data *data)
 {
 	sig_reset();
-	access(envp_copy[0], F_OK);
 	error_quotation(line, data);
 	tokenize(line, data);
 	status(data, line);

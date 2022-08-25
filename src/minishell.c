@@ -13,7 +13,7 @@
 int	main(void)
 {
 	char		*line;
-	// t_data		data;
+	t_data		data;
 	extern char	**environ;
 	char		**envp_copy;
 
@@ -27,7 +27,7 @@ int	main(void)
 			exit(0);
 		line = handle_dollar(line, envp_copy);
 		envp_copy = handle_builtin(line, envp_copy);
-		//parsing(line, envp_copy, &data);
+		parsing(line, envp_copy, &data);
 		free(line);
 	}
 	return (0);
