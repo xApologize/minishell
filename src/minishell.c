@@ -10,15 +10,17 @@
 // strerror, perror, isatty, ttyname, ttyslot, ioctl,
 // getenv, tcsetattr, tcgetattr, tgetent, tgetflag,
 // tgetnum, tgetstr, tgoto, tputs
+
 int	main(void)
 {
 	char		*line;
 	t_data		data;
-	//t_cmd		cmd;
+	t_cmd		*cmd;
 	extern char	**environ;
 	char		**envp_copy;
 
 	envp_copy = envp_cp(environ);
+	cmd = malloc(sizeof(t_cmd));
 	print_intro();
 	sig_handling();
 	while (1)
@@ -27,8 +29,7 @@ int	main(void)
 		if (line == NULL)
 			exit(0);
 		envp_copy = handle_builtin(line, envp_copy);
-		parsing(line, envp_copy, &data);
-		//set_exec_struct(line, &cmd, &data, envp_copy);
+		parsing(line, envp_copy, &data, cmd);
 		free(line);
 	}
 	return (0);

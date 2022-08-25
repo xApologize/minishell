@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	parsing(char *line, char **envp_copy, t_data *data)
+void	parsing(char *line, char **envp_copy, t_data *data, t_cmd *cmd)
 {
 	sig_reset();
 	access(envp_copy[0], F_OK);
@@ -8,7 +8,8 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 	tokenize(line, data);
 	status(data, line);
 	env_split(data, envp_copy);
-	search_cmd(data, line);
+	set_exec_struct(line, cmd, data, envp_copy);
+	search_cmd(data, line, cmd);
 	sig_handling();
 }
 
@@ -36,7 +37,7 @@ void	tokenize(char *line, t_data *data)
 		i++;
 	}
 //	printf("%s\n", data->indexmeta);
-//	print_line(line, data);
+	print_line(line, data);
 }
 
 int	quote(int i, char *line)
@@ -95,7 +96,7 @@ void	print_line(char *line, t_data *data)
 	{
 		if (line[i] == '\0')
 		{
-			printf("\n");
+			printf(" ");
 		}
 		printf("%c", line[i]);
 		i++;

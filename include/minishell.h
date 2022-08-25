@@ -33,6 +33,7 @@ typedef struct s_data
 	bool	error_status;
 	bool	error_quotes;
 	bool	error_first_cmd;
+	int		redir_bool;
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
@@ -126,13 +127,13 @@ char	*get_home(char **envp_copy);
 //minishell
 
 //parsing.c
-void	parsing(char *line, char **envp_copy, t_data *data);
+void	parsing(char *line, char **envp_copy, t_data *data, t_cmd *cmd);
 void	tokenize(char *line, t_data *data);
 
 // parsing_utils.c
+int		quote(int i, char *line);
 void	check_pipe(char *line, t_data *data);
 void	tokenize_quote(char *line, t_data *data);
-int		quote(int i, char *line);
 void	findlenght(char *line, t_data *data);
 void	print_line(char *line, t_data *data);
 
@@ -150,13 +151,16 @@ int		dquotes(char *line, int i, t_data *data);
 char	*rl_gets(void);
 
 //search_cmd.c
-void	search_cmd(t_data *data, char *line);
+void	search_cmd(t_data *data, char *line, t_cmd *cmd);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
 //set_exec_struct
 void	set_exec_struct(char *line, t_cmd *cmd, t_data *data, char **env);
 int		nb_pipes(t_data *data);
+t_cmd 	*create_nodes(char **env);
+void 	add_nodes(t_cmd **cmd, t_cmd *new_cmd);
+t_cmd 	*get_last(t_cmd *cmd);
 
 //sig_handling.c
 void	sig_handling(void);
