@@ -41,6 +41,8 @@ typedef struct s_data
 //next = la prochaine node.
 typedef struct s_cmd
 {
+	// int				infile;
+	// int				outfile;
 	char			*cmd;
 	char			**argv;
 	char			**environ;
