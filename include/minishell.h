@@ -150,9 +150,13 @@ int		dquotes(char *line, int i, t_data *data);
 char	*rl_gets(void);
 
 //search_cmd.c
-void	search_cmd(t_data *data);
+void	search_cmd(t_data *data, char *line);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
+
+//set_exec_struct
+void	set_exec_struct(char *line, t_cmd *cmd, t_data *data, char **env);
+int		nb_pipes(t_data *data);
 
 //sig_handling.c
 void	sig_handling(void);

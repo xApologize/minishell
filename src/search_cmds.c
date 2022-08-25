@@ -1,27 +1,56 @@
 #include "../include/minishell.h"
 
-void	search_cmd(t_data *data)
+void	search_cmd(t_data *data, char *line)
 {
 	int		i;
 	char	*cmd_join;
 	int		j;
+	int		check;
 	char	*check_path;
+	int		k;
 
 	i = 0;
 	j = 0;
-	trim_path(data);
-	while (data->line_split[i] != NULL)
+	check = 0;
+	k = 0;
+	printf("line lenght = %d\n", data->line_lenght);
+	while (i < data->line_lenght)
 	{
-		cmd_join = ft_strjoin("/", data->line_split[i]);
-		while (data->path_split[j] != NULL)
+		DEBUG;
+		while (line[i] != '\0')
+			i++;
+		cmd_join = ft_strjoin("/", line);
+		while (!ft_strchr("<>|", data->indexmeta[j]) && line[i] == '\0')
 		{
-			check_path = ft_strjoin(data->path_split[j], cmd_join);
 			j++;
+			i++;
+			if (ft_strchr("<>|", data->indexmeta[j]))
+				check = 1;
 		}
-		i++;
-		(void) check_path;
+		if (check == 1)
+			break;
+		while (data->path_split[k] != NULL)
+		{
+			check_path = ft_strjoin(data->path_split[k], cmd_join);
+			printf("check_path = %s\n", check_path);
+			if (access(check_path, X_OK) == 0)
+				break;
+			else
+				k++;
+		}
 	}
-	access(check_path, F_OK);
+	// while (data->line_split[i] != NULL)
+	// {
+	// 	cmd_join = ft_strjoin("/", data->line_split[i]);
+	// 	while (data->path_split[j] != NULL)
+	// 	{
+	// 		check_path = ft_strjoin(data->path_split[j], cmd_join);
+	// 		printf("check_path = %s\n", check_path);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// 	(void) check_path;
+	// }
 }
 
 void	env_split(t_data *data, char **envp_copy)

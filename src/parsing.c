@@ -8,7 +8,7 @@ void	parsing(char *line, char **envp_copy, t_data *data)
 	tokenize(line, data);
 	status(data, line);
 	env_split(data, envp_copy);
-	//search_cmd(data);
+	search_cmd(data, line);
 	sig_handling();
 }
 
@@ -20,7 +20,7 @@ void	tokenize(char *line, t_data *data)
 	i = 0;
 	j = 0;
 	data->line_lenght = ft_strlen(line);
-	printf("l_len = %d\n", data->line_lenght);
+//	printf("l_len = %d\n", data->line_lenght);
 	findlenght(line, data);
 	i = 0;
 	while (line[i] != '\0')
@@ -35,8 +35,8 @@ void	tokenize(char *line, t_data *data)
 		}
 		i++;
 	}
-	printf("%s\n", data->indexmeta);
-	print_line(line, data);
+//	printf("%s\n", data->indexmeta);
+//	print_line(line, data);
 }
 
 int	quote(int i, char *line)
@@ -79,7 +79,7 @@ void	findlenght(char *line, t_data *data)
 		}
 		i++;
 	}
-	printf("lenght = %d\n", lenght);
+	//printf("lenght = %d\n", lenght);
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));
 }
 

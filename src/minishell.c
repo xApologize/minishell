@@ -14,6 +14,7 @@ int	main(void)
 {
 	char		*line;
 	t_data		data;
+	//t_cmd		cmd;
 	extern char	**environ;
 	char		**envp_copy;
 
@@ -27,6 +28,7 @@ int	main(void)
 			exit(0);
 		envp_copy = handle_builtin(line, envp_copy);
 		parsing(line, envp_copy, &data);
+		//set_exec_struct(line, &cmd, &data, envp_copy);
 		free(line);
 	}
 	return (0);
