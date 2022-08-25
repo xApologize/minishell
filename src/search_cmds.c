@@ -1,6 +1,17 @@
 #include "../include/minishell.h"
 
-void	search_cmd(t_data *data, char *line)
+void	print_struct(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	tmp = cmd;
+	printf("print struct!\n");
+	printf("cmd: %s\n", tmp->cmd);
+	printf("cmd1: %s\n", tmp->next->cmd);
+
+}
+
+void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 {
 	int		i;
 	char	*cmd_join;
@@ -8,50 +19,57 @@ void	search_cmd(t_data *data, char *line)
 	int		check;
 	char	*check_path;
 	int		k;
+	char 	*l;
+	t_cmd	*tampax;
 
 	i = 0;
 	j = 0;
 	check = 0;
 	k = 0;
+	l = line;
+	tampax = cmd;
 	printf("line lenght = %d\n", data->line_lenght);
 	while (i < data->line_lenght)
 	{
-		DEBUG;
+		data->redir_bool = 0;
 		while (line[i] != '\0')
 			i++;
-		cmd_join = ft_strjoin("/", line);
-		while (!ft_strchr("<>|", data->indexmeta[j]) && line[i] == '\0')
+		cmd_join = ft_strjoin("/", l);
+		l = line + (i + 1);
+		printf("cmdjoin: %s|\n", cmd_join);
+		printf("l = %s\n", l);
+		while (!ft_strchr("<>|", data->indexmeta[j]) && !l)
 		{
+			l++;
 			j++;
 			i++;
 			if (ft_strchr("<>|", data->indexmeta[j]))
-				check = 1;
+			{
+				data->redir_bool = 1;
+				break ;
+			}
 		}
-		if (check == 1)
-			break;
 		while (data->path_split[k] != NULL)
 		{
 			check_path = ft_strjoin(data->path_split[k], cmd_join);
-			printf("check_path = %s\n", check_path);
+			printf("check_path = %s|\n", check_path);
 			if (access(check_path, X_OK) == 0)
-				break;
+			{			
+				tampax->cmd = check_path;
+				if (data->redir_bool == 1)
+					tampax = tampax->next;
+				break ;
+			}
 			else
 				k++;
 		}
+		k = 0;
+		i++;
 	}
-	// while (data->line_split[i] != NULL)
-	// {
-	// 	cmd_join = ft_strjoin("/", data->line_split[i]);
-	// 	while (data->path_split[j] != NULL)
-	// 	{
-	// 		check_path = ft_strjoin(data->path_split[j], cmd_join);
-	// 		printf("check_path = %s\n", check_path);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// 	(void) check_path;
-	// }
+	print_struct(cmd);
 }
+
+
 
 void	env_split(t_data *data, char **envp_copy)
 {
