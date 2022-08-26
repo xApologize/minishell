@@ -44,7 +44,7 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	char			**argv;
-	char			**environ;
+	char			**env;
 	struct s_cmd	*next;
 }					t_cmd;
 
