@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -11,63 +12,83 @@ void	print_struct(t_cmd *cmd)
 
 }
 
+void	set_fd(t_cmd *cmd, char *line);
+
 void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 {
 	int		i;
-	char	*cmd_join;
 	int		j;
-	int		check;
-	char	*check_path;
-	int		k;
-	char 	*l;
-	t_cmd	*tampax;
+	char	*line_cp;
+	t_cmd	*tmp_cmd;
 
+	line_cp = line;
 	i = 0;
 	j = 0;
-	check = 0;
-	k = 0;
-	l = line;
-	tampax = cmd;
-	printf("line lenght = %d\n", data->line_lenght);
+	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		data->redir_bool = 0;
-		while (line[i] != '\0')
-			i++;
-		cmd_join = ft_strjoin("/", l);
-		l = line + (i + 1);
-		printf("cmdjoin: %s|\n", cmd_join);
-		printf("l = %s\n", l);
-		while (!ft_strchr("<>|", data->indexmeta[j]) && !l)
-		{
-			l++;
-			j++;
-			i++;
-			if (ft_strchr("<>|", data->indexmeta[j]))
-			{
-				data->redir_bool = 1;
-				break ;
-			}
-		}
-		while (data->path_split[k] != NULL)
-		{
-			check_path = ft_strjoin(data->path_split[k], cmd_join);
-			printf("check_path = %s|\n", check_path);
-			if (access(check_path, X_OK) == 0)
-			{			
-				tampax->cmd = check_path;
-				if (data->redir_bool == 1)
-					tampax = tampax->next;
-				break ;
-			}
-			else
-				k++;
-		}
-		k = 0;
-		i++;
+		if (line_cp[i] == '\0' && ft_strchr("<>", data->indexmeta[j++]))
+			set_fd(tmp_cmd, line);
 	}
-	print_struct(cmd);
 }
+
+// void	search_cmd(t_data *data, char *line, t_cmd *cmd)
+// {
+// 	int		i;
+// 	char	*cmd_join;
+// 	int		j;
+// 	int		check;
+// 	char	*check_path;
+// 	int		k;
+// 	char 	*l;
+// 	t_cmd	*tampax;
+//
+// 	i = 0;
+// 	j = 0;
+// 	check = 0;
+// 	k = 0;
+// 	l = line;
+// 	tampax = cmd;
+// 	printf("line lenght = %d\n", data->line_lenght);
+// 	while (i < data->line_lenght)
+// 	{
+// 		data->redir_bool = 0;
+// 		while (line[i] != '\0')
+// 			i++;
+// 		cmd_join = ft_strjoin("/", l);
+// 		l = line + (i + 1);
+// 		printf("cmdjoin: %s|\n", cmd_join);
+// 		printf("l = %s\n", l);
+// 		while (!ft_strchr("<>|", data->indexmeta[j]) && !l)
+// 		{
+// 			l++;
+// 			j++;
+// 			i++;
+// 			if (ft_strchr("<>|", data->indexmeta[j]))
+// 			{
+// 				data->redir_bool = 1;
+// 				break ;
+// 			}
+// 		}
+// 		while (data->path_split[k] != NULL)
+// 		{
+// 			check_path = ft_strjoin(data->path_split[k], cmd_join);
+// 			printf("check_path = %s|\n", check_path);
+// 			if (access(check_path, X_OK) == 0)
+// 			{			
+// 				tampax->cmd = check_path;
+// 				if (data->redir_bool == 1)
+// 					tampax = tampax->next;
+// 				break ;
+// 			}
+// 			else
+// 				k++;
+// 		}
+// 		k = 0;
+// 		i++;
+// 	}
+// 	print_struct(cmd);
+// }
 
 
 
