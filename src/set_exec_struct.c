@@ -39,7 +39,7 @@ t_cmd *create_nodes(char **env)
 	node = malloc(sizeof(t_cmd));
 	if (!node)
 		return(NULL);
-	node->environ = env;
+	node->env = env;
 	node->next = NULL;
 	return (node);
 }
