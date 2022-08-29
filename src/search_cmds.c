@@ -19,32 +19,37 @@ int	set_fd(t_cmd *cmd, char *line, t_data *data)
 {
 	int		i;
 	char	c;
+	char	*line_cp;
 
 	i = 0;
 	c = data->indexmeta[0];
 	cmd = NULL;
+	line_cp = line;
+	while (line[i] == '\0')
+	{
+		line_cp++;
+		i++;
+	}
 	if (c == '<')
 	{
 		if (line[1] == '\0' && data->indexmeta[1] == '<')
 		{
-			printf("heredoc\n");
+			printf("heredoc delim: %s\n", line_cp);
 			data->indexmeta++;
 		}
 		else
-			printf("redir input\n");
+			printf("redir input file: %s\n", line_cp);
 	}
 	else if (c == '>')
 	{
 		if (line[1] == '\0' && data->indexmeta[1] == '>')
 		{
-			printf("redir output append\n");
+			printf("redir output append file: %s\n", line_cp);
 			data->indexmeta++;
 		}
 		else
-			printf("redir output\n");
+			printf("redir output file: %s\n", line_cp);
 	}
-	while (line[i] == '\0')
-		i++;
 	return (i);
 }
 
