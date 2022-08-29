@@ -3,7 +3,6 @@
 void	parsing(char *line, char **envp_copy, t_data *data, t_cmd *cmd)
 {
 	sig_reset();
-	access(envp_copy[0], F_OK);
 	error_quotation(line, data);
 	tokenize(line, data);
 	status(data, line);
@@ -37,7 +36,7 @@ void	tokenize(char *line, t_data *data)
 		i++;
 	}
 //	printf("%s\n", data->indexmeta);
-	print_line(line, data);
+//	print_line(line, data);
 }
 
 int	quote(int i, char *line)
