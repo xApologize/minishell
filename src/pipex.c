@@ -35,7 +35,7 @@ void	redir(t_cmd *cmd)
 
 void	exec_cmd(t_cmd *cmd)
 {
-	execve(cmd->cmd, cmd->argv, cmd->environ);
+	execve(cmd->cmd, cmd->argv, cmd->env);
 	dprintf(2, "something went wrong: %s\n", cmd->cmd);
 	exit(0);
 }
