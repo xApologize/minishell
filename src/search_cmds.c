@@ -63,6 +63,7 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 		{
 			i = set_fd(tmp_cmd, line_cp, data);
 			line_cp = line_cp + i;
+			data->indexmeta++;
 		}
 		else if (line[i] == '\0' && data->indexmeta[0] == ' ')
 		{
