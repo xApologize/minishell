@@ -75,7 +75,7 @@ void	findlenght(char *line, t_data *data)
 			i = quote(i, line);
 		if (ft_strchr(WS_METACHAR, line[i]) && line[i])
 		{
-			printf("in strchr line[%d] = %c\n", i, line[i]);
+			//printf("in strchr line[%d] = %c\n", i, line[i]);
 			lenght++;
 		}
 		i++;
