@@ -11,7 +11,6 @@ void	set_exec_struct(char *line, t_cmd *cmd, t_data *data, char **env)
 	while (i < noeud)
 	{
 		add_nodes(&cmd, create_nodes(env));
-		DEBUG;
 		i++;
 	}
 }
