@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <sys/fcntl.h>
+#include <unistd.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -12,7 +14,19 @@ void	print_struct(t_cmd *cmd)
 
 }
 
-void	set_fd(t_cmd *cmd, char *line);
+int	set_fd(t_cmd *cmd, char *line, char *indexmeta)
+{
+	int	i;
+
+	i = 0;
+	if (line[i] == '\0' && indexmeta[i])
+	while (line[i] == '\0')
+		i++;
+	line = line + i;
+	if (access(line, F_OK) == 0)
+		cmd->redir = open(line, O_RDONLY);
+	return (i);
+}
 
 void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 {
@@ -27,8 +41,11 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		if (line_cp[i] == '\0' && ft_strchr("<>", data->indexmeta[j++]))
-			set_fd(tmp_cmd, line);
+		if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[j++]))
+			set_fd(tmp_cmd, line_cp, data->indexmeta);
+		printf("set_fd cmd->redir: %i\n", cmd->redir);
+		i++;
+		line_cp++;
 	}
 }
 
