@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <strings.h>
 #include <sys/fcntl.h>
 #include <unistd.h>
 
@@ -14,38 +15,66 @@ void	print_struct(t_cmd *cmd)
 
 }
 
-int	set_fd(t_cmd *cmd, char *line, char *indexmeta)
+int	set_fd(t_cmd *cmd, char *line, t_data *data)
 {
-	int	i;
+	int		i;
+	char	c;
 
 	i = 0;
-	if (line[i] == '\0' && indexmeta[i])
+	c = data->indexmeta[0];
+	cmd = NULL;
+	if (c == '<')
+	{
+		if (line[1] == '\0' && data->indexmeta[1] == '<')
+		{
+			printf("heredoc\n");
+			data->indexmeta++;
+		}
+		else
+			printf("redir input\n");
+	}
+	else if (c == '>')
+	{
+		if (line[1] == '\0' && data->indexmeta[1] == '>')
+		{
+			printf("redir output append\n");
+			data->indexmeta++;
+		}
+		else
+			printf("redir output\n");
+	}
 	while (line[i] == '\0')
 		i++;
-	line = line + i;
-	if (access(line, F_OK) == 0)
-		cmd->redir = open(line, O_RDONLY);
 	return (i);
 }
 
 void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 {
 	int		i;
-	int		j;
 	char	*line_cp;
 	t_cmd	*tmp_cmd;
 
 	line_cp = line;
 	i = 0;
-	j = 0;
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[j++]))
-			set_fd(tmp_cmd, line_cp, data->indexmeta);
-		printf("set_fd cmd->redir: %i\n", cmd->redir);
-		i++;
-		line_cp++;
+		if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[0]))
+		{
+			i = set_fd(tmp_cmd, line_cp, data);
+			line_cp = line_cp + i;
+		}
+		else if (line[i] == '\0' && data->indexmeta[0] == ' ')
+		{
+			data->indexmeta++;
+			i++;
+			line_cp++;
+		}
+		else
+		{
+			i++;
+			line_cp++;
+		}
 	}
 }
 
