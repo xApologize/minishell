@@ -25,7 +25,7 @@ int	set_fd(t_cmd *cmd, char *line, t_data *data)
 	c = data->indexmeta[0];
 	cmd = NULL;
 	line_cp = line;
-	while (line[i] == '\0')
+	while (line[i] == '\0' && data->indexmeta[0] != '\0')
 	{
 		line_cp++;
 		i++;
@@ -56,31 +56,24 @@ int	set_fd(t_cmd *cmd, char *line, t_data *data)
 void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 {
 	int		i;
-	char	*line_cp;
 	t_cmd	*tmp_cmd;
 
-	line_cp = line;
 	i = 0;
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[0]))
+		// if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[0]))
+		if (*line == '\0' && ft_strchr("<>", data->indexmeta[0]))
 		{
-			i = set_fd(tmp_cmd, line_cp, data);
-			line_cp = line_cp + i;
+			//i += set_fd(tmp_cmd, line, data)
+			line += set_fd(tmp_cmd, line, data);
+			// line += set_fd(tmp_cmd, line, data);
 			data->indexmeta++;
 		}
-		else if (line[i] == '\0' && data->indexmeta[0] == ' ')
-		{
+		else if (*line == '\0' && data->indexmeta[0] == ' ')
 			data->indexmeta++;
-			i++;
-			line_cp++;
-		}
-		else
-		{
-			i++;
-			line_cp++;
-		}
+		i++;
+		line++;
 	}
 }
 
