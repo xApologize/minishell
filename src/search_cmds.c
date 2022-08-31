@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <strings.h>
 #include <sys/fcntl.h>
 #include <sys/unistd.h>
@@ -20,17 +21,14 @@ void	set_fd_in(t_cmd *cmd, char *line)
 {
 	if (!cmd || !line)
 		return ;
-	printf("set_fd_in\n");
 	if (access(line, F_OK) == 0)
 		cmd->redir_in = open(line, O_RDWR);
-	printf("cmd->redir_in: %i\n", cmd->redir_in);
 }
 
 void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 {
 	if (!cmd || !line)
 		return ;
-	printf("set_fd_out\n");
 	if (append == 0)
 		cmd->redir_out = open(line, O_RDWR | O_CREAT, 0777);
 	else
@@ -38,13 +36,43 @@ void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 		cmd->redir_out = open(line, O_RDWR | O_APPEND | O_CREAT, 0777);
 		data->indexmeta++;
 	}
-	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
-void	set_cmd(t_cmd *cmd, char *line)
+char	*get_path(char *line, t_data *data)
 {
-	cmd = NULL;
-	line = NULL;
+	int		i;
+	char	*slash;
+	char	*access_try;
+
+	i = 0;
+	printf("line: %s\n", line);
+	slash = ft_strjoin("/", line);
+	while (data->path_split[i] != NULL)
+	{
+		access_try = ft_strjoin(data->path_split[i], slash);
+		printf("access_try: %s\n", access_try);
+		if (access(access_try, X_OK) == 0)
+		{
+			free(slash);
+			return (access_try);
+		}
+		i++;
+		free(access_try);
+	}
+	return (NULL);
+}
+
+int	set_cmd(t_cmd *cmd, char *line, t_data *data)
+{
+	int		i;
+	char	*line_cp;
+
+	i = 0;
+	line_cp = line;
+	while (line[i++] == '\0' && data->indexmeta[0] != '\0')
+		line_cp++;
+	cmd->cmd = get_path(line_cp, data);
+	return (i);
 }
 
 int	get_fd(t_cmd *cmd, char *line, t_data *data)
@@ -70,6 +98,7 @@ int	get_fd(t_cmd *cmd, char *line, t_data *data)
 		else
 			set_fd_out(cmd, line_cp, 0, data);
 	}
+	data->indexmeta++;
 	return (i);
 }
 
@@ -83,14 +112,11 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 	while (i < data->line_lenght)
 	{
 		if (*line == '\0' && ft_strchr("<>", data->indexmeta[0]))
-		{
 			line += get_fd(tmp_cmd, line, data);
-			data->indexmeta++;
-		}
 		else if (*line == '\0' && data->indexmeta[0] == ' ')
-			data->indexmeta++;
+			line += set_cmd(cmd, line, data);
 		else if (*line == '\0' && data->indexmeta[0] == '|')
-			set_cmd(tmp_cmd, line);
+			tmp_cmd = tmp_cmd->next;
 		i++;
 		line++;
 	}
