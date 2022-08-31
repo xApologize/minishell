@@ -109,7 +109,7 @@ void	sigint_handler(int signum);
 void	handle_pwd(char **opt);
 
 //heredoc.c
-void	heredoc(char *delimiter, int fd);
+int		heredoc(char *delimiter, t_data *data);
 
 //freeopt.c
 void	freeopt(char **opt);
