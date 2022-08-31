@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <strings.h>
 #include <sys/fcntl.h>
+#include <sys/unistd.h>
 #include <unistd.h>
 
 void	print_struct(t_cmd *cmd)
@@ -15,40 +16,59 @@ void	print_struct(t_cmd *cmd)
 
 }
 
-int	set_fd(t_cmd *cmd, char *line, t_data *data)
+void	set_fd_in(t_cmd *cmd, char *line)
+{
+	if (!cmd || !line)
+		return ;
+	printf("set_fd_in\n");
+	if (access(line, F_OK) == 0)
+		cmd->redir_in = open(line, O_RDWR);
+	printf("cmd->redir_in: %i\n", cmd->redir_in);
+}
+
+void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
+{
+	if (!cmd || !line)
+		return ;
+	printf("set_fd_out\n");
+	if (append == 0)
+		cmd->redir_out = open(line, O_RDWR | O_CREAT, 0777);
+	else
+	{
+		cmd->redir_out = open(line, O_RDWR | O_APPEND | O_CREAT, 0777);
+		data->indexmeta++;
+	}
+	printf("cmd->redir_out: %i\n", cmd->redir_out);
+}
+
+void	set_cmd(t_cmd *cmd, char *line)
+{
+	cmd = NULL;
+	line = NULL;
+}
+
+int	get_fd(t_cmd *cmd, char *line, t_data *data)
 {
 	int		i;
-	char	c;
 	char	*line_cp;
 
 	i = 0;
-	c = data->indexmeta[0];
-	cmd = NULL;
 	line_cp = line;
-	while (line[i] == '\0' && data->indexmeta[0] != '\0')
-	{
+	while (line[i++] == '\0' && data->indexmeta[0] != '\0')
 		line_cp++;
-		i++;
-	}
-	if (c == '<')
+	if (data->indexmeta[0] == '<')
 	{
 		if (line[1] == '\0' && data->indexmeta[1] == '<')
-		{
-			printf("heredoc delim: %s\n", line_cp);
-			data->indexmeta++;
-		}
+			cmd->redir_in = heredoc(line_cp, data);
 		else
-			printf("redir input file: %s\n", line_cp);
+			set_fd_in(cmd, line_cp);
 	}
-	else if (c == '>')
+	else if (data->indexmeta[0] == '>')
 	{
 		if (line[1] == '\0' && data->indexmeta[1] == '>')
-		{
-			printf("redir output append file: %s\n", line_cp);
-			data->indexmeta++;
-		}
+			set_fd_out(cmd, line_cp, 1, data);
 		else
-			printf("redir output file: %s\n", line_cp);
+			set_fd_out(cmd, line_cp, 0, data);
 	}
 	return (i);
 }
@@ -62,16 +82,15 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		// if (line[i] == '\0' && ft_strchr("<>", data->indexmeta[0]))
 		if (*line == '\0' && ft_strchr("<>", data->indexmeta[0]))
 		{
-			//i += set_fd(tmp_cmd, line, data)
-			line += set_fd(tmp_cmd, line, data);
-			// line += set_fd(tmp_cmd, line, data);
+			line += get_fd(tmp_cmd, line, data);
 			data->indexmeta++;
 		}
 		else if (*line == '\0' && data->indexmeta[0] == ' ')
 			data->indexmeta++;
+		else if (*line == '\0' && data->indexmeta[0] == '|')
+			set_cmd(tmp_cmd, line);
 		i++;
 		line++;
 	}
