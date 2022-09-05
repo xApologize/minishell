@@ -45,6 +45,13 @@ void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
+char	**get_argv(char *line, t_data *data)
+{
+	(void)line;
+	(void)data;
+	return (NULL);
+}
+
 char	*get_path(char *line, t_data *data)
 {
 	int		i;
@@ -57,7 +64,7 @@ char	*get_path(char *line, t_data *data)
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
-		printf("access_try: %s\n", access_try);
+		//printf("access_try: %s\n", access_try);
 		if (access(access_try, X_OK) == 0)
 		{
 			free(slash);
@@ -72,13 +79,27 @@ char	*get_path(char *line, t_data *data)
 int	set_cmd(t_cmd *cmd, char *line, t_data *data)
 {
 	int		i;
+	char	*line_cp;
 
 	i = 0;
+	line_cp = line;
 	printf("set_cmd line: %s\n", line);
 	cmd->cmd = get_path(line, data);
-	cmd->argv = get_argv(line, data);
-	data->indexmeta++;
-	while (line[i++] != '\0');
+	while (line[i++] != '\0')
+		line_cp++;
+	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+	{
+		data->indexmeta++;
+		printf("argv\n");
+		while (data->indexmeta[0] != '\0')
+		{
+			if (line[i] == '\0' && !ft_strchr("<>|", data->indexmeta[0]))
+				data->indexmeta++;
+			else if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
+				break ;
+			i++;
+		}
+	}
 	return (i - 1);
 }
 
@@ -126,13 +147,16 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 		else if (*line == '\0' && data->indexmeta[0] == ' ')
 			data->indexmeta++;
 		else if (*line == '\0' && data->indexmeta[0] == '|')
+		{
 			tmp_cmd = tmp_cmd->next;
+			data->indexmeta++;
+		}
 		else
-			line += set_cmd(cmd, line, data);
+			line += set_cmd(tmp_cmd, line, data);
 		i++;
 		line++;
 	}
-	print_struct(tmp_cmd);
+	print_struct(cmd);
 }
 
 // void	search_cmd(t_data *data, char *line, t_cmd *cmd)

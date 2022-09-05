@@ -158,7 +158,7 @@ void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
 //set_exec_struct
-void	set_exec_struct(char *line, t_cmd *cmd, t_data *data, char **env);
+t_cmd	*set_exec_struct(char *line, t_data *data, char **env);
 int		nb_pipes(t_data *data);
 t_cmd 	*create_nodes(char **env);
 void 	add_nodes(t_cmd **cmd, t_cmd *new_cmd);

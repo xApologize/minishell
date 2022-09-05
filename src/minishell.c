@@ -20,9 +20,9 @@ int	main(void)
 	char		**envp_copy;
 
 	envp_copy = envp_cp(environ);
-	cmd = malloc(sizeof(t_cmd));
 	print_intro();
 	sig_handling();
+	cmd = NULL;
 	while (1)
 	{
 		line = rl_gets();

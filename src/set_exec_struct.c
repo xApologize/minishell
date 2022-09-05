@@ -1,18 +1,22 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
-void	set_exec_struct(char *line, t_cmd *cmd, t_data *data, char **env)
+t_cmd	*set_exec_struct(char *line, t_data *data, char **env)
 {
 	int		i;
 	int		noeud;
+	t_cmd	*list;
 
 	i = 0;
 	(void)line;
 	noeud = nb_pipes(data);
-	while (i < noeud)
+	list = NULL;
+	while ( i < noeud)
 	{
-		add_nodes(&cmd, create_nodes(env));
+		add_nodes(&list, create_nodes(env));
 		i++;
 	}
+	return (list);
 }
 
 int	nb_pipes(t_data *data)
@@ -38,6 +42,9 @@ t_cmd *create_nodes(char **env)
 	node = malloc(sizeof(t_cmd));
 	if (!node)
 		return(NULL);
+	node->redir_in = PIPE_READ;
+	node->redir_out = PIPE_WRITE;
+	node->cmd = "patate";
 	node->env = env;
 	node->next = NULL;
 	return (node);
@@ -47,7 +54,7 @@ void add_nodes(t_cmd **cmd, t_cmd *new_cmd)
 {
 	t_cmd *last;
 
-	if (*cmd == NULL)
+	if (!*cmd)
 		*cmd = new_cmd;
 	else
 	{
