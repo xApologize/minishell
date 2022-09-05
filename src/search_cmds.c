@@ -12,8 +12,11 @@ void	print_struct(t_cmd *cmd)
 
 	tmp = cmd;
 	printf("print struct!\n");
-	printf("cmd: %s\n", tmp->cmd);
-	printf("cmd1: %s\n", tmp->next->cmd);
+	while (tmp != NULL)
+	{
+		printf("cmd: %s\n", tmp->cmd);
+		tmp = tmp->next;
+	}
 
 }
 
@@ -21,14 +24,17 @@ void	set_fd_in(t_cmd *cmd, char *line)
 {
 	if (!cmd || !line)
 		return ;
+	printf("line in: %s\n", line);
 	if (access(line, F_OK) == 0)
 		cmd->redir_in = open(line, O_RDWR);
+	printf("cmd->redir_in: %i\n", cmd->redir_in);
 }
 
 void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 {
 	if (!cmd || !line)
 		return ;
+	printf("line out: %s\n", line);
 	if (append == 0)
 		cmd->redir_out = open(line, O_RDWR | O_CREAT, 0777);
 	else
@@ -36,6 +42,7 @@ void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 		cmd->redir_out = open(line, O_RDWR | O_APPEND | O_CREAT, 0777);
 		data->indexmeta++;
 	}
+	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
 char	*get_path(char *line, t_data *data)
@@ -45,7 +52,7 @@ char	*get_path(char *line, t_data *data)
 	char	*access_try;
 
 	i = 0;
-	printf("line: %s\n", line);
+	//printf("line: %s\n", line);
 	slash = ft_strjoin("/", line);
 	while (data->path_split[i] != NULL)
 	{
@@ -65,14 +72,14 @@ char	*get_path(char *line, t_data *data)
 int	set_cmd(t_cmd *cmd, char *line, t_data *data)
 {
 	int		i;
-	char	*line_cp;
 
 	i = 0;
-	line_cp = line;
-	while (line[i++] == '\0' && data->indexmeta[0] != '\0')
-		line_cp++;
-	cmd->cmd = get_path(line_cp, data);
-	return (i);
+	printf("set_cmd line: %s\n", line);
+	cmd->cmd = get_path(line, data);
+	cmd->argv = get_argv(line, data);
+	data->indexmeta++;
+	while (line[i++] != '\0');
+	return (i - 1);
 }
 
 int	get_fd(t_cmd *cmd, char *line, t_data *data)
@@ -98,8 +105,9 @@ int	get_fd(t_cmd *cmd, char *line, t_data *data)
 		else
 			set_fd_out(cmd, line_cp, 0, data);
 	}
-	data->indexmeta++;
-	return (i);
+	data->indexmeta += (i - 1);
+	while (line[i++] != '\0');
+	return (i - 1);
 }
 
 void	search_cmd(t_data *data, char *line, t_cmd *cmd)
@@ -111,15 +119,20 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
+		if (*line == '\0' && data->indexmeta[0] == '\0')
+			break ;
 		if (*line == '\0' && ft_strchr("<>", data->indexmeta[0]))
 			line += get_fd(tmp_cmd, line, data);
 		else if (*line == '\0' && data->indexmeta[0] == ' ')
-			line += set_cmd(cmd, line, data);
+			data->indexmeta++;
 		else if (*line == '\0' && data->indexmeta[0] == '|')
 			tmp_cmd = tmp_cmd->next;
+		else
+			line += set_cmd(cmd, line, data);
 		i++;
 		line++;
 	}
+	print_struct(tmp_cmd);
 }
 
 // void	search_cmd(t_data *data, char *line, t_cmd *cmd)
@@ -196,6 +209,7 @@ void	env_split(t_data *data, char **envp_copy)
 	}
 	if (envp_copy[find] != NULL)
 		data->path_split = ft_split(envp_copy[find], ':');
+	data->path_split[0] = data->path_split[0] + 5;
 }
 
 void	trim_path(t_data *data)
