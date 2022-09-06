@@ -7,4 +7,5 @@ lib/libft.a
 .vscode
 minishell
 src/pipex
+oufile
 src/heredoc
