@@ -20,39 +20,39 @@ void	print_struct(t_cmd *cmd)
 
 }
 
-void	set_fd_in(t_cmd *cmd, char *line)
+void	set_fd_in(t_cmd *cmd, char *line_cp)
 {
-	if (!cmd || !line)
+	if (!cmd || !line_cp)
 		return ;
-	printf("line in: %s\n", line);
-	if (access(line, F_OK) == 0)
-		cmd->redir_in = open(line, O_RDWR);
+	printf("line in: %s\n", line_cp);
+	if (access(line_cp, F_OK) == 0)
+		cmd->redir_in = open(line_cp, O_RDWR);
 	printf("cmd->redir_in: %i\n", cmd->redir_in);
 }
 
-void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
+void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 {
-	if (!cmd || !line)
+	if (!cmd || !data->line)
 		return ;
-	printf("line out: %s\n", line);
+	printf("line out: %s\n", data->line);
 	if (append == 0)
-		cmd->redir_out = open(line, O_RDWR | O_CREAT, 0777);
+		cmd->redir_out = open(data->line, O_RDWR | O_CREAT, 0777);
 	else
 	{
-		cmd->redir_out = open(line, O_RDWR | O_APPEND | O_CREAT, 0777);
+		cmd->redir_out = open(data->line, O_RDWR | O_APPEND | O_CREAT, 0777);
 		data->indexmeta++;
 	}
 	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
-char	*get_path(char *line, t_data *data)
+char	*get_path(t_data *data)
 {
 	int		i;
 	char	*slash;
 	char	*access_try;
 
 	i = 0;
-	slash = ft_strjoin("/", line);
+	slash = ft_strjoin("/", data->line);
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
@@ -67,12 +67,12 @@ char	*get_path(char *line, t_data *data)
 	return (NULL);
 }
 
-char	**get_argv(char *line, t_data *data)
+char	**get_argv(t_data *data)
 {
 	char	*line_cp;
 	int		argv_count;
 
-	line_cp = line;
+	line_cp = data->line;
 	argv_count = 1;
 	while (data->indexmeta[0] != '\0')
 	{
@@ -89,21 +89,21 @@ char	**get_argv(char *line, t_data *data)
 	return (NULL);
 }
 
-int	set_cmd(t_cmd *cmd, char *line, t_data *data)
+int	set_cmd(t_cmd *cmd, t_data *data)
 {
 	int		i;
 	char	*line_cp;
 
 	i = 0;
-	line_cp = line;
-	printf("set_cmd line: %s\n", line);
-	cmd->cmd = get_path(line, data);
-	while (line[i++] != '\0')
+	line_cp = data->line;
+	printf("set_cmd line: %s\n", data->line);
+	cmd->cmd = get_path(data);
+	while (data->line[i++] != '\0')
 		line_cp++;
 	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
 	{
 		data->indexmeta++;
-		cmd->argv = get_argv(line, data);
+		cmd->argv = get_argv(data);
 	}
 	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
 	{
@@ -129,36 +129,36 @@ int	set_cmd(t_cmd *cmd, char *line, t_data *data)
 	return (i - 1);
 }
 
-int	get_fd(t_cmd *cmd, char *line, t_data *data)
+int	get_fd(t_cmd *cmd, t_data *data)
 {
 	int		i;
 	char	*line_cp;
 
 	i = 0;
-	line_cp = line;
-	while (line[i++] == '\0' && data->indexmeta[0] != '\0')
+	line_cp = data->line;
+	while (data->line[i++] == '\0' && data->indexmeta[0] != '\0')
 		line_cp++;
 	if (data->indexmeta[0] == '<')
 	{
-		if (line[1] == '\0' && data->indexmeta[1] == '<')
+		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
 			cmd->redir_in = heredoc(line_cp, data);
 		else
 			set_fd_in(cmd, line_cp);
 	}
 	else if (data->indexmeta[0] == '>')
 	{
-		if (line[1] == '\0' && data->indexmeta[1] == '>')
-			set_fd_out(cmd, line_cp, 1, data);
+		if (data->line[1] == '\0' && data->indexmeta[1] == '>')
+			set_fd_out(cmd, 1, data);
 		else
-			set_fd_out(cmd, line_cp, 0, data);
+			set_fd_out(cmd, 0, data);
 	}
 	data->indexmeta += (i - 1);
-	while (line[i] != '\0')
+	while (data->line[i] != '\0')
 		i++;
 	return (i - 1);
 }
 
-void	search_cmd(t_data *data, char *line, t_cmd *cmd)
+void	search_cmd(t_data *data, t_cmd *cmd)
 {
 	int		i;
 	t_cmd	*tmp_cmd;
@@ -167,21 +167,21 @@ void	search_cmd(t_data *data, char *line, t_cmd *cmd)
 	tmp_cmd = cmd;
 	while (i < data->line_lenght)
 	{
-		if (*line == '\0' && data->indexmeta[0] == '\0')
+		if (*data->line == '\0' && data->indexmeta[0] == '\0')
 			break ;
-		if (*line == '\0' && ft_strchr("<>", data->indexmeta[0]))
-			line += get_fd(tmp_cmd, line, data);
-		else if (*line == '\0' && data->indexmeta[0] == ' ')
+		if (*data->line == '\0' && ft_strchr("<>", data->indexmeta[0]))
+			data->line += get_fd(tmp_cmd, data);
+		else if (*data->line == '\0' && data->indexmeta[0] == ' ')
 			data->indexmeta++;
-		else if (*line == '\0' && data->indexmeta[0] == '|')
+		else if (*data->line == '\0' && data->indexmeta[0] == '|')
 		{
 			tmp_cmd = tmp_cmd->next;
 			data->indexmeta++;
 		}
 		else
-			line += set_cmd(tmp_cmd, line, data);
+			data->line += set_cmd(tmp_cmd, data);
 		i++;
-		line++;
+		data->line++;
 	}
 	print_struct(cmd);
 }

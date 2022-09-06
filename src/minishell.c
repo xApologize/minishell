@@ -13,7 +13,6 @@
 
 int	main(void)
 {
-	char		*line;
 	t_data		data;
 	t_cmd		*cmd;
 	extern char	**environ;
@@ -25,12 +24,12 @@ int	main(void)
 	cmd = NULL;
 	while (1)
 	{
-		line = rl_gets();
-		if (line == NULL)
+		data.line = rl_gets();
+		if (data.line == NULL)
 			exit(0);
-		envp_copy = handle_builtin(line, envp_copy);
-		parsing(line, envp_copy, &data, cmd);
-		free(line);
+		envp_copy = handle_builtin(data.line, envp_copy);
+		parsing(envp_copy, &data, cmd);
+		free(data.line);
 	}
 	return (0);
 }

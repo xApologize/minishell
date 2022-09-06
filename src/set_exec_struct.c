@@ -1,14 +1,13 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-t_cmd	*set_exec_struct(char *line, t_data *data, char **env)
+t_cmd	*set_exec_struct(t_data *data, char **env)
 {
 	int		i;
 	int		noeud;
 	t_cmd	*list;
 
 	i = 0;
-	(void)line;
 	noeud = nb_pipes(data);
 	list = NULL;
 	while ( i < noeud)
