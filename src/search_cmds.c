@@ -45,13 +45,6 @@ void	set_fd_out(t_cmd *cmd, char *line, int append, t_data *data)
 	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
-char	**get_argv(char *line, t_data *data)
-{
-	(void)line;
-	(void)data;
-	return (NULL);
-}
-
 char	*get_path(char *line, t_data *data)
 {
 	int		i;
@@ -59,12 +52,10 @@ char	*get_path(char *line, t_data *data)
 	char	*access_try;
 
 	i = 0;
-	//printf("line: %s\n", line);
 	slash = ft_strjoin("/", line);
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
-		//printf("access_try: %s\n", access_try);
 		if (access(access_try, X_OK) == 0)
 		{
 			free(slash);
@@ -73,6 +64,28 @@ char	*get_path(char *line, t_data *data)
 		i++;
 		free(access_try);
 	}
+	return (NULL);
+}
+
+char	**get_argv(char *line, t_data *data)
+{
+	char	*line_cp;
+	int		argv_count;
+
+	line_cp = line;
+	argv_count = 1;
+	while (*line_cp != '\0' && data->indexmeta[0] != '\0')
+	{
+		if (*line_cp == '\0' && ft_strchr("<>|", data->indexmeta[0]))
+			break ;
+		if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+		{
+			data->indexmeta++;
+			argv_count++;
+		}
+		line_cp++;
+	}
+	printf("argv_count: %i\n", argv_count);
 	return (NULL);
 }
 
@@ -90,16 +103,21 @@ int	set_cmd(t_cmd *cmd, char *line, t_data *data)
 	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
 	{
 		data->indexmeta++;
-		printf("argv\n");
-		while (data->indexmeta[0] != '\0')
-		{
-			if (line[i] == '\0' && !ft_strchr("<>|", data->indexmeta[0]))
-				data->indexmeta++;
-			else if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
-				break ;
-			i++;
-		}
+		cmd->argv = get_argv(line, data);
 	}
+	// if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+	// {
+	// 	data->indexmeta++;
+	// 	printf("argv\n");
+	// 	while (line[i] || data->indexmeta[0] != '\0')
+	// 	{
+	// 		if (line[i] == '\0' && !ft_strchr("<>|", data->indexmeta[0]))
+	// 			data->indexmeta++;
+	// 		else if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
+	// 			break ;
+	// 		i++;
+	// 	}
+	// }
 	return (i - 1);
 }
 
@@ -127,7 +145,8 @@ int	get_fd(t_cmd *cmd, char *line, t_data *data)
 			set_fd_out(cmd, line_cp, 0, data);
 	}
 	data->indexmeta += (i - 1);
-	while (line[i++] != '\0');
+	while (line[i] != '\0')
+		i++;
 	return (i - 1);
 }
 
