@@ -70,17 +70,19 @@ char	*get_path(t_data *data)
 char	**get_argv(t_data *data)
 {
 	char	*line_cp;
+	char	*indexmeta_cp;
 	int		argv_count;
 
 	line_cp = data->line;
+	indexmeta_cp = data->indexmeta;
 	argv_count = 1;
-	while (data->indexmeta[0] != '\0')
+	while (*indexmeta_cp != '\0')
 	{
-		if (*line_cp == '\0' && ft_strchr("<>|", data->indexmeta[0]))
+		if (*line_cp == '\0' && ft_strchr("<>|", *indexmeta_cp))
 			break ;
-		if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+		if (*line_cp == '\0' && *indexmeta_cp == ' ')
 		{
-			data->indexmeta++;
+			indexmeta_cp++;
 			argv_count++;
 		}
 		line_cp++;
@@ -98,52 +100,34 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	line_cp = data->line;
 	printf("set_cmd line: %s\n", data->line);
 	cmd->cmd = get_path(data);
-	while (data->line[i++] != '\0')
-		line_cp++;
-	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+	while (*data->line != '\0')
+		data->line++;
+	if (*data->line == '\0' && data->indexmeta[0] == ' ')
 	{
-		data->indexmeta++;
+		printf("argv!\n");
 		cmd->argv = get_argv(data);
 	}
-	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
-	{
-		while (line[i] || data->indexmeta[0] != '\0') 
-		{
-			if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
-			
-		}
-	}
-	// if (*line_cp == '\0' && data->indexmeta[0] == ' ')
-	// {
-	// 	data->indexmeta++;
-	// 	printf("argv\n");
-	// 	while (line[i] || data->indexmeta[0] != '\0')
-	// 	{
-	// 		if (line[i] == '\0' && !ft_strchr("<>|", data->indexmeta[0]))
-	// 			data->indexmeta++;
-	// 		else if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
-	// 			break ;
-	// 		i++;
-	// 	}
-	// }
+	while (*data->line != '\0')
+		data->line++;
 	return (i - 1);
 }
 
-int	get_fd(t_cmd *cmd, t_data *data)
+void	get_fd(t_cmd *cmd, t_data *data)
 {
 	int		i;
-	char	*line_cp;
 
 	i = 0;
-	line_cp = data->line;
-	while (data->line[i++] == '\0' && data->indexmeta[0] != '\0')
-		line_cp++;
+	while (*data->line == '\0')
+	{
+		data->line++;
+		i++;
+	}
 	if (data->indexmeta[0] == '<')
 	{
 		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
-			cmd->redir_in = heredoc(line_cp, data);
+			cmd->redir_in = heredoc(data->line, data);
 		else
-			set_fd_in(cmd, line_cp);
+			set_fd_in(cmd, data->line);
 	}
 	else if (data->indexmeta[0] == '>')
 	{
@@ -152,10 +136,9 @@ int	get_fd(t_cmd *cmd, t_data *data)
 		else
 			set_fd_out(cmd, 0, data);
 	}
-	data->indexmeta += (i - 1);
-	while (data->line[i] != '\0')
-		i++;
-	return (i - 1);
+	data->indexmeta += i;
+	while (*data->line != '\0')
+		data->line++;
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
@@ -170,7 +153,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		if (*data->line == '\0' && data->indexmeta[0] == '\0')
 			break ;
 		if (*data->line == '\0' && ft_strchr("<>", data->indexmeta[0]))
-			data->line += get_fd(tmp_cmd, data);
+			get_fd(tmp_cmd, data);
 		else if (*data->line == '\0' && data->indexmeta[0] == ' ')
 			data->indexmeta++;
 		else if (*data->line == '\0' && data->indexmeta[0] == '|')
@@ -179,7 +162,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			data->indexmeta++;
 		}
 		else
-			data->line += set_cmd(tmp_cmd, data);
+			set_cmd(tmp_cmd, data);
 		i++;
 		data->line++;
 	}
