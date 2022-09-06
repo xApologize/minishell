@@ -74,7 +74,7 @@ char	**get_argv(char *line, t_data *data)
 
 	line_cp = line;
 	argv_count = 1;
-	while (*line_cp != '\0' && data->indexmeta[0] != '\0')
+	while (data->indexmeta[0] != '\0')
 	{
 		if (*line_cp == '\0' && ft_strchr("<>|", data->indexmeta[0]))
 			break ;
@@ -104,6 +104,14 @@ int	set_cmd(t_cmd *cmd, char *line, t_data *data)
 	{
 		data->indexmeta++;
 		cmd->argv = get_argv(line, data);
+	}
+	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
+	{
+		while (line[i] || data->indexmeta[0] != '\0') 
+		{
+			if (line[i] == '\0' && ft_strchr("<>|", data->indexmeta[0]))
+			
+		}
 	}
 	// if (*line_cp == '\0' && data->indexmeta[0] == ' ')
 	// {

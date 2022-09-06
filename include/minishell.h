@@ -29,6 +29,7 @@ typedef struct s_data
 	char	**line_split;
 	int		if_no_meta;
 	char	*indexmeta;
+	char	*line;
 	int		line_lenght;
 	bool	error_status;
 	bool	error_quotes;
