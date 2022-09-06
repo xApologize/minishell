@@ -29,7 +29,7 @@ int	main(void)
 			exit(0);
 		envp_copy = handle_builtin(data.line, envp_copy);
 		parsing(envp_copy, &data, cmd);
-		free(data.line);
+		//free(data.line);
 	}
 	return (0);
 }
