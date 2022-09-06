@@ -27,8 +27,9 @@ typedef struct s_data
 {
 	char	**path_split;
 	char	**line_split;
-	int		if_no_meta;
 	char	*indexmeta;
+	char	*line;
+	int		if_no_meta;
 	int		line_lenght;
 	bool	error_status;
 	bool	error_quotes;
@@ -66,10 +67,10 @@ int		find_oldpwd(char **envp_copy);
 int		find_pwd(char **envp_copy);
 
 //echo_utils.c
-void	handle_echo(char *line, char **opt);
-void	print_echo_with_n(char *line);
-void	print_echo_without_n(char *line);
-int		skip_n(char *line);
+void	handle_echo(char **opt);
+void	print_echo_with_n();
+void	print_echo_without_n();
+int		skip_n();
 
 //check_n.c
 int		check_n(char *opt);
@@ -78,10 +79,10 @@ int		check_n(char *opt);
 void	handle_env(char **opt, char **envp_copy);
 
 //handle_exit.c
-void	handle_exit(char *line, char **opt, char **envp_copy);
+void	handle_exit(char **opt, char **envp_copy);
 
 //export_utils.c
-char	**handle_export(char *line, char **envp_copy);
+char	**handle_export(char **envp_copy);
 bool	checkvalidenv(char *arg);
 bool	checkvalidassign(bool env_stat, char *arg);
 bool	checkassign(char *arg);
@@ -129,15 +130,15 @@ char	*get_home(char **envp_copy);
 //minishell
 
 //parsing.c
-void	parsing(char *line, char **envp_copy, t_data *data, t_cmd *cmd);
-void	tokenize(char *line, t_data *data);
+void	parsing(char **envp_copy, t_data *data, t_cmd *cmd);
+void	tokenize(t_data *data);
 
 // parsing_utils.c
-int		quote(int i, char *line);
-void	check_pipe(char *line, t_data *data);
-void	tokenize_quote(char *line, t_data *data);
-void	findlenght(char *line, t_data *data);
-void	print_line(char *line, t_data *data);
+int		quote(int i, t_data *data);
+void	check_pipe(t_data *data);
+void	tokenize_quote(t_data *data);
+void	findlenght(t_data *data);
+void	print_line(t_data *data);
 
 //pipex.c
 void	pipex(t_cmd *cmd);
@@ -145,20 +146,20 @@ void	exec_cmd(t_cmd *cmd);
 void	redir(t_cmd *cmd);
 
 //quotation.c
-bool	error_quotation(char *line, t_data *data);
-int		squotes(char *line, int i, t_data *data);
-int		dquotes(char *line, int i, t_data *data);
+bool	error_quotation(t_data *data);
+int		squotes(int i, t_data *data);
+int		dquotes(int i, t_data *data);
 
 //rl_gets.c
 char	*rl_gets(void);
 
 //search_cmd.c
-void	search_cmd(t_data *data, char *line, t_cmd *cmd);
+void	search_cmd(t_data *data, t_cmd *cmd);
 void	env_split(t_data *data, char **envp_copy);
 void	trim_path(t_data *data);
 
 //set_exec_struct
-t_cmd	*set_exec_struct(char *line, t_data *data, char **env);
+t_cmd	*set_exec_struct(t_data *data, char **env);
 int		nb_pipes(t_data *data);
 t_cmd 	*create_nodes(char **env);
 void 	add_nodes(t_cmd **cmd, t_cmd *new_cmd);
@@ -174,5 +175,5 @@ void	sig_reset(void);
 void	sigint_handler(int signum);
 
 //status_error.c
-void	status(t_data *data, char *line);
+void	status(t_data *data);
 #endif
