@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	status(t_data *data, char *line)
+void	status(t_data *data)
 {
 	int	i;
 
@@ -9,8 +9,8 @@ void	status(t_data *data, char *line)
 		dprintf(2, "quotes is odd\n");
 	if (data->error_first_cmd == true)
 	{
-		while (line[i] != '\0')
-			dprintf(2, "%c", line[i++]);
+		while (data->line[i] != '\0')
+			dprintf(2, "%c", data->line[i++]);
 		// regarder pour commande not found perror
 		printf("\n");
 	}
