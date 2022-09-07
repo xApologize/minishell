@@ -9,12 +9,19 @@
 void	print_struct(t_cmd *cmd)
 {
 	t_cmd *tmp;
+	int		i;
 
 	tmp = cmd;
-	printf("print struct!\n");
+	i = 0;
 	while (tmp != NULL)
 	{
 		printf("cmd: %s\n", tmp->cmd);
+		while (tmp->argv[i + 1] != NULL)
+		{
+			printf("cmd->argv: %s\n", tmp->argv[i]);
+			i++;
+		}
+		i = 0;
 		tmp = tmp->next;
 	}
 
@@ -143,13 +150,10 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 void	get_fd(t_cmd *cmd, t_data *data)
 {
-	int		i;
-
-	i = 0;
 	while (*data->line == '\0')
 	{
 		data->line++;
-		i++;
+		data->indexmeta++;
 	}
 	if (data->indexmeta[0] == '<')
 	{
@@ -165,7 +169,6 @@ void	get_fd(t_cmd *cmd, t_data *data)
 		else
 			set_fd_out(cmd, 0, data);
 	}
-	data->indexmeta += i;
 	while (*data->line != '\0')
 		data->line++;
 }
@@ -197,66 +200,6 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 	}
 	print_struct(cmd);
 }
-
-// void	search_cmd(t_data *data, char *line, t_cmd *cmd)
-// {
-// 	int		i;
-// 	char	*cmd_join;
-// 	int		j;
-// 	int		check;
-// 	char	*check_path;
-// 	int		k;
-// 	char 	*l;
-// 	t_cmd	*tampax;
-//
-// 	i = 0;
-// 	j = 0;
-// 	check = 0;
-// 	k = 0;
-// 	l = line;
-// 	tampax = cmd;
-// 	printf("line lenght = %d\n", data->line_lenght);
-// 	while (i < data->line_lenght)
-// 	{
-// 		data->redir_bool = 0;
-// 		while (line[i] != '\0')
-// 			i++;
-// 		cmd_join = ft_strjoin("/", l);
-// 		l = line + (i + 1);
-// 		printf("cmdjoin: %s|\n", cmd_join);
-// 		printf("l = %s\n", l);
-// 		while (!ft_strchr("<>|", data->indexmeta[j]) && !l)
-// 		{
-// 			l++;
-// 			j++;
-// 			i++;
-// 			if (ft_strchr("<>|", data->indexmeta[j]))
-// 			{
-// 				data->redir_bool = 1;
-// 				break ;
-// 			}
-// 		}
-// 		while (data->path_split[k] != NULL)
-// 		{
-// 			check_path = ft_strjoin(data->path_split[k], cmd_join);
-// 			printf("check_path = %s|\n", check_path);
-// 			if (access(check_path, X_OK) == 0)
-// 			{			
-// 				tampax->cmd = check_path;
-// 				if (data->redir_bool == 1)
-// 					tampax = tampax->next;
-// 				break ;
-// 			}
-// 			else
-// 				k++;
-// 		}
-// 		k = 0;
-// 		i++;
-// 	}
-// 	print_struct(cmd);
-// }
-
-
 
 void	env_split(t_data *data, char **envp_copy)
 {
