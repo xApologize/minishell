@@ -23,16 +23,16 @@ int main()
 	// cmd1->next = cmd2;
 	// cmd2->next = NULL;
 
-	cmd1->cmd = "/bin/cat";
-	cmd1->argv[0] = "cat";
+	cmd1->cmd = "/bin/cat2";
+	cmd1->argv[0] = "cat2";
 	cmd1->argv[1] = "main_test_pipex.c";
 
-	cmd2->cmd = "/usr/bin/grep";
-	cmd2->argv[0] = "grep";
+	cmd2->cmd = "/usr/bin/g3rep";
+	cmd2->argv[0] = "g3rep";
 	cmd2->argv[1] = "calloc";
 
-	cmd3->cmd = "/usr/bin/head";
-	cmd3->argv[0] = "head";
+	cmd3->cmd = "/usr/bin/hewad";
+	cmd3->argv[0] = "hewad";
 	cmd3->argv[1] = "-2";
 
 	cmd4->cmd = "/usr/bin/wc";
