@@ -45,14 +45,14 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 	printf("cmd->redir_out: %i\n", cmd->redir_out);
 }
 
-char	*get_path(t_data *data)
+char	*get_path(char *line_cp, t_data *data)
 {
 	int		i;
 	char	*slash;
 	char	*access_try;
 
 	i = 0;
-	slash = ft_strjoin("/", data->line);
+	slash = ft_strjoin("/", line_cp);
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
@@ -67,7 +67,7 @@ char	*get_path(t_data *data)
 	return (NULL);
 }
 
-char	**get_argv(t_data *data)
+int	get_argv_count(t_data *data)
 {
 	char	*line_cp;
 	char	*indexmeta_cp;
@@ -87,8 +87,40 @@ char	**get_argv(t_data *data)
 		}
 		line_cp++;
 	}
-	printf("argv_count: %i\n", argv_count);
-	return (NULL);
+	return (argv_count);
+}
+
+char	**get_argv(t_data *data)
+{
+	int		argv_count;
+	int		i;
+	char	**argv;
+
+	argv_count = get_argv_count(data);
+	argv = ft_calloc(sizeof(char*),  argv_count + 1);
+	i = 0;
+	while (!ft_strchr("<>|\n", *data->indexmeta))
+	{
+		if (i == 0)
+		{
+			argv[i] = ft_strdup(data->line);
+			i++;
+		}
+		if (*data->line == '\0' && *data->indexmeta == ' ')
+		{
+			while (*data->line == '\0' && *data->indexmeta == ' ')
+			{
+				data->line++;
+				data->indexmeta++;
+			}
+			argv[i] = ft_strdup(data->line);
+			i++;
+		}
+		else 
+			data->line++;
+	}
+	i = 0;
+	return (argv);
 }
 
 int	set_cmd(t_cmd *cmd, t_data *data)
@@ -99,14 +131,11 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	i = 0;
 	line_cp = data->line;
 	printf("set_cmd line: %s\n", data->line);
-	cmd->cmd = get_path(data);
-	while (*data->line != '\0')
-		data->line++;
-	if (*data->line == '\0' && data->indexmeta[0] == ' ')
-	{
-		printf("argv!\n");
+	cmd->cmd = get_path(line_cp, data);
+	while (*line_cp != '\0')
+		line_cp++;
+	if (*line_cp == '\0' && data->indexmeta[0] == ' ')
 		cmd->argv = get_argv(data);
-	}
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
