@@ -67,7 +67,7 @@ int		find_oldpwd(char **envp_copy);
 int		find_pwd(char **envp_copy);
 
 //echo_utils.c
-void	handle_echo(char **opt);
+void	handle_echo(char *line, char **opt);
 void	print_echo_with_n();
 void	print_echo_without_n();
 int		skip_n();
@@ -79,10 +79,10 @@ int		check_n(char *opt);
 void	handle_env(char **opt, char **envp_copy);
 
 //handle_exit.c
-void	handle_exit(char **opt, char **envp_copy);
+void	handle_exit(char *line, char **opt, char **envp_copy);
 
 //export_utils.c
-char	**handle_export(char **envp_copy);
+char	**handle_export(char *line, char **envp_copy);
 bool	checkvalidenv(char *arg);
 bool	checkvalidassign(bool env_stat, char *arg);
 bool	checkassign(char *arg);
