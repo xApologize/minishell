@@ -2,9 +2,10 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	heredoc(char *delimiter, t_data *data)
+int	heredoc(t_data *data)
 {
 	char	*line;
+	char	*delimiter;
 	char	*return_line;
 	int		fd[2];
 
