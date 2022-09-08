@@ -31,7 +31,6 @@ void	pipex(t_cmd *cmd)
 int	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
-	int	status;
 	int	pipe_fd[2];
 
 	pipe(pipe_fd);
