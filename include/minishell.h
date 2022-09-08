@@ -210,6 +210,6 @@ char	*charjoinfree(const char *s1, const char c);
 char	*skip_dollar(char *line);
 
 //status_error.c
-void	status(t_data *data, char *line);
+void	status(t_data *data);
 
 #endif
