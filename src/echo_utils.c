@@ -2,10 +2,15 @@
 
 void	handle_echo(char *line, char **opt)
 {
-	if (check_n(opt[1]) == 1)
-		print_echo_with_n(line);
+	if (opt[1])
+	{
+		if (check_n(opt[1]) == 1)
+			print_echo_with_n(line);
+		else
+			print_echo_without_n(line);
+	}
 	else
-		print_echo_without_n(line);
+		printf("\n");
 }
 
 int	skip_echo(char *line)
