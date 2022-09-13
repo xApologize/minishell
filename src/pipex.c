@@ -37,15 +37,15 @@ int	pipex_redir(t_cmd *cmd)
 	pid = fork();
 	if (pid > 0)
 	{
-		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-		close(pipe_fd[PIPE_READ]);
+		close(pipe_fd[cmd->redir_out]);
+		dup2(pipe_fd[cmd->redir_in], STDIN_FILENO);
+		close(pipe_fd[cmd->redir_out]);
 	}
 	if (pid == 0)
 	{
-		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-		close(pipe_fd[PIPE_WRITE]);
+		close(pipe_fd[cmd->redir_in]);
+		dup2(pipe_fd[cmd->redir_out], STDOUT_FILENO);
+		close(pipe_fd[cmd->redir_in]);
 		exec_cmd(cmd);
 	}
 	return (pid);
