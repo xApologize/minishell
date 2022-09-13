@@ -43,7 +43,7 @@ t_cmd *create_nodes(char **env)
 		return(NULL);
 	node->redir_in = PIPE_READ;
 	node->redir_out = PIPE_WRITE;
-	node->cmd = "patate";
+	node->cmd = NULL;
 	node->env = env;
 	node->next = NULL;
 	return (node);
