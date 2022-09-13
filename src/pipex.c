@@ -26,6 +26,8 @@ void	pipex(t_cmd *cmd)
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
 	waitpid(pid, NULL, 0);
+	if (pid == 0)
+		exit(0);
 }
 
 int	pipex_redir(t_cmd *cmd)
@@ -48,6 +50,8 @@ int	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[cmd->redir_in]);
 		exec_cmd(cmd);
 	}
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 	return (pid);
 }
 
