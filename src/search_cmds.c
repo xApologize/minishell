@@ -151,7 +151,8 @@ char	**get_argv(t_data *data)
 		else 
 			data->line++;
 	}
-	i = 0;
+	if (i == 0)
+		argv[i] = ft_strdup(data->line);
 	return (argv);
 }
 
@@ -214,7 +215,6 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		else
 			set_cmd(tmp_cmd, data);
 	}
-	print_struct(cmd);
 	pipex(cmd);
 }
 
