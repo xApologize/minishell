@@ -15,6 +15,8 @@ void	pipex(t_cmd *cmd)
 	{
 		while (cmd != NULL)
 		{
+			if (cmd->is_builtin == 1)
+				handle_builtin(cmd)
 			if (cmd->next != NULL)
 				pid_child[i] = pipex_redir(cmd);
 			else
