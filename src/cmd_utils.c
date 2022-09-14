@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 
+
+
 char	*get_path(char *line_cp, t_data *data)
 {
 	int		i;
