@@ -1,13 +1,17 @@
 #include "../include/minishell.h"
 
-void	handle_echo(char *line, char **opt)
+void	handle_echo(char **argv)
 {
-	if (opt[1])
+	char *line;
+
+	if (argv[1])
 	{
-		if (check_n(opt[1]) == 1)
+		line = make_line(argv);		
+		if (check_n(argv[1]) == 1)
 			print_echo_with_n(line);
 		else
 			print_echo_without_n(line);
+		free(line);
 	}
 	else
 		printf("\n");

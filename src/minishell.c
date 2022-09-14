@@ -28,7 +28,6 @@ int	main(void)
 		data.line = rl_gets();
 		if (data.line == NULL)
 			exit(0);
-		envp_copy = handle_builtin(data.line, envp_copy);
 		parsing(envp_copy, &data, cmd);
 		//free(data.line);
 	}

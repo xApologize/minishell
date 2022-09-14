@@ -56,7 +56,7 @@ typedef struct s_cmd
 int			find_oldpwd(char **envp_copy);
 int			find_pwd(char **envp_copy);
 void		update_pwd(char **envp_copy);
-void		handle_cd(char **opt, char **envp_copy);
+void		handle_cd(char **argv, char **envp_copy);
 
 //charjoinfree.c
 char		*charjoinfree(const char *s1, const char c);
@@ -86,7 +86,7 @@ char		**get_argv(t_data *data);
 
 
 //echo_utils.c
-void		handle_echo(char *line, char **opt);
+void		handle_echo(char **argv);
 int			skip_echo(char *line);
 int			skip_n(char *line);
 void		print_echo_with_n(char *line);
@@ -121,7 +121,7 @@ void		freeopt(char **opt);
 char		*get_home(char **envp_copy);
 
 //handle_builtin.c
-char		**handle_builtin(char *line, char **envp_copy);
+char		**handle_builtin(t_cmd *cmd, char **envp_copy);
 
 //handle_dollar.c
 char		*handle_dollar(char *line, char **envp_copy);
@@ -217,5 +217,8 @@ void		modifyvar(char *var, char **envp_copy);
 
 //unwrap_dollar.c
 char		*unwrap_dollar(char *line, char **envp_copy);
+
+//make_line.c
+char		*make_line(char **argv);
 
 #endif

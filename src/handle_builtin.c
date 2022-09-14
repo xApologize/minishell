@@ -9,27 +9,22 @@
 // ◦ exit sans aucune option
 
 // Need to finish handle_unset
-char	**handle_builtin(char *line, char **envp_copy)
+char	**handle_builtin(t_cmd *cmd, char **envp_copy)
 {
-	char	**opt;
 
-	opt = ft_split(line, ' ');
-	if (opt[0] == NULL)
-		return (envp_copy);
-	if (ft_strcmp(opt[0], "echo") == 0)
-		handle_echo(line, opt);
-	else if (ft_strcmp(opt[0], "cd") == 0)
-		handle_cd(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "pwd") == 0)
-		handle_pwd(opt);
-	else if (ft_strcmp(opt[0], "export") == 0)
-		envp_copy = handle_export(line, envp_copy);
-	else if (ft_strcmp(opt[0], "unset") == 0)
-		envp_copy = handle_unset(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "env") == 0)
-		handle_env(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "exit\n") == 0)
-		handle_exit(line, opt, envp_copy);
-	freeopt(opt);
+	if (ft_strcmp(cmd->argv[0], "echo\n") == 0)
+		handle_echo(cmd->argv);
+	else if (ft_strcmp(cmd->argv[0], "cd\n") == 0)
+		handle_cd(cmd->argv, envp_copy);
+	else if (ft_strcmp(cmd->argv[0], "pwd\n") == 0)
+		handle_pwd(cmd->argv);
+	else if (ft_strcmp(cmd->argv[0], "export\n") == 0)
+		envp_copy = handle_export(cmd->argv, envp_copy);
+	else if (ft_strcmp(cmd->argv[0], "unset\n") == 0)
+		envp_copy = handle_unset(cmd->argv, envp_copy);
+	else if (ft_strcmp(cmd->argv[0], "env\n") == 0)
+		handle_env(cmd->argv, envp_copy);
+	else if (ft_strcmp(cmd->argv[0], "exit\n") == 0)
+		handle_exit(cmd->argv, envp_copy);
 	return (envp_copy);
 }

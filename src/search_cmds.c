@@ -45,13 +45,18 @@ int	is_builtin(char *line)
 	builtin[4] = "unset";
 	builtin[5] = "env";
 	builtin[6] = "exit";
+	builtin[7] = NULL;
 	i = 0;
 	while (builtin[i])
 	{
 		if (ft_strcmp(line, builtin[i]) == 0)
-			return (1);
+		{
+			freeopt(builtin);
+			return(1);
+		}
 		i++;
 	}
+	freeopt(builtin);
 	return (0);
 }
 
