@@ -32,6 +32,29 @@ void	print_struct(t_cmd *cmd)
 
 }
 
+int	is_builtin(char *line)
+{
+	char	**builtin;
+	int		i;
+
+	builtin = ft_calloc(8, sizeof(char*));
+	builtin[0] = "echo";
+	builtin[1] = "cd";
+	builtin[2] = "pwd";
+	builtin[3] = "export";
+	builtin[4] = "unset";
+	builtin[5] = "env";
+	builtin[6] = "exit";
+	i = 0;
+	while (builtin[i])
+	{
+		if (ft_strcmp(line, builtin[i]) == 0)
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	set_cmd(t_cmd *cmd, t_data *data)
 {
 	int		i;
@@ -39,7 +62,15 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	cmd->cmd = get_path(line_cp, data);
+	if(is_builtin(line_cp) == 1)
+	{
+		printf("is_builtin\n");
+		cmd->is_builtin = 1;
+		cmd->cmd = line_cp;
+	}
+	else
+		cmd->cmd = get_path(line_cp, data);
+	printf("cmd.is_builtin: %i\n", cmd->is_builtin);
 	while (*line_cp != '\0')
 		line_cp++;
 	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
