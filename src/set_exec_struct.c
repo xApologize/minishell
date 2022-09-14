@@ -46,7 +46,8 @@ t_cmd *create_nodes(char **env)
 	node->cmd = NULL;
 	node->env = env;
 	node->next = NULL;
-	return (node);
+	node->is_builtin = 0;
+return (node);
 }
 
 void add_nodes(t_cmd **cmd, t_cmd *new_cmd)
