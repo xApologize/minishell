@@ -20,7 +20,6 @@ void	tokenize(t_data *data)
 	i = 0;
 	j = 0;
 	data->line_lenght = ft_strlen(data->line);
-//	printf("l_len = %d\n", data->line_lenght);
 	findlenght(data);
 	i = 0;
 	while (data->line[i] != '\0')
@@ -35,8 +34,6 @@ void	tokenize(t_data *data)
 		}
 		i++;
 	}
-//	printf("%s\n", data->indexmeta);
-//	print_line(line, data);
 }
 
 int	quote(int i, t_data *data)
@@ -81,25 +78,4 @@ void	findlenght(t_data *data)
 	}
 	//printf("lenght = %d\n", lenght);
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));
-}
-
-// ecrit la ligne avec les \0
-void	print_line(t_data *data)
-{
-	int i;
-	int	len;
-
-	i = 0;
-	len = data->line_lenght;
-	while (len > 0)
-	{
-		if (data->line[i] == '\0')
-		{
-			printf(" ");
-		}
-		printf("%c", data->line[i]);
-		i++;
-		len--;
-	}
-	printf("\n");
 }
