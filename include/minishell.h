@@ -48,6 +48,7 @@ typedef struct s_cmd
 	char			*cmd;
 	char			**argv;
 	char			**env;
+	bool			is_builtin;
 	struct s_cmd	*next;
 }					t_cmd;
 
