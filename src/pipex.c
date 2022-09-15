@@ -3,7 +3,6 @@
 
 void	pipex(t_cmd *cmd, t_data *data)
 {
-	int	pid;
 	int	i;
 	int	*pid_child;
 	int	status;
