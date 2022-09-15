@@ -1,14 +1,13 @@
 #include "../include/minishell.h"
 
-// ◦ echo et l’option -n
-// ◦ cd uniquement avec un chemin relatif ou absolu
-// ◦ pwd sans aucune option
-// ◦ export sans aucune option
-// ◦ unset sans aucune option
-// ◦ env sans aucune option ni argument
-// ◦ exit sans aucune option
+// handle echo done
+// handle_cd done
+// handle_pwd
+// handle_export done
+// handle_unset done
+// handle_env done
+// 
 
-// Need to finish handle_unset
 char	**handle_builtin(t_cmd *cmd, char **envp_copy)
 {
 

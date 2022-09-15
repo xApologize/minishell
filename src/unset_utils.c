@@ -1,20 +1,20 @@
 #include "../include/minishell.h"
 
-char	**handle_unset(char **opt, char **envp_copy)
+char	**handle_unset(char **argv, char **envp_copy)
 {
 	int		i;
 	bool	copy;
 
 	i = 1;
 	copy = false;
-	while (opt[i])
+	while (argv[i])
 	{
-		if (!checkvalidarg(opt[i]))
-			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", opt[i]);
+		if (!checkvalidarg(argv[i]))
+			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", argv[i]);
 		else
 		{
 			copy = true;
-			modifyvar(opt[i], envp_copy);
+			modifyvar(argv[i], envp_copy);
 		}
 		i++;
 	}

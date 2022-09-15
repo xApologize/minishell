@@ -1,14 +1,14 @@
 #include "../include/minishell.h"
 
 
-void	handle_pwd(char **opt)
+void	handle_pwd(char **argv)
 {
 	int args;
 	char *path;
 
 	path = NULL;
 	args = 0;
-	while (opt[args])
+	while (argv[args])
 		args++;
 	if (args > 1)
 		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);

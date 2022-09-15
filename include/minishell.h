@@ -96,7 +96,7 @@ void		print_echo_without_n(char *line);
 char		**envp_cp(char **envp);
 
 //export_utils.c
-char		**handle_export(char *line, char **envp_copy);
+char		**handle_export(char **argv, char **envp_copy);
 bool		checkvalidenv(char *arg);
 bool		checkvalidassign(bool env_stat, char *arg);
 int			check_modify_env(char *arg, char **envp_copy);
@@ -127,7 +127,7 @@ char		**handle_builtin(t_cmd *cmd, char **envp_copy);
 char		*handle_dollar(char *line, char **envp_copy);
 
 //handle_env.c
-void		handle_env(char **opt, char **envp_copy);
+void		handle_env(char **argv, char **envp_copy);
 
 //handle_exit.c
 void		handle_exit(char *line, char **opt, char **envp_copy);
@@ -156,7 +156,7 @@ int			table_length(t_cmd *cmd);
 void		print_intro(void);
 
 //pwd_utils.c
-void		handle_pwd(char **opt);
+void		handle_pwd(char **argv);
 
 //quotation.c
 bool		error_quotation(t_data *data);
@@ -220,5 +220,8 @@ char		*unwrap_dollar(char *line, char **envp_copy);
 
 //make_line.c
 char		*make_line(char **argv);
+
+// free_data.c
+void		free_data(t_data *data);
 
 #endif
