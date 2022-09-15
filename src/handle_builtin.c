@@ -25,5 +25,7 @@ char	**handle_builtin(t_cmd *cmd, char **envp_copy)
 		handle_env(cmd->argv, envp_copy);
 	else if (ft_strcmp(cmd->argv[0], "exit\n") == 0)
 		handle_exit(cmd->argv, envp_copy);
+	else if (ft_strcmp(cmd->argv[0], "pepe\n") == 0)
+		pepe();
 	return (envp_copy);
 }
