@@ -52,12 +52,12 @@ int	is_builtin(char *line)
 	{
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
-			freeopt(builtin);
+			free(builtin);
 			return(1);
 		}
 		i++;
 	}
-	freeopt(builtin);
+	free(builtin);
 	return (0);
 }
 
@@ -70,13 +70,11 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	line_cp = data->line;
 	if(is_builtin(line_cp) == 1)
 	{
-		printf("is_builtin\n");
 		cmd->is_builtin = 1;
 		cmd->cmd = line_cp;
 	}
 	else
 		cmd->cmd = get_path(line_cp, data);
-	printf("cmd.is_builtin: %i\n", cmd->is_builtin);
 	while (*line_cp != '\0')
 		line_cp++;
 	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))

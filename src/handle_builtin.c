@@ -11,7 +11,7 @@
 char	**handle_builtin(t_cmd *cmd, t_data *data)
 {
 
-	if (ft_strcmp(cmd->argv[0], "echo\n") == 0)
+	if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		handle_echo(cmd->argv);
 	else if (ft_strcmp(cmd->argv[0], "cd\n") == 0)
 		handle_cd(cmd->argv, cmd->env);
@@ -23,9 +23,9 @@ char	**handle_builtin(t_cmd *cmd, t_data *data)
 		cmd->env = handle_unset(cmd->argv, cmd->env);
 	else if (ft_strcmp(cmd->argv[0], "env\n") == 0)
 		handle_env(cmd->argv, cmd->env);
-	else if (ft_strcmp(cmd->argv[0], "exit\n") == 0)
+	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
 		handle_exit(cmd, data);
-	else if (ft_strcmp(cmd->argv[0], "pepe\n") == 0)
+	else if (ft_strcmp(cmd->argv[0], "pepe") == 0)
 		pepe();
 	return (cmd->env);
 }
