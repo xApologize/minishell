@@ -15,7 +15,7 @@ int	main(void)
 {
 	t_data		data;
 	t_cmd		*cmd;
-	// t_data		data;
+	t_data		data;
 	extern char	**environ;
 	char		**envp_copy;
 
