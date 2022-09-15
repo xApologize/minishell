@@ -108,6 +108,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		else
 			set_cmd(tmp_cmd, data);
 	}
+	free_data(data);
 	pipex(cmd);
 }
 
