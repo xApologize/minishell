@@ -1,8 +1,7 @@
 #include "../include/minishell.h"
 
-void	handle_exit(t_cmd *cmd, char **envp_copy)
+void	handle_exit(t_cmd *cmd, t_data *data)
 {
-	freeopt(opt);
-	freeopt(envp_copy);
+	free_data(data);
 	exit(0);
 }
