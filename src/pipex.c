@@ -23,7 +23,6 @@ void	pipex(t_cmd *cmd, t_data *data)
 	}
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
-	waitpid(pid, NULL, 0);
 }
 
 int	pipex_redir(t_cmd *cmd)
