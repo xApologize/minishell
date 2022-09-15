@@ -24,10 +24,7 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 	if (!cmd || !data->line)
 		return ;
 	//printf("line out: %s\n", data->line);
-	data->indexmeta++;
-	if (append == 1)
-		data->indexmeta++;
-	while (*data->line == '\0' && (*data->indexmeta == ' ' || *data->indexmeta == '\0'))
+	while (*data->line == '\0' && ft_strchr(" >", *data->indexmeta))
 	{
 		data->line++;
 		data->indexmeta++;
