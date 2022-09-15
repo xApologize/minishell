@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-void	pipex(t_cmd *cmd)
+void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	pid;
 	int	i;
@@ -10,26 +10,20 @@ void	pipex(t_cmd *cmd)
 
 	pid_child = malloc(sizeof(int) * table_length(cmd));
 	i = 0;
-	pid = fork();
-	if (pid == 0)
+	while (cmd != NULL)
 	{
-		while (cmd != NULL)
-		{
-			if (cmd->is_builtin == 1)
-				cmd->env = handle_builtin(cmd, cmd->env);
-			if (cmd->next != NULL)
-				pid_child[i] = pipex_redir(cmd);
-			else
-				pid_child[i] = exec_fork_cmd(cmd);
-			i++;
-			cmd = cmd->next;
-		}
+		if (cmd->is_builtin == 1)
+			cmd->env = handle_builtin(cmd, data);
+		if (cmd->next != NULL)
+			pid_child[i] = pipex_redir(cmd);
+		else
+			pid_child[i] = exec_fork_cmd(cmd);
+		i++;
+		cmd = cmd->next;
 	}
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
 	waitpid(pid, NULL, 0);
-	if (pid == 0)
-		exit(0);
 }
 
 int	pipex_redir(t_cmd *cmd)
