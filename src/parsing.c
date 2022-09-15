@@ -2,14 +2,12 @@
 
 void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
 {
-	sig_reset();
 	error_quotation(data);
 	tokenize(data);
 	status(data);
 	env_split(data, envp_copy);
 	cmd = set_exec_struct(data, envp_copy);
 	search_cmd(data, cmd);
-	sig_handling();
 }
 
 void	tokenize(t_data *data)
