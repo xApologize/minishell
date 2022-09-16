@@ -39,7 +39,6 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	//printf("set_cmd line: %s\n", data->line);
 	cmd->cmd = get_path(line_cp, data);
 	while (*line_cp != '\0')
 		line_cp++;

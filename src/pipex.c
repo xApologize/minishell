@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <unistd.h>
 
 void	pipex(t_cmd *cmd)
 {
@@ -15,6 +16,8 @@ void	pipex(t_cmd *cmd)
 	{
 		while (cmd != NULL)
 		{
+			if (cmd->cmd == NULL)
+				break;
 			if (cmd->next != NULL)
 				pid_child[i] = pipex_redir(cmd);
 			else
@@ -39,17 +42,19 @@ int	pipex_redir(t_cmd *cmd)
 	pid = fork();
 	if (pid > 0)
 	{
-		close(pipe_fd[cmd->redir_out]);
-		dup2(pipe_fd[cmd->redir_in], STDIN_FILENO);
-		close(pipe_fd[cmd->redir_out]);
+		close(pipe_fd[PIPE_WRITE]);
+		dup2(pipe_fd[PIPE_READ], cmd->redir_in);
+		close(pipe_fd[PIPE_READ]);
 	}
 	if (pid == 0)
 	{
-		close(pipe_fd[cmd->redir_in]);
-		dup2(pipe_fd[cmd->redir_out], STDOUT_FILENO);
-		close(pipe_fd[cmd->redir_in]);
+		close(pipe_fd[PIPE_READ]);
+		dup2(pipe_fd[PIPE_WRITE], cmd->redir_out);
+		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
+	close(cmd->redir_out);
+	close(cmd->redir_in);
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	return (pid);
