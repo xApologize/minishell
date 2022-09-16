@@ -1,13 +1,14 @@
 #include "../include/minishell.h"
 
-void	handle_echo(char **argv)
+void	handle_echo(t_cmd *cmd)
 {
 	char *line;
 
-	if (argv[1])
+	if (cmd->argv[1])
 	{
-		line = make_line(argv);		
-		if (check_n(argv[1]) == 1)
+		line = make_line(cmd->argv);
+
+		if (check_n(cmd->argv[1]) == 1)
 			print_echo_with_n(line);
 		else
 			print_echo_without_n(line);

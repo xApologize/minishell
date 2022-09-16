@@ -17,12 +17,12 @@ void	print_struct(t_cmd *cmd)
 	j = 0;
 	while (tmp != NULL)
 	{
-		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
-		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
-		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
+		// printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
+		// printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
+		// printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
 		while (tmp->argv[i + 1] != NULL)
 		{
-			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
+			// printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
 			i++;
 		}
 		i = 0;

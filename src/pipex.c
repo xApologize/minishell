@@ -14,11 +14,11 @@ void	pipex(t_cmd *cmd, t_data *data)
 	{
 		if (cmd->is_builtin == 1)
 			cmd->env = handle_builtin(cmd, data);
-		if (cmd->next != NULL)
-			pid_child[i] = pipex_redir(cmd);
-		else
-			pid_child[i] = exec_fork_cmd(cmd);
-		i++;
+		// if (cmd->next != NULL)
+		// 	pid_child[i] = pipex_redir(cmd);
+		// else
+		// 	pid_child[i] = exec_fork_cmd(cmd);
+		// i++;
 		cmd = cmd->next;
 	}
 	while (i >= 0)

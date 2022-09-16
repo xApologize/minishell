@@ -92,15 +92,15 @@ void	update_pwd(char **envp_copy)
 	}
 }
 
-void	handle_cd(char **argv, char **envp_copy)
+void	handle_cd(t_cmd *cmd)
 {
 	int	res;
 
-	if (argv[1] == NULL)
-		res = chdir(get_home(envp_copy));
+	if (cmd->argv[1] == NULL)
+		res = chdir(get_home(cmd->env));
 	else
-		res = chdir(argv[1]);
-	update_pwd(envp_copy);
+		res = chdir(cmd->argv[1]);
+	update_pwd(cmd->env);
 	if (res == -1)
-		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), argv[1]);
+		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), cmd->argv[1]);
 }
