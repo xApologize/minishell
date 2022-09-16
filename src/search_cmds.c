@@ -49,6 +49,21 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	return (i - 1);
 }
 
+void	close_fd(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	tmp = cmd;
+	while (tmp != NULL)
+	{
+		if (tmp->redir_in != STDIN_FILENO)
+			close(tmp->redir_in);
+		if (tmp->redir_out != STDOUT_FILENO)
+			close(tmp->redir_out);
+		tmp = tmp->next;
+	}
+}
+
 void	search_cmd(t_data *data, t_cmd *cmd)
 {
 	t_cmd	*tmp_cmd;
@@ -73,6 +88,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	pipex(cmd);
+	//close_fd(cmd);
 }
 
 void	env_split(t_data *data, char **envp_copy)
