@@ -3,15 +3,19 @@
 int	heredoc(t_data *data)
 {
 	char	*line;
-	char	*delimiter;
 	char	*return_line;
 	int		fd[2];
 
 	pipe(fd);
+	while (*data->line == '\0')
+	{
+		data->line++;
+		data->indexmeta++;
+	}
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strcmp(line, delimiter) == 0)
+		if (ft_strcmp(line, data->line) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
 		write(fd[1], return_line, ft_strlen(return_line));
@@ -19,6 +23,7 @@ int	heredoc(t_data *data)
 		free(return_line);
 	}
 	free(line);
-	data->indexmeta++;
+	while (*data->line != '\0')
+		data->line++;
 	return (fd[1]);
 }

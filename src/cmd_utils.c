@@ -1,4 +1,31 @@
 #include "../include/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+char	*access_path(char *line)
+{
+	if (access(line, X_OK) == 0)
+		return (line);
+	// free(line);
+	return (NULL);
+}
+
+char	*access_relative_path(char *line)
+{
+	char	*slash;
+	char	*pwd_join;
+
+	slash = ft_strjoin("/", line);
+	pwd_join = ft_strjoin(getenv("PWD"), slash);
+	if (access_path(pwd_join) != NULL)
+	{
+		// free(slash);
+		return (pwd_join);
+	}
+	// free(slash);
+	// free(pwd_join);
+	return (NULL);
+}
 
 
 
@@ -9,11 +36,15 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*access_try;
 
 	i = 0;
+	if (*line_cp == '/')
+		return access_path(line_cp);
+	if (*line_cp == '.')
+		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
-		if (access(access_try, X_OK) == 0)
+		if (access_path(access_try) != NULL)
 		{
 			free(slash);
 			return (access_try);
@@ -21,6 +52,7 @@ char	*get_path(char *line_cp, t_data *data)
 		i++;
 		free(access_try);
 	}
+	free(slash);
 	return (NULL);
 }
 

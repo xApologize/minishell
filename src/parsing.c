@@ -73,4 +73,3 @@ void	findlenght(t_data *data)
 	}
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));
 }
-
