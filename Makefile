@@ -50,7 +50,7 @@ MY_VAR := $(shell uname)
 #--ACTIONS--# > all the thing you want your Makefile to do
 $(OBJ_DIR)%.o:		%.c
 				@$(MKDIR) $(P_FLAG) $(OBJ_DIR)
-				@$(GCC) $(ERROR_FLAGS) $(O_FLAG) $@ $(C_FLAG) $<
+				@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(O_FLAG) $@ $(C_FLAG) $<
 
 $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."

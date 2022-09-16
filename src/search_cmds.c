@@ -1,27 +1,79 @@
 #include "../include/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <sys/fcntl.h>
+#include <sys/unistd.h>
+#include <unistd.h>
 
-void	search_cmd(t_data *data)
+void	print_struct(t_cmd *cmd)
 {
+	t_cmd *tmp;
 	int		i;
-	char	*cmd_join;
 	int		j;
-	char	*check_path;
 
+	tmp = cmd;
 	i = 0;
 	j = 0;
-	trim_path(data);
-	while (data->line_split[i] != NULL)
+	while (tmp != NULL)
 	{
-		cmd_join = ft_strjoin("/", data->line_split[i]);
-		while (data->path_split[j] != NULL)
+		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
+		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
+		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
+		while (tmp->argv[i + 1] != NULL)
 		{
-			check_path = ft_strjoin(data->path_split[j], cmd_join);
-			j++;
+			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
+			i++;
 		}
-		i++;
-		(void) check_path;
+		i = 0;
+		j++;
+		tmp = tmp->next;
 	}
-	access(check_path, F_OK);
+
+}
+
+int	set_cmd(t_cmd *cmd, t_data *data)
+{
+	int		i;
+	char	*line_cp;
+
+	i = 0;
+	line_cp = data->line;
+	//printf("set_cmd line: %s\n", data->line);
+	cmd->cmd = get_path(line_cp, data);
+	while (*line_cp != '\0')
+		line_cp++;
+	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
+		cmd->argv = get_argv(data);
+	while (*data->line != '\0')
+		data->line++;
+	return (i - 1);
+}
+
+void	search_cmd(t_data *data, t_cmd *cmd)
+{
+	t_cmd	*tmp_cmd;
+
+	tmp_cmd = cmd;
+	while (*data->indexmeta != '\0')
+	{
+		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))
+			get_fd(tmp_cmd, data, *data->indexmeta);
+		else if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
+		{
+			data->indexmeta++;
+			data->line++;
+		}
+		else if (*data->line == '\0' && *data->indexmeta == '|')
+		{
+			tmp_cmd = tmp_cmd->next;
+			data->line++;
+			data->indexmeta++;
+		}
+		else
+			set_cmd(tmp_cmd, data);
+	}
+	pipex(cmd);
 }
 
 void	env_split(t_data *data, char **envp_copy)
@@ -38,6 +90,7 @@ void	env_split(t_data *data, char **envp_copy)
 	}
 	if (envp_copy[find] != NULL)
 		data->path_split = ft_split(envp_copy[find], ':');
+	data->path_split[0] = data->path_split[0] + 5;
 }
 
 void	trim_path(t_data *data)
