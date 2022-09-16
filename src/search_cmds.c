@@ -88,7 +88,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	pipex(cmd);
-	//close_fd(cmd);
+	close_fd(cmd);
 }
 
 void	env_split(t_data *data, char **envp_copy)
