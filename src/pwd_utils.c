@@ -1,10 +1,9 @@
 #include "../include/minishell.h"
 
-
 void	handle_pwd(char **opt)
 {
-	int args;
-	char *path;
+	int		args;
+	char	*path;
 
 	path = NULL;
 	args = 0;

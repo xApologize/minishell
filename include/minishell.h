@@ -83,7 +83,6 @@ char		*get_path(char *line_cp, t_data *data);
 int			get_argv_count(t_data *data);
 char		**get_argv(t_data *data);
 
-
 //echo_utils.c
 void		handle_echo(char *line, char **opt);
 int			skip_echo(char *line);

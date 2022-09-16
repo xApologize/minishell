@@ -10,7 +10,8 @@ char	**handle_unset(char **opt, char **envp_copy)
 	while (opt[i])
 	{
 		if (!checkvalidarg(opt[i]))
-			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", opt[i]);
+			dprintf(STDERR_FILENO, \
+			"msh: unset: '%s': not a valid identifier\n", opt[i]);
 		else
 		{
 			copy = true;
@@ -24,9 +25,9 @@ char	**handle_unset(char **opt, char **envp_copy)
 		return (copynewenvp(envp_copy));
 }
 
-bool checkifunset(char *var, char *envp_var)
+bool	checkifunset(char *var, char *envp_var)
 {
-	char **split_envp;
+	char	**split_envp;
 
 	split_envp = ft_split(envp_var, '=');
 	if (ft_strcmp(var, split_envp[0]) == 0)
@@ -38,7 +39,7 @@ bool checkifunset(char *var, char *envp_var)
 	return (false);
 }
 
-char **copynewenvp(char **envp_copy)
+char	**copynewenvp(char **envp_copy)
 {
 	int		i;
 	int		j;
