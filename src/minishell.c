@@ -20,13 +20,14 @@ int	main(void)
 
 	envp_copy = envp_cp(environ);
 	print_intro();
-	sig_handling();
+	//sig_handling();
 	cmd = NULL;
 	while (1)
 	{
 		data.line = rl_gets();
 		if (data.line == NULL)
 			exit(0);
+		data.line = handle_dollar(data.line, envp_copy);
 		parsing(envp_copy, &data, cmd);
 		//free(data.line);
 	}

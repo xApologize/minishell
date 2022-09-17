@@ -8,7 +8,7 @@ char	*return_var(char *line)
 	line++;
 	while (*line)
 	{
-		if (ft_strchr("<>|\t ", *line))
+		if (ft_strchr("<>|\t \n", *line))
 			break ;
 		var = charjoinfree(var, *line);
 		line++;
