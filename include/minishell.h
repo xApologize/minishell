@@ -56,7 +56,7 @@ typedef struct s_cmd
 int			find_oldpwd(char **envp_copy);
 int			find_pwd(char **envp_copy);
 void		update_pwd(char **envp_copy);
-void		handle_cd(char **argv, char **envp_copy);
+void		handle_cd(t_cmd *cmd);
 
 //charjoinfree.c
 char		*charjoinfree(const char *s1, const char c);
@@ -86,7 +86,7 @@ char		**get_argv(t_data *data);
 
 
 //echo_utils.c
-void		handle_echo(char **argv);
+void		handle_echo(t_cmd *cmd);
 int			skip_echo(char *line);
 int			skip_n(char *line);
 void		print_echo_with_n(char *line);
@@ -96,7 +96,7 @@ void		print_echo_without_n(char *line);
 char		**envp_cp(char **envp);
 
 //export_utils.c
-char		**handle_export(char **argv, char **envp_copy);
+char		**handle_export(t_cmd *cmd);
 bool		checkvalidenv(char *arg);
 bool		checkvalidassign(bool env_stat, char *arg);
 int			check_modify_env(char *arg, char **envp_copy);
@@ -127,7 +127,7 @@ char		**handle_builtin(t_cmd *cmd, t_data *data);
 char		*handle_dollar(char *line, char **envp_copy);
 
 //handle_env.c
-void		handle_env(char **argv, char **envp_copy);
+void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
 void		handle_exit(t_cmd *cmd, t_data *data);
@@ -156,7 +156,7 @@ int			table_length(t_cmd *cmd);
 void		print_intro(void);
 
 //pwd_utils.c
-void		handle_pwd(char **argv);
+void		handle_pwd(t_cmd *cmd);
 
 //quotation.c
 bool		error_quotation(t_data *data);
@@ -209,7 +209,7 @@ void		skip_single_quote(char *line);
 void		status(t_data *data);
 
 //unset_utils.c
-char		**handle_unset(char **opt, char **envp_copy);
+char		**handle_unset(t_cmd *cmd);
 bool		checkifunset(char *var, char *envp_var);
 char		**copynewenvp(char **envp_copy);
 int			countnewvars(char **envp_copy);
