@@ -8,6 +8,5 @@ char *handle_dollar(char *line, char **envp_copy)
 		new_line = unwrap_dollar(line, envp_copy);
 		return (new_line);
 	}
-	printf("Hi, im a fucking idiot\n");
 	return (line);
 }
