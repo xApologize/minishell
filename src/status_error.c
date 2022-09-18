@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
 
-void	status(t_data *data)
+void	status(void)
 {
-	(void) data;
+
 	// int	i;
 
 	// i = 0;
@@ -14,5 +14,5 @@ void	status(t_data *data)
 	// 		dprintf(2, "%c", data->line[i++]);
 	// 	// regarder pour commande not found perror
 	// 	printf("\n");
-	//}
+	// }
 }
