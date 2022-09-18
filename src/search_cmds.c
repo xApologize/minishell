@@ -61,61 +61,61 @@ int	is_builtin(char *line)
 	return (0);
 }
 
-int	set_cmd(t_cmd *cmd, t_data *data)
+int	set_cmd(t_cmd *cmd)
 {
 	int		i;
 	char	*line_cp;
 
 	i = 0;
-	line_cp = data->line;
+	line_cp = _data.line;
 	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
 		cmd->cmd = line_cp;
 	}
 	else
-		cmd->cmd = get_path(line_cp, data);
+		cmd->cmd = get_path(line_cp);
 	while (*line_cp != '\0')
 		line_cp++;
-	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
-		cmd->argv = get_argv(data);
-	while (*data->line != '\0')
-		data->line++;
+	if (*line_cp == '\0' && ft_strchr(" \n", *_data.indexmeta))
+		cmd->argv = get_argv();
+	while (*_data.line != '\0')
+		_data.line++;
 	return (i - 1);
 }
 
-void	search_cmd(t_data *data, t_cmd *cmd)
+void	search_cmd(t_cmd *cmd)
 {
 	t_cmd	*tmp_cmd;
 
 	tmp_cmd = cmd;
-	while (*data->indexmeta != '\0')
+	while (*_data.indexmeta != '\0')
 	{
-		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))
-			get_fd(tmp_cmd, data, *data->indexmeta);
-		else if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
+		if (*_data.line == '\0' && ft_strchr("<>", *_data.indexmeta))
+			get_fd(tmp_cmd, *_data.indexmeta);
+		else if (*_data.line == '\0' && ft_strchr(" \n", *_data.indexmeta))
 		{
-			data->indexmeta++;
-			data->line++;
+			_data.indexmeta++;
+			_data.line++;
 		}
-		else if (*data->line == '\0' && *data->indexmeta == '|')
+		else if (*_data.line == '\0' && *_data.indexmeta == '|')
 		{
 			tmp_cmd = tmp_cmd->next;
-			data->line++;
-			data->indexmeta++;
+			_data.line++;
+			_data.indexmeta++;
 		}
 		else
-			set_cmd(tmp_cmd, data);
+			set_cmd(tmp_cmd);
 	}
-	pipex(cmd, data);
+	pipex(cmd);
 }
 
-void	env_split(t_data *data, char **envp_copy)
+void	env_split(char **envp_copy)
 {
 	int	find;
 
 	find = 0;
-	data->path_split = NULL;
+	_data.path_split = NULL;
 	while (envp_copy[find])
 	{
 		if (ft_strncmp(envp_copy[find], "PATH=", 5) == 0)
@@ -123,19 +123,19 @@ void	env_split(t_data *data, char **envp_copy)
 		find++;
 	}
 	if (envp_copy[find] != NULL)
-		data->path_split = ft_split(envp_copy[find], ':');
-	data->path_split[0] = data->path_split[0] + 5;
+		_data.path_split = ft_split(envp_copy[find], ':');
+	_data.path_split[0] = _data.path_split[0] + 5;
 }
 
-void	trim_path(t_data *data)
+void	trim_path(void)
 {
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	tmp = ft_strdup(data->path_split[0]);
-	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
+	tmp = ft_strdup(_data.path_split[0]);
+	_data.path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
 	free(tmp);
-	while (data->path_split[i])
+	while (_data.path_split[i])
 		i++;
 }

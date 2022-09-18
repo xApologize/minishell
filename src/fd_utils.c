@@ -1,60 +1,60 @@
 #include "../include/minishell.h"
 
-void	set_fd_in(t_cmd *cmd, t_data *data)
+void	set_fd_in(t_cmd *cmd)
 {
-	if (!cmd || !data)
+	if (!cmd)
 		return ;
-	while (*data->line == '\0' && ft_strchr(" <", *data->indexmeta))
+	while (*_data.line == '\0' && ft_strchr(" <", *_data.indexmeta))
 	{
-		data->line++;
-		data->indexmeta++;
+		_data.line++;
+		_data.indexmeta++;
 	}
-	if (*data->line == '\0' && *data->indexmeta == ' ')
+	if (*_data.line == '\0' && *_data.indexmeta == ' ')
 		return ;
-	if (access(data->line, F_OK) == 0)
+	if (access(_data.line, F_OK) == 0)
 	{
-		cmd->redir_in = open(data->line, O_RDWR);
+		cmd->redir_in = open(_data.line, O_RDWR);
 		dup2(cmd->redir_in, STDIN_FILENO);
 		close(cmd->redir_in);
 	}
-	while (*data->line != '\0')
-		data->line++;
+	while (*_data.line != '\0')
+		_data.line++;
 }
 
-void	set_fd_out(t_cmd *cmd, int append, t_data *data)
+void	set_fd_out(t_cmd *cmd, int append)
 {
-	if (!cmd || !data->line)
+	if (!cmd || !_data.line)
 		return ;
-	data->indexmeta++;
+	_data.indexmeta++;
 	if (append == 1)
-		data->indexmeta++;
-	while (*data->line == '\0' && (*data->indexmeta == ' ' || *data->indexmeta == '\0'))
+		_data.indexmeta++;
+	while (*_data.line == '\0' && (*_data.indexmeta == ' ' || *_data.indexmeta == '\0'))
 	{
-		data->line++;
-		data->indexmeta++;
+		_data.line++;
+		_data.indexmeta++;
 	}
 	if (append == 0)
-		cmd->redir_out = open(data->line, O_RDWR | O_CREAT, 0777);
+		cmd->redir_out = open(_data.line, O_RDWR | O_CREAT, 0777);
 	else
-		cmd->redir_out = open(data->line, O_RDWR | O_APPEND | O_CREAT, 0777);
-	while (*data->line != '\0')
-		data->line++;
+		cmd->redir_out = open(_data.line, O_RDWR | O_APPEND | O_CREAT, 0777);
+	while (*_data.line != '\0')
+		_data.line++;
 }
 
-void	get_fd(t_cmd *cmd, t_data *data, char meta)
+void	get_fd(t_cmd *cmd, char meta)
 {
 	if (meta == '<')
 	{
-		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
-			cmd->redir_in = heredoc(data);
+		if (_data.line[1] == '\0' && _data.indexmeta[1] == '<')
+			cmd->redir_in = heredoc();
 		else
-			set_fd_in(cmd, data);
+			set_fd_in(cmd);
 	}
 	else if (meta == '>')
 	{
-		if (data->line[1] == '\0' && data->indexmeta[1] == '>')
-			set_fd_out(cmd, 1, data);
+		if (_data.line[1] == '\0' && _data.indexmeta[1] == '>')
+			set_fd_out(cmd, 1);
 		else
-			set_fd_out(cmd, 0, data);
+			set_fd_out(cmd, 0);
 	}
 }

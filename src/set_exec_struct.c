@@ -1,16 +1,16 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-t_cmd	*set_exec_struct(t_data *data, char **env)
+t_cmd	*set_exec_struct(char **env)
 {
 	int		i;
 	int		noeud;
 	t_cmd	*list;
 
 	i = 0;
-	noeud = nb_pipes(data);
+	noeud = nb_pipes();
 	list = NULL;
-	while ( i < noeud)
+	while (i < noeud)
 	{
 		add_nodes(&list, create_nodes(env));
 		i++;
@@ -18,16 +18,16 @@ t_cmd	*set_exec_struct(t_data *data, char **env)
 	return (list);
 }
 
-int	nb_pipes(t_data *data)
+int	nb_pipes(void)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (data->indexmeta[i] != '\0')
+	while (_data.indexmeta[i] != '\0')
 	{
-		if (data->indexmeta[i] == '|')
+		if (_data.indexmeta[i] == '|')
 			j++;
 		i++;
 	}

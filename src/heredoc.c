@@ -1,21 +1,21 @@
 #include "../include/minishell.h"
 
-int	heredoc(t_data *data)
+int	heredoc(void)
 {
 	char	*line;
 	char	*return_line;
 	int		fd[2];
 
 	pipe(fd);
-	while (*data->line == '\0')
+	while (*_data.line == '\0')
 	{
-		data->line++;
-		data->indexmeta++;
+		_data.line++;
+		_data.indexmeta++;
 	}
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strcmp(line, data->line) == 0)
+		if (ft_strcmp(line, _data.line) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
 		write(fd[1], return_line, ft_strlen(return_line));
@@ -23,7 +23,7 @@ int	heredoc(t_data *data)
 		free(return_line);
 	}
 	free(line);
-	while (*data->line != '\0')
-		data->line++;
+	while (*_data.line != '\0')
+		_data.line++;
 	return (fd[1]);
 }

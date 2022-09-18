@@ -25,6 +25,7 @@
 
 typedef struct s_data
 {
+	char	**envp_copy;
 	char	**path_split;
 	char	**line_split;
 	char	*indexmeta;
@@ -51,6 +52,9 @@ typedef struct s_cmd
 	bool			is_builtin;
 	struct s_cmd	*next;
 }					t_cmd;
+
+//global variable
+t_data _data;
 
 //cd_utils.c
 int			find_oldpwd(char **envp_copy);
@@ -80,9 +84,9 @@ bool		checkvalidarg(char *arg);
 int			clear_whitespace(int i, char *str);
 
 //cmd_utils.c
-char		*get_path(char *line_cp, t_data *data);
-int			get_argv_count(t_data *data);
-char		**get_argv(t_data *data);
+char		*get_path(char *line_cp);
+int			get_argv_count(void);
+char		**get_argv(void);
 
 
 //echo_utils.c
@@ -107,9 +111,9 @@ char		**modify_var(char *arg, char **envp_copy);
 int			check_dup_env(char *arg, char **envp_copy);
 
 //fd_utils.c
-void		set_fd_in(t_cmd *cmd, t_data *data);
-void		set_fd_out(t_cmd *cmd, int append, t_data *data);
-void		get_fd(t_cmd *cmd, t_data *data, char meta);
+void		set_fd_in(t_cmd *cmd);
+void		set_fd_out(t_cmd *cmd, int append);
+void		get_fd(t_cmd *cmd, char meta);
 
 //find_var.c
 int			find_var(char *arg, char **envp_copy);
@@ -121,7 +125,7 @@ void		freeopt(char **opt);
 char		*get_home(char **envp_copy);
 
 //handle_builtin.c
-char		**handle_builtin(t_cmd *cmd, t_data *data);
+char		**handle_builtin(t_cmd *cmd);
 
 //handle_dollar.c
 char		*handle_dollar(char *line, char **envp_copy);
@@ -130,23 +134,23 @@ char		*handle_dollar(char *line, char **envp_copy);
 void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
-void		handle_exit(t_cmd *cmd, t_data *data);
+void		handle_exit(t_cmd *cmd);
 
 //heredoc.c
-int			heredoc(t_data *data);
+int			heredoc(void);
 
 //parsing.c
-void		parsing(char **envp_copy, t_data *data, t_cmd *cmd);
-void		tokenize(t_data *data);
-int			quote(int i, t_data *data);
-void		findlenght(t_data *data);
-void		print_line(t_data *data);
+void		parsing(char **envp_copy, t_cmd *cmd);
+void		tokenize(void);
+int			quote(int i);
+void		findlenght(void);
+void		print_line(void);
 
 //pepe.c
 void		pepe(void);
 
 //pipex.c
-void		pipex(t_cmd *cmd, t_data *data);
+void		pipex(t_cmd *cmd);
 int			pipex_redir(t_cmd *cmd);
 int			exec_fork_cmd(t_cmd	*cmd);
 void		exec_cmd(t_cmd *cmd);
@@ -159,9 +163,9 @@ void		print_intro(void);
 void		handle_pwd(t_cmd *cmd);
 
 //quotation.c
-bool		error_quotation(t_data *data);
-int			squotes(int i, t_data *data);
-int			dquotes(int i, t_data *data);
+bool		error_quotation(void);
+int			squotes(int i);
+int			dquotes(int i);
 
 //return_dollar.c
 char		*return_dollar(char *line, char **envp_copy);
@@ -173,17 +177,17 @@ char		*return_var(char *line);
 char		*rl_gets(void);
 
 //search_cmds.c
-char		*get_path(char *line_cp, t_data *data);
-int			get_argv_count(t_data *data);
-char		**get_argv(t_data *data);
-int			set_cmd(t_cmd *cmd, t_data *data);
-void		search_cmd(t_data *data, t_cmd *cmd);
-void		env_split(t_data *data, char **envp_copy);
-void		trim_path(t_data *data);
+char		*get_path(char *line_cp);
+int			get_argv_count(void);
+char		**get_argv(void);
+int			set_cmd(t_cmd *cmd);
+void		search_cmd(t_cmd *cmd);
+void		env_split(char **envp_copy);
+void		trim_path(void);
 
 //set_exec_struct.c
-t_cmd		*set_exec_struct(t_data *data, char **env);
-int			nb_pipes(t_data *data);
+t_cmd		*set_exec_struct(char **env);
+int			nb_pipes(void);
 t_cmd 		*create_nodes(char **env);
 void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
@@ -206,7 +210,7 @@ char		*skip_dollar(char *line);
 void		skip_single_quote(char *line);
 
 //status_error.c
-void		status(t_data *data);
+void		status(void);
 
 //unset_utils.c
 char		**handle_unset(t_cmd *cmd);
@@ -222,6 +226,6 @@ char		*unwrap_dollar(char *line, char **envp_copy);
 char		*make_line(char **argv);
 
 // free_data.c
-void		free_data(t_data *data);
+void		free_data(void);
 
 #endif

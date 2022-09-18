@@ -1,45 +1,45 @@
 #include "../include/minishell.h"
 
-bool	error_quotation(t_data *data)
+bool	error_quotation(void)
 {
 	int	i;
 
-	data->error_quotes = false;
+	_data.error_quotes = false;
 	i = 0;
-	while (data->line[i] != '\0')
+	while (_data.line[i] != '\0')
 	{
-		if (data->line[i] == '\'')
+		if (_data.line[i] == '\'')
 		{
 			i++;
-			i = squotes(i, data);
+			i = squotes(i);
 		}
-		if (data->line[i] == '\"')
+		if (_data.line[i] == '\"')
 		{
 			i++;
-			i = dquotes(i, data);
+			i = dquotes(i);
 		}
 		i++;
 	}
 	return (false);
 }
 
-int	squotes(int i, t_data *data)
+int	squotes(int i)
 {
-	while (data->line[i] != '\'')
+	while (_data.line[i] != '\'')
 	{
-		if (data->line[i] == '\0')
-			data->error_quotes = true;
+		if (_data.line[i] == '\0')
+			_data.error_quotes = true;
 		i++;
 	}
 	return (i);
 }
 
-int	dquotes(int i, t_data *data)
+int	dquotes(int i)
 {
-	while (data->line[i] != '\"')
+	while (_data.line[i] != '\"')
 	{
-		if (data->line[i] == '\0')
-			data->error_quotes = true;
+		if (_data.line[i] == '\0')
+			_data.error_quotes = true;
 		i++;
 	}
 	return (i);

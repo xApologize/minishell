@@ -29,7 +29,7 @@ char	*access_relative_path(char *line)
 
 
 
-char	*get_path(char *line_cp, t_data *data)
+char	*get_path(char *line_cp)
 {
 	int		i;
 	char	*slash;
@@ -41,9 +41,9 @@ char	*get_path(char *line_cp, t_data *data)
 	if (*line_cp == '.')
 		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
-	while (data->path_split[i] != NULL)
+	while (_data.path_split[i] != NULL)
 	{
-		access_try = ft_strjoin(data->path_split[i], slash);
+		access_try = ft_strjoin(_data.path_split[i], slash);
 		if (access_path(access_try) != NULL)
 		{
 			free(slash);
@@ -56,20 +56,20 @@ char	*get_path(char *line_cp, t_data *data)
 	return (NULL);
 }
 
-int	get_argv_count(t_data *data)
+int	get_argv_count(void)
 {
 	char	*line_cp;
 	char	*indexmeta_cp;
 	int		argv_count;
 
-	line_cp = data->line;
-	indexmeta_cp = data->indexmeta;
+	line_cp = _data.line;
+	indexmeta_cp = _data.indexmeta;
 	argv_count = 1;
 	while (*indexmeta_cp != '\0')
 	{
 		if (*line_cp == '\0' && ft_strchr("<>|\n", *indexmeta_cp))
 			break ;
-		if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
+		if (*line_cp == '\0' && ft_strchr(" \n", *_data.indexmeta))
 		{
 			while (*line_cp == '\0' && *indexmeta_cp == ' ')
 			{
@@ -84,37 +84,37 @@ int	get_argv_count(t_data *data)
 	return (argv_count);
 }
 
-char	**get_argv(t_data *data)
+char	**get_argv(void)
 {
 	int		argv_count;
 	int		i;
 	char	**argv;
 
-	argv_count = get_argv_count(data);
+	argv_count = get_argv_count();
 	argv = ft_calloc(sizeof(char*),  argv_count + 1);
 	i = 0;
-	while (!ft_strchr("<>|\n", *data->indexmeta))
+	while (!ft_strchr("<>|\n", *_data.indexmeta))
 	{
 		if (i == 0)
 		{
-			argv[i] = ft_strdup(data->line);
+			argv[i] = ft_strdup(_data.line);
 			i++;
 		}
-		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
+		if (*_data.line == '\0' && ft_strchr(" \n", *_data.indexmeta))
 		{
-			while (*data->line == '\0' && *data->indexmeta == ' ')
+			while (*_data.line == '\0' && *_data.indexmeta == ' ')
 			{
-				data->line++;
-				data->indexmeta++;
+				_data.line++;
+				_data.indexmeta++;
 			}
-			if (*data->line != '\0')
-				argv[i] = ft_strdup(data->line);
+			if (*_data.line != '\0')
+				argv[i] = ft_strdup(_data.line);
 			i++;
 		}
 		else 
-			data->line++;
+			_data.line++;
 	}
 	if (i == 0)
-		argv[i] = ft_strdup(data->line);
+		argv[i] = ft_strdup(_data.line);
 	return (argv);
 }

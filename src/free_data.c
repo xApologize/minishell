@@ -1,9 +1,9 @@
 #include "../include/minishell.h"
 
-void free_data(t_data *data)
+void free_data(void)
 {
-	free(data->indexmeta);
-	free(data->line);
-	freeopt(data->line_split);
-	freeopt(data->path_split);
+	free(_data.indexmeta);
+	free(_data.line);
+	freeopt(_data.line_split);
+	freeopt(_data.path_split);
 }
