@@ -84,26 +84,7 @@ int	set_cmd(t_cmd *cmd)
 	return (i - 1);
 }
 
-<<<<<<< HEAD
 void	search_cmd(t_cmd *cmd)
-=======
-void	close_fd(t_cmd *cmd)
-{
-	t_cmd *tmp;
-
-	tmp = cmd;
-	while (tmp != NULL)
-	{
-		if (tmp->redir_in != STDIN_FILENO)
-			close(tmp->redir_in);
-		if (tmp->redir_out != STDOUT_FILENO)
-			close(tmp->redir_out);
-		tmp = tmp->next;
-	}
-}
-
-void	search_cmd(t_data *data, t_cmd *cmd)
->>>>>>> fix_redirection
 {
 	t_cmd	*tmp_cmd;
 
