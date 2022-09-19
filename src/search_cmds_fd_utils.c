@@ -55,3 +55,18 @@ void	get_fd(t_cmd *cmd, t_data *data, char meta)
 			set_fd_out(cmd, 0, data);
 	}
 }
+
+void	close_fd(t_cmd *cmd)
+{
+	t_cmd *tmp;
+
+	tmp = cmd;
+	while (tmp != NULL)
+	{
+		if (tmp->redir_in != STDIN_FILENO)
+			close(tmp->redir_in);
+		if (tmp->redir_out != STDOUT_FILENO)
+			close(tmp->redir_out);
+		tmp = tmp->next;
+	}
+}
