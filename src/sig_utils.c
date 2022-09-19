@@ -15,8 +15,8 @@
 //
 void	sig_reset(void)
 {
-	struct sigaction sa_sigint;
-	struct sigaction sa_sigquit;
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
 	sa_sigint.sa_handler = NULL;
 	sa_sigquit.sa_handler = NULL;

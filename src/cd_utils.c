@@ -5,7 +5,8 @@ static char *ft_pwdjoinfree(const char *s1, const char *s2)
 	int		s1len;
 	int		s2len;
 	int		i;
-	char	*newstring;	
+	char	*newstring;
+
 	if (!s1 || !s2)
 		return (NULL);
 	s1len = ft_strlen((char *)s1);
@@ -61,7 +62,6 @@ int	find_pwd(char **envp_copy)
 	}
 	return (-1);
 }
-
 
 void	update_pwd(char **envp_copy)
 {

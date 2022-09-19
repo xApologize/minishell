@@ -17,7 +17,7 @@ void	pipex(t_cmd *cmd)
 		while (cmd != NULL)
 		{
 			if (cmd->cmd == NULL)
-				break;
+				break ;
 			if (cmd->next != NULL)
 				pid_child[i] = pipex_redir(cmd);
 			else

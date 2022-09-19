@@ -8,7 +8,7 @@
 
 void	print_struct(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 	int		i;
 	int		j;
 
@@ -29,7 +29,6 @@ void	print_struct(t_cmd *cmd)
 		j++;
 		tmp = tmp->next;
 	}
-
 }
 
 int	set_cmd(t_cmd *cmd, t_data *data)
