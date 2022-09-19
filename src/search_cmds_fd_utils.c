@@ -12,11 +12,7 @@ void	set_fd_in(t_cmd *cmd, t_data *data)
 	if (*data->line == '\0' && *data->indexmeta == ' ')
 		return ;
 	if (access(data->line, F_OK) == 0)
-	{
 		cmd->redir_in = open(data->line, O_RDWR);
-		dup2(cmd->redir_in, STDIN_FILENO);
-		close(cmd->redir_in);
-	}
 	while (*data->line != '\0')
 		data->line++;
 }
