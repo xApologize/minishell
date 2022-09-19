@@ -27,7 +27,8 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 	data->indexmeta++;
 	if (append == 1)
 		data->indexmeta++;
-	while (*data->line == '\0' && (*data->indexmeta == ' ' || *data->indexmeta == '\0'))
+	while (*data->line == '\0' && \
+	(*data->indexmeta == ' ' || *data->indexmeta == '\0'))
 	{
 		data->line++;
 		data->indexmeta++;

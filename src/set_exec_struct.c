@@ -10,7 +10,7 @@ t_cmd	*set_exec_struct(t_data *data, char **env)
 	i = 0;
 	noeud = nb_pipes(data);
 	list = NULL;
-	while ( i < noeud)
+	while (i < noeud)
 	{
 		add_nodes(&list, create_nodes(env));
 		i++;
@@ -34,13 +34,13 @@ int	nb_pipes(t_data *data)
 	return (j + 1);
 }
 
-t_cmd *create_nodes(char **env)
+t_cmd	*create_nodes(char **env)
 {
-	t_cmd *node;
+	t_cmd	*node;
 
 	node = malloc(sizeof(t_cmd));
 	if (!node)
-		return(NULL);
+		return (NULL);
 	node->redir_in = PIPE_READ;
 	node->redir_out = PIPE_WRITE;
 	node->cmd = NULL;
@@ -49,9 +49,9 @@ t_cmd *create_nodes(char **env)
 	return (node);
 }
 
-void add_nodes(t_cmd **cmd, t_cmd *new_cmd)
+void	add_nodes(t_cmd **cmd, t_cmd *new_cmd)
 {
-	t_cmd *last;
+	t_cmd	*last;
 
 	if (!*cmd)
 		*cmd = new_cmd;
@@ -62,13 +62,13 @@ void add_nodes(t_cmd **cmd, t_cmd *new_cmd)
 	}
 }
 
-t_cmd *get_last(t_cmd *cmd)
+t_cmd	*get_last(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	tmp = cmd;
 	if (!cmd)
-		return(NULL);
+		return (NULL);
 	while (tmp->next != NULL)
 		tmp = tmp->next;
 	return (tmp);
