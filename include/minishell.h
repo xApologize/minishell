@@ -78,12 +78,6 @@ bool		checkvalidarg(char *arg);
 //clear_whitespace.c
 int			clear_whitespace(int i, char *str);
 
-//cmd_utils.c
-char		*get_path(char *line_cp, t_data *data);
-int			get_argv_count(t_data *data);
-char		**get_argv(t_data *data);
-
-
 //echo_utils.c
 void		handle_echo(char *line, char **opt);
 int			skip_echo(char *line);
@@ -104,11 +98,6 @@ int			check_modify_env(char *arg, char **envp_copy);
 char		**addtoenv(char *arg, char **envp_copy);
 char		**modify_var(char *arg, char **envp_copy);
 int			check_dup_env(char *arg, char **envp_copy);
-
-//fd_utils.c
-void		set_fd_in(t_cmd *cmd, t_data *data);
-void		set_fd_out(t_cmd *cmd, int append, t_data *data);
-void		get_fd(t_cmd *cmd, t_data *data, char meta);
 
 //find_var.c
 int			find_var(char *arg, char **envp_copy);
@@ -141,6 +130,10 @@ int			quote(int i, t_data *data);
 void		findlenght(t_data *data);
 void		print_line(t_data *data);
 
+//parsing_utils.c
+void		env_split(t_data *data, char **envp_copy);
+void		trim_path(t_data *data);
+
 //pepe.c
 void		pepe(void);
 
@@ -150,6 +143,10 @@ int			pipex_redir(t_cmd *cmd);
 int			exec_fork_cmd(t_cmd	*cmd);
 void		exec_cmd(t_cmd *cmd);
 int			table_length(t_cmd *cmd);
+
+//pipex_utils.c
+void		redir_utils(t_cmd *cmd);
+void		close_fork_fd(t_cmd *cmd);
 
 //print_intro.c
 void		print_intro(void);
@@ -177,8 +174,17 @@ int			get_argv_count(t_data *data);
 char		**get_argv(t_data *data);
 int			set_cmd(t_cmd *cmd, t_data *data);
 void		search_cmd(t_data *data, t_cmd *cmd);
-void		env_split(t_data *data, char **envp_copy);
-void		trim_path(t_data *data);
+
+//search_cmds_cmd_utils.c
+char		*get_path(char *line_cp, t_data *data);
+int			get_argv_count(t_data *data);
+char		**get_argv(t_data *data);
+
+//search_cmds_fd_utils.c
+void		set_fd_in(t_cmd *cmd, t_data *data);
+void		set_fd_out(t_cmd *cmd, int append, t_data *data);
+void		get_fd(t_cmd *cmd, t_data *data, char meta);
+void		close_fd(t_cmd *cmd);
 
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data, char **env);
