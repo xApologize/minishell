@@ -17,10 +17,13 @@ void	pipex(t_cmd *cmd)
 	{
 		while (cmd != NULL)
 		{
-			if (cmd->next != NULL)
-				pid_child[i] = pipex_redir(cmd);
-			else
-				pid_child[i] = exec_fork_cmd(cmd);
+			pid_child[i] = handle_pipe_cmd(cmd);
+			// if (cmd->is_builtin == 1)
+			// 	handle_builtin(cmd);
+			// else if (cmd->next != NULL)
+			// 	pid_child[i] = pipex_redir(cmd);
+			// else
+			// 	pid_child[i] = exec_fork_cmd(cmd);
 			i++;
 			cmd = cmd->next;
 		}
@@ -66,22 +69,10 @@ int	exec_fork_cmd(t_cmd	*cmd)
 	pid = fork();
 	if (pid == 0)
 	{
-		if (cmd->redir_in != STDIN_FILENO)
-		{
-			dup2(cmd->redir_in, STDIN_FILENO);
-			close(cmd->redir_in);
-		}
-		if (cmd->redir_out != STDOUT_FILENO)
-		{
-			dup2(cmd->redir_out, STDOUT_FILENO);
-			close(cmd->redir_out);
-		}
+		redir_utils(cmd);
 		exec_cmd(cmd);
 	}
-	if (cmd->redir_in != STDIN_FILENO)
-		close(cmd->redir_in);
-	if (cmd->redir_out != STDOUT_FILENO)
-		close(cmd->redir_out);
+	close_fork_fd(cmd);
 	return (pid);
 }
 
