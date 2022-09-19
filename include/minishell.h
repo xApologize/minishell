@@ -139,7 +139,7 @@ void		trim_path(t_data *data);
 void		pepe(void);
 
 //pipex.c
-void		pipex(t_cmd *cmd, t_data *data);
+void		pipex(t_cmd *cmd);
 int			pipex_redir(t_cmd *cmd);
 int			exec_fork_cmd(t_cmd	*cmd);
 void		exec_cmd(t_cmd *cmd);
