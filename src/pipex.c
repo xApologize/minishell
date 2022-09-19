@@ -1,21 +1,22 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void	pipex(t_cmd *cmd)
 {
+	int	pid;
 	int	i;
 	int	*pid_child;
 	int	status;
 
 	pid_child = malloc(sizeof(int) * table_length(cmd));
 	i = 0;
-	while (cmd != NULL)
+	pid = fork();
+	if (pid == 0)
 	{
 		while (cmd != NULL)
 		{
-			if (cmd->cmd == NULL)
-				break ;
 			if (cmd->next != NULL)
 				pid_child[i] = pipex_redir(cmd);
 			else
@@ -26,6 +27,9 @@ void	pipex(t_cmd *cmd)
 	}
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
+	waitpid(pid, NULL, 0);
+	if (pid == 0)
+		exit(0);
 }
 
 int	pipex_redir(t_cmd *cmd)
