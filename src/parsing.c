@@ -71,11 +71,9 @@ void	findlenght(t_data *data)
 			i = quote(i, data);
 		if (ft_strchr(WS_METACHAR, data->line[i]) && data->line[i])
 		{
-			//printf("in strchr line[%d] = %c\n", i, line[i]);
 			lenght++;
 		}
 		i++;
 	}
-	//printf("lenght = %d\n", lenght);
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));
 }

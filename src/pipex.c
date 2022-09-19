@@ -43,20 +43,20 @@ int	pipex_redir(t_cmd *cmd)
 	if (pid > 0)
 	{
 		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], cmd->redir_in);
+		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
 		close(pipe_fd[PIPE_READ]);
 	}
 	if (pid == 0)
 	{
+		redir_utils(cmd);
 		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], cmd->redir_out);
+		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
-	close(cmd->redir_out);
-	close(cmd->redir_in);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	close(pipe_fd[PIPE_READ]);
+	close(pipe_fd[PIPE_WRITE]);
+	close_fork_fd(cmd);
 	return (pid);
 }
 
@@ -66,7 +66,23 @@ int	exec_fork_cmd(t_cmd	*cmd)
 
 	pid = fork();
 	if (pid == 0)
+	{
+		if (cmd->redir_in != STDIN_FILENO)
+		{
+			dup2(cmd->redir_in, STDIN_FILENO);
+			close(cmd->redir_in);
+		}
+		if (cmd->redir_out != STDOUT_FILENO)
+		{
+			dup2(cmd->redir_out, STDOUT_FILENO);
+			close(cmd->redir_out);
+		}
 		exec_cmd(cmd);
+	}
+	if (cmd->redir_in != STDIN_FILENO)
+		close(cmd->redir_in);
+	if (cmd->redir_out != STDOUT_FILENO)
+		close(cmd->redir_out);
 	return (pid);
 }
 

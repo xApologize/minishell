@@ -40,9 +40,9 @@ t_cmd	*create_nodes(char **env)
 
 	node = malloc(sizeof(t_cmd));
 	if (!node)
-		return (NULL);
-	node->redir_in = PIPE_READ;
-	node->redir_out = PIPE_WRITE;
+		return(NULL);
+	node->redir_in = STDIN_FILENO;
+	node->redir_out = STDOUT_FILENO;
 	node->cmd = NULL;
 	node->env = env;
 	node->next = NULL;
