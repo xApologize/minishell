@@ -20,7 +20,7 @@ void	handle_echo(t_cmd *cmd)
 
 int	skip_echo(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] == '\t' || line[i] == ' ')
@@ -60,8 +60,8 @@ void	print_echo_with_n(char *line)
 {
 	int		i;
 	int		j;
-	char 	*str;
-	char 	*pstr;
+	char	*str;
+	char	*pstr;
 
 	i = skip_n(line);
 	j = ft_strlen(line);

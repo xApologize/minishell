@@ -8,7 +8,7 @@
 
 void	print_struct(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 	int		i;
 	int		j;
 
@@ -29,7 +29,6 @@ void	print_struct(t_cmd *cmd)
 		j++;
 		tmp = tmp->next;
 	}
-
 }
 
 int	is_builtin(char *line)
@@ -107,35 +106,6 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		else
 			set_cmd(tmp_cmd, data);
 	}
-	pipex(cmd, data);
-}
-
-void	env_split(t_data *data, char **envp_copy)
-{
-	int	find;
-
-	find = 0;
-	data->path_split = NULL;
-	while (envp_copy[find])
-	{
-		if (ft_strncmp(envp_copy[find], "PATH=", 5) == 0)
-			break ;
-		find++;
-	}
-	if (envp_copy[find] != NULL)
-		data->path_split = ft_split(envp_copy[find], ':');
-	data->path_split[0] = data->path_split[0] + 5;
-}
-
-void	trim_path(t_data *data)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = ft_strdup(data->path_split[0]);
-	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
-	free(tmp);
-	while (data->path_split[i])
-		i++;
+	pipex(cmd);
+	close_fd(cmd);
 }

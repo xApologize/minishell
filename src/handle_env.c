@@ -3,7 +3,7 @@
 // Implementation of env builtin
 void	handle_env(t_cmd *cmd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cmd->argv[1] != NULL)

@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	pipex(t_cmd *cmd, t_data *data)
+void	pipex(t_cmd *cmd)
 {
 	int	i;
 	int	*pid_child;
@@ -12,14 +12,17 @@ void	pipex(t_cmd *cmd, t_data *data)
 	i = 0;
 	while (cmd != NULL)
 	{
-		if (cmd->is_builtin == 1)
-			cmd->env = handle_builtin(cmd, data);
-		// if (cmd->next != NULL)
-		// 	pid_child[i] = pipex_redir(cmd);
-		// else
-		// 	pid_child[i] = exec_fork_cmd(cmd);
-		// i++;
-		cmd = cmd->next;
+		while (cmd != NULL)
+		{
+			if (cmd->cmd == NULL)
+				break ;
+			if (cmd->next != NULL)
+				pid_child[i] = pipex_redir(cmd);
+			else
+				pid_child[i] = exec_fork_cmd(cmd);
+			i++;
+			cmd = cmd->next;
+		}
 	}
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
@@ -35,20 +38,20 @@ int	pipex_redir(t_cmd *cmd)
 	if (pid > 0)
 	{
 		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], cmd->redir_in);
+		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
 		close(pipe_fd[PIPE_READ]);
 	}
 	if (pid == 0)
 	{
+		redir_utils(cmd);
 		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], cmd->redir_out);
+		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
-	close(cmd->redir_out);
-	close(cmd->redir_in);
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
+	close(pipe_fd[PIPE_READ]);
+	close(pipe_fd[PIPE_WRITE]);
+	close_fork_fd(cmd);
 	return (pid);
 }
 
@@ -58,7 +61,23 @@ int	exec_fork_cmd(t_cmd	*cmd)
 
 	pid = fork();
 	if (pid == 0)
+	{
+		if (cmd->redir_in != STDIN_FILENO)
+		{
+			dup2(cmd->redir_in, STDIN_FILENO);
+			close(cmd->redir_in);
+		}
+		if (cmd->redir_out != STDOUT_FILENO)
+		{
+			dup2(cmd->redir_out, STDOUT_FILENO);
+			close(cmd->redir_out);
+		}
 		exec_cmd(cmd);
+	}
+	if (cmd->redir_in != STDIN_FILENO)
+		close(cmd->redir_in);
+	if (cmd->redir_out != STDOUT_FILENO)
+		close(cmd->redir_out);
 	return (pid);
 }
 

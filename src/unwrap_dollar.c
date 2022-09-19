@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char *unwrap_dollar(char *line, char **envp_copy)
+char	*unwrap_dollar(char *line, char **envp_copy)
 {
 	char	*new_line;
 	char	*value;

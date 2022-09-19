@@ -1,14 +1,15 @@
 #include "../include/minishell.h"
 
-int checkenvformat(char *var)
+int	checkenvformat(char *var)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (var[++i])
-    {
-        if (var[i] == '=' && ft_isprint(var[i - 1]) == 1 && ft_isprint(var[i + 1]) == 1)
-            return (1);
-    }
-    return (0);
+	i = -1;
+	while (var[++i])
+	{
+		if (var[i] == '=' && \
+		ft_isprint(var[i - 1]) == 1 && ft_isprint(var[i + 1]) == 1)
+			return (1);
+	}
+	return (0);
 }

@@ -3,8 +3,8 @@
 
 void	handle_pwd(t_cmd *cmd)
 {
-	int args;
-	char *path;
+	int		args;
+	char	*path;
 
 	path = NULL;
 	args = 0;

@@ -2,7 +2,7 @@
 
 char	**handle_export(t_cmd *cmd)
 {
-	int	i;
+	int		i;
 	bool	valid_env;
 	bool	valid_assign;
 
@@ -37,12 +37,13 @@ bool	checkvalidenv(char *arg)
 
 bool	checkvalidassign(bool env_stat, char *arg)
 {
-	bool is_valid;
+	bool	is_valid;
 
 	is_valid = checkassign(arg);
 	if (!env_stat)
 	{
-		dprintf(STDERR_FILENO, "msh: export: '%s': not a valid identifier\n", arg);
+		dprintf(STDERR_FILENO, \
+		"msh: export: '%s': not a valid identifier\n", arg);
 		return (false);
 	}
 	else if (!is_valid)
