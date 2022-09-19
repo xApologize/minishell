@@ -48,27 +48,15 @@ int	pipex_redir(t_cmd *cmd)
 	}
 	if (pid == 0)
 	{
-		if (cmd->redir_in != STDIN_FILENO)
-		{
-			dup2(cmd->redir_in, STDIN_FILENO);
-			close(cmd->redir_in);
-		}
-		if (cmd->redir_out != STDOUT_FILENO)
-		{
-			dup2(cmd->redir_out, STDOUT_FILENO);
-			close(cmd->redir_out);
-		}
+		redir_utils(cmd);
 		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
-	if (cmd->redir_in != STDIN_FILENO)
-		close(cmd->redir_in);
-	if (cmd->redir_out != STDOUT_FILENO)
-		close(cmd->redir_out);
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
+	close_fork_fd(cmd);
 	return (pid);
 }
 
