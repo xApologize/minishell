@@ -24,10 +24,8 @@ char	*access_relative_path(char *line)
 	}
 	// free(slash);
 	// free(pwd_join);
-	return (NULL);
+	return (line);
 }
-
-
 
 char	*get_path(char *line_cp, t_data *data)
 {
