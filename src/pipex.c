@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	pipex(t_cmd *cmd)
+void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
 	int	*pid_child;
@@ -14,7 +14,9 @@ void	pipex(t_cmd *cmd)
 	{
 		while (cmd != NULL)
 		{
-			if (cmd->next != NULL)
+			if (cmd->is_builtin == 1)
+				handle_builtin(cmd, data);
+			else if (cmd->next != NULL)
 				pid_child[i] = pipex_redir(cmd);
 			else
 				pid_child[i] = exec_fork_cmd(cmd);
