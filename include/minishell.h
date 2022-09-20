@@ -150,6 +150,7 @@ int			table_length(t_cmd *cmd);
 //pipex_utils.c
 void		redir_utils(t_cmd *cmd);
 void		close_fork_fd(t_cmd *cmd);
+int			handle_pipe_cmd(t_cmd *cmd);
 
 //print_intro.c
 void		print_intro(void);
