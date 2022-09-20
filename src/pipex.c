@@ -11,6 +11,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 	int	status;
 
 	pid_child = malloc(sizeof(int) * table_length(cmd));
+	(void) data;
 	i = 0;
 	pid = fork();
 	if (pid == 0)
