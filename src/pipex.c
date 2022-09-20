@@ -17,12 +17,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 	{
 		while (cmd != NULL)
 		{
-			if (cmd->is_builtin == 1)
-				_envp_copy = handle_builtin(cmd, data);
-			else if (cmd->next != NULL)
-				pid_child[i] = pipex_redir(cmd);
-			else
-				pid_child[i] = exec_fork_cmd(cmd);
+			pid_child[i] = handle_pipe_cmd(cmd);
 			i++;
 			cmd = cmd->next;
 		}
