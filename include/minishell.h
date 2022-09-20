@@ -52,6 +52,8 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+char		**_envp_copy;
+
 //cd_utils.c
 int			find_oldpwd(char **envp_copy);
 int			find_pwd(char **envp_copy);
@@ -139,7 +141,7 @@ void		trim_path(t_data *data);
 void		pepe(void);
 
 //pipex.c
-void		pipex(t_cmd *cmd);
+void		pipex(t_cmd *cmd, t_data *data);
 int			pipex_redir(t_cmd *cmd);
 int			exec_fork_cmd(t_cmd	*cmd);
 void		exec_cmd(t_cmd *cmd);

@@ -3,7 +3,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-void	pipex(t_cmd *cmd)
+void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	pid;
 	int	i;

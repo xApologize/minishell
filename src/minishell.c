@@ -16,21 +16,18 @@ int	main(void)
 	t_data		data;
 	t_cmd		*cmd;
 	extern char	**environ;
-	char		**envp_copy;
-	// t_data		data;
 
-	envp_copy = envp_cp(environ);
+	_envp_copy = envp_cp(environ);
 	print_intro();
-	//sig_handling();
+	sig_handling();
 	cmd = NULL;
 	while (1)
 	{
 		data.line = rl_gets();
 		if (data.line == NULL)
 			exit(0);
-		data.line = handle_dollar(data.line, envp_copy);
-		parsing(envp_copy, &data, cmd);
-		//free(data.line);
+		data.line = handle_dollar(data.line, _envp_copy);
+		parsing(_envp_copy, &data, cmd);
 	}
 	return (0);
 }
