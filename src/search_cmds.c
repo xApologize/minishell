@@ -17,18 +17,47 @@ void	print_struct(t_cmd *cmd)
 	j = 0;
 	while (tmp != NULL)
 	{
-		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
-		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
-		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
+		// printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
+		// printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
+		// printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
 		while (tmp->argv[i + 1] != NULL)
 		{
-			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
+			// printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
 			i++;
 		}
 		i = 0;
 		j++;
 		tmp = tmp->next;
 	}
+}
+
+int	is_builtin(char *line)
+{
+	char	**builtin;
+	int		i;
+
+	builtin = ft_calloc(9, sizeof(char*));
+	builtin[0] = "echo";
+	builtin[1] = "cd";
+	builtin[2] = "pwd";
+	builtin[3] = "export";
+	builtin[4] = "unset";
+	builtin[5] = "env";
+	builtin[6] = "exit";
+	builtin[7] = "pepe";
+	builtin[8] = NULL;
+	i = 0;
+	while (builtin[i])
+	{
+		if (ft_strcmp(line, builtin[i]) == 0)
+		{
+			free(builtin);
+			return(1);
+		}
+		i++;
+	}
+	free(builtin);
+	return (0);
 }
 
 int	set_cmd(t_cmd *cmd, t_data *data)
@@ -38,7 +67,13 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	cmd->cmd = get_path(line_cp, data);
+	if(is_builtin(line_cp) == 1)
+	{
+		cmd->is_builtin = 1;
+		cmd->cmd = line_cp;
+	}
+	else
+		cmd->cmd = get_path(line_cp, data);
 	while (*line_cp != '\0')
 		line_cp++;
 	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))

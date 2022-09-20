@@ -2,14 +2,12 @@
 
 void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
 {
-	sig_reset();
 	error_quotation(data);
 	tokenize(data);
 	status(data);
 	env_split(data, envp_copy);
 	cmd = set_exec_struct(data, envp_copy);
 	search_cmd(data, cmd);
-	sig_handling();
 }
 
 void	tokenize(t_data *data)
@@ -70,9 +68,7 @@ void	findlenght(t_data *data)
 		if (ft_strchr(QUOTES, data->line[i]) && data->line[i])
 			i = quote(i, data);
 		if (ft_strchr(WS_METACHAR, data->line[i]) && data->line[i])
-		{
 			lenght++;
-		}
 		i++;
 	}
 	data->indexmeta = ft_calloc(lenght + 1, sizeof (char));

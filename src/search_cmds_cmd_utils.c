@@ -27,6 +27,8 @@ char	*access_relative_path(char *line)
 	return (NULL);
 }
 
+
+
 char	*get_path(char *line_cp, t_data *data)
 {
 	int		i;

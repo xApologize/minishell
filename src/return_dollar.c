@@ -21,3 +21,4 @@ char	*return_dollar(char *line, char **envp_copy)
 		return_line = (ft_strdup(""));
 	return (return_line);
 }
+

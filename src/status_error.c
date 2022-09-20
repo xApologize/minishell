@@ -2,9 +2,10 @@
 
 void	status(t_data *data)
 {
-	int	i;
+	(void) data;
+	// int	i;
 
-	i = 0;
+	//i = 0;
 	if (data->error_quotes == true)
 		dprintf(2, "quotes is odd\n");
 	if (data->error_first_cmd == true)

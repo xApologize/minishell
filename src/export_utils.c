@@ -1,25 +1,22 @@
 #include "../include/minishell.h"
 
-char	**handle_export(char *line, char **envp_copy)
+char	**handle_export(t_cmd *cmd)
 {
 	int		i;
-	char	**opt;
 	bool	valid_env;
 	bool	valid_assign;
 
 	i = 0;
-	opt = ft_split(line, ' ');
-	while (opt[++i])
+	while (cmd->argv[++i])
 	{
-		valid_env = checkvalidenv(opt[i]);
-		valid_assign = checkvalidassign(valid_env, opt[i]);
-		if (valid_assign == true && check_modify_env(opt[i], envp_copy) == 1)
-			envp_copy = modify_var(opt[i], envp_copy);
-		if (valid_assign == true && check_dup_env(opt[i], envp_copy) == 0)
-			envp_copy = addtoenv(opt[i], envp_copy);
+		valid_env = checkvalidenv(cmd->argv[i]);
+		valid_assign = checkvalidassign(valid_env, cmd->argv[i]);
+		if (valid_assign == true && check_modify_env(cmd->argv[i], cmd->env) == 1)
+			cmd->env = modify_var(cmd->argv[i], cmd->env);
+		if (valid_assign == true && check_dup_env(cmd->argv[i], cmd->env) == 0)
+			cmd->env = addtoenv(cmd->argv[i], cmd->env);
 	}
-	freeopt(opt);
-	return (envp_copy);
+	return (cmd->env);
 }
 
 bool	checkvalidenv(char *arg)

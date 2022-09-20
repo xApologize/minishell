@@ -1,10 +1,9 @@
 #include "../include/minishell.h"
 
-void	handle_exit(char *line, char **opt, char **envp_copy)
+void	handle_exit(t_cmd *cmd, t_data *data)
 {
-	if (line != NULL)
-		free(line);
-	freeopt(opt);
-	freeopt(envp_copy);
+	(void) cmd;
+	(void) data;
+	//free_data(data);
 	exit(0);
 }

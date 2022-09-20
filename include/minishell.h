@@ -48,6 +48,7 @@ typedef struct s_cmd
 	char			*cmd;
 	char			**argv;
 	char			**env;
+	bool			is_builtin;
 	struct s_cmd	*next;
 }					t_cmd;
 
@@ -55,7 +56,7 @@ typedef struct s_cmd
 int			find_oldpwd(char **envp_copy);
 int			find_pwd(char **envp_copy);
 void		update_pwd(char **envp_copy);
-void		handle_cd(char **opt, char **envp_copy);
+void		handle_cd(t_cmd *cmd);
 
 //charjoinfree.c
 char		*charjoinfree(const char *s1, const char c);
@@ -79,7 +80,7 @@ bool		checkvalidarg(char *arg);
 int			clear_whitespace(int i, char *str);
 
 //echo_utils.c
-void		handle_echo(char *line, char **opt);
+void		handle_echo(t_cmd *cmd);
 int			skip_echo(char *line);
 int			skip_n(char *line);
 void		print_echo_with_n(char *line);
@@ -89,7 +90,7 @@ void		print_echo_without_n(char *line);
 char		**envp_cp(char **envp);
 
 //export_utils.c
-char		**handle_export(char *line, char **envp_copy);
+char		**handle_export(t_cmd *cmd);
 bool		checkvalidenv(char *arg);
 bool		checkvalidassign(bool env_stat, char *arg);
 int			check_modify_env(char *arg, char **envp_copy);
@@ -109,16 +110,16 @@ void		freeopt(char **opt);
 char		*get_home(char **envp_copy);
 
 //handle_builtin.c
-char		**handle_builtin(char *line, char **envp_copy);
+char		**handle_builtin(t_cmd *cmd, t_data *data);
 
 //handle_dollar.c
 char		*handle_dollar(char *line, char **envp_copy);
 
 //handle_env.c
-void		handle_env(char **opt, char **envp_copy);
+void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
-void		handle_exit(char *line, char **opt, char **envp_copy);
+void		handle_exit(t_cmd *cmd, t_data *data);
 
 //heredoc.c
 int			heredoc(t_data *data);
@@ -152,7 +153,7 @@ void		close_fork_fd(t_cmd *cmd);
 void		print_intro(void);
 
 //pwd_utils.c
-void		handle_pwd(char **opt);
+void		handle_pwd(t_cmd *cmd);
 
 //quotation.c
 bool		error_quotation(t_data *data);
@@ -214,7 +215,7 @@ void		skip_single_quote(char *line);
 void		status(t_data *data);
 
 //unset_utils.c
-char		**handle_unset(char **opt, char **envp_copy);
+char		**handle_unset(t_cmd *cmd);
 bool		checkifunset(char *var, char *envp_var);
 char		**copynewenvp(char **envp_copy);
 int			countnewvars(char **envp_copy);
@@ -222,5 +223,11 @@ void		modifyvar(char *var, char **envp_copy);
 
 //unwrap_dollar.c
 char		*unwrap_dollar(char *line, char **envp_copy);
+
+//make_line.c
+char		*make_line(char **argv);
+
+// free_data.c
+void		free_data(t_data *data);
 
 #endif

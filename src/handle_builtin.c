@@ -1,35 +1,31 @@
 #include "../include/minishell.h"
 
-// ◦ echo et l’option -n
-// ◦ cd uniquement avec un chemin relatif ou absolu
-// ◦ pwd sans aucune option
-// ◦ export sans aucune option
-// ◦ unset sans aucune option
-// ◦ env sans aucune option ni argument
-// ◦ exit sans aucune option
+// handle echo done
+// handle_cd done
+// handle_pwd
+// handle_export done
+// handle_unset done
+// handle_env done
+// 
 
-// Need to finish handle_unset
-char	**handle_builtin(char *line, char **envp_copy)
+char	**handle_builtin(t_cmd *cmd, t_data *data)
 {
-	char	**opt;
 
-	opt = ft_split(line, ' ');
-	if (opt[0] == NULL)
-		return (envp_copy);
-	if (ft_strcmp(opt[0], "echo") == 0)
-		handle_echo(line, opt);
-	else if (ft_strcmp(opt[0], "cd") == 0)
-		handle_cd(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "pwd") == 0)
-		handle_pwd(opt);
-	else if (ft_strcmp(opt[0], "export") == 0)
-		envp_copy = handle_export(line, envp_copy);
-	else if (ft_strcmp(opt[0], "unset") == 0)
-		envp_copy = handle_unset(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "env") == 0)
-		handle_env(opt, envp_copy);
-	else if (ft_strcmp(opt[0], "exit\n") == 0)
-		handle_exit(line, opt, envp_copy);
-	freeopt(opt);
-	return (envp_copy);
+	if (ft_strcmp(cmd->argv[0], "echo") == 0)
+		handle_echo(cmd);
+	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
+		handle_cd(cmd);
+	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
+		handle_pwd(cmd);
+	else if (ft_strcmp(cmd->argv[0], "export") == 0)
+		cmd->env = handle_export(cmd);
+	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
+		cmd->env = handle_unset(cmd);
+	else if (ft_strcmp(cmd->argv[0], "env") == 0)
+		handle_env(cmd);
+	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
+		handle_exit(cmd, data);
+	else if (ft_strcmp(cmd->argv[0], "pepe") == 0)
+		pepe();
+	return (cmd->env);
 }

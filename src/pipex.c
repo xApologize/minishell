@@ -4,15 +4,13 @@
 
 void	pipex(t_cmd *cmd)
 {
-	int	pid;
 	int	i;
 	int	*pid_child;
 	int	status;
 
 	pid_child = malloc(sizeof(int) * table_length(cmd));
 	i = 0;
-	pid = fork();
-	if (pid == 0)
+	while (cmd != NULL)
 	{
 		while (cmd != NULL)
 		{
@@ -28,9 +26,6 @@ void	pipex(t_cmd *cmd)
 	}
 	while (i >= 0)
 		waitpid(pid_child[--i], &status, 0);
-	waitpid(pid, NULL, 0);
-	if (pid == 0)
-		exit(0);
 }
 
 int	pipex_redir(t_cmd *cmd)
