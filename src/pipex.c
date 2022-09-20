@@ -9,7 +9,9 @@ void	pipex(t_cmd *cmd, t_data *data)
 	int	i;
 	int	*pid_child;
 	int	status;
+	int	table_size;
 
+	table_size = table_length(cmd);
 	pid_child = malloc(sizeof(int) * table_length(cmd));
 	(void) data;
 	i = 0;
@@ -22,9 +24,14 @@ void	pipex(t_cmd *cmd, t_data *data)
 			i++;
 			cmd = cmd->next;
 		}
+		i = 0;
+		while (i < table_size)
+		{
+			waitpid(pid_child[i], &status, 0);
+			set_exit_code(WEXITSTATUS(status));
+			i++;
+		}
 	}
-	while (i >= 0)
-		waitpid(pid_child[--i], &status, 0);
 	waitpid(pid, NULL, 0);
 	if (pid == 0)
 		exit(0);
@@ -75,7 +82,7 @@ void	exec_cmd(t_cmd *cmd)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	dprintf(2, "something went wrong: %s\n", cmd->cmd);
-	exit(0);
+	exit(127);
 }
 
 int	table_length(t_cmd *cmd)

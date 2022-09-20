@@ -109,5 +109,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		handle_builtin(cmd);
 	else
 		pipex(cmd, data);
+	int	*s = get_exit_code();
+	dprintf(2, "status: %i\n", *s);
 	close_fd(cmd);
 }
