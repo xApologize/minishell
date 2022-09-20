@@ -25,5 +25,6 @@ int	heredoc(t_data *data)
 	free(line);
 	while (*data->line != '\0')
 		data->line++;
-	return (fd[1]);
+	close(fd[1]);
+	return (fd[0]);
 }
