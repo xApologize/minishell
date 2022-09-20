@@ -18,12 +18,6 @@ void	pipex(t_cmd *cmd)
 		while (cmd != NULL)
 		{
 			pid_child[i] = handle_pipe_cmd(cmd);
-			// if (cmd->is_builtin == 1)
-			// 	handle_builtin(cmd);
-			// else if (cmd->next != NULL)
-			// 	pid_child[i] = pipex_redir(cmd);
-			// else
-			// 	pid_child[i] = exec_fork_cmd(cmd);
 			i++;
 			cmd = cmd->next;
 		}
