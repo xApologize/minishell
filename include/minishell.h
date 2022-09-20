@@ -105,6 +105,13 @@ int			check_dup_env(char *arg, char **envp_copy);
 //find_var.c
 int			find_var(char *arg, char **envp_copy);
 
+//free_data.c
+void		free_cmd(t_cmd *cmd);
+
+// free_data.c
+void		free_data(t_data *data);
+
+
 //freeopt.c
 void		freeopt(char **opt);
 
@@ -229,8 +236,5 @@ char		*unwrap_dollar(char *line, char **envp_copy);
 
 //make_line.c
 char		*make_line(char **argv);
-
-// free_data.c
-void		free_data(t_data *data);
 
 #endif

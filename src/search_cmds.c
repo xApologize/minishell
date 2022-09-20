@@ -1,10 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <sys/fcntl.h>
-#include <sys/unistd.h>
-#include <unistd.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -111,5 +105,6 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 	else
 		pipex(cmd, data);
 	close_fd(cmd);
-	print_struct(cmd);
+	free_cmd(cmd);
+	//print_struct(cmd);
 }
