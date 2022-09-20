@@ -76,8 +76,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 		cmd->cmd = get_path(line_cp, data);
 	while (*line_cp != '\0')
 		line_cp++;
-	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
-		cmd->argv = get_argv(data);
+	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
@@ -109,6 +108,6 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
 		handle_builtin(cmd);
 	else
-		pipex(cmd);
+		pipex(cmd, data);
 	close_fd(cmd);
 }
