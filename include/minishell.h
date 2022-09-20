@@ -52,6 +52,8 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+char		**_envp_copy;
+
 //cd_utils.c
 int			find_oldpwd(char **envp_copy);
 int			find_pwd(char **envp_copy);
