@@ -28,7 +28,7 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 		data->indexmeta++;
 	}
 	if (append == 0)
-		cmd->redir_out = open(data->line, O_RDWR | O_CREAT, 0777);
+		cmd->redir_out = open(data->line, O_RDWR | O_TRUNC | O_CREAT, 0777);
 	else
 		cmd->redir_out = open(data->line, O_RDWR | O_APPEND | O_CREAT, 0777);
 	while (*data->line != '\0')
