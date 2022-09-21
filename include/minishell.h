@@ -119,7 +119,7 @@ void		freeopt(char **opt);
 char		*get_home(char **envp_copy);
 
 //handle_builtin.c
-char		**handle_builtin(t_cmd *cmd);
+char		**handle_builtin(t_cmd *cmd, t_data *data);
 
 //handle_dollar.c
 char		*handle_dollar(char *line, char **envp_copy);
@@ -128,7 +128,7 @@ char		*handle_dollar(char *line, char **envp_copy);
 void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
-void		handle_exit(t_cmd *cmd);
+void		handle_exit(t_cmd *cmd, t_data *data);
 
 //heredoc.c
 int			heredoc(t_data *data);
@@ -157,7 +157,7 @@ int			table_length(t_cmd *cmd);
 //pipex_utils.c
 void		redir_utils(t_cmd *cmd);
 void		close_fork_fd(t_cmd *cmd);
-int			handle_pipe_cmd(t_cmd *cmd);
+int			handle_pipe_cmd(t_cmd *cmd, t_data *data);
 
 //print_intro.c
 void		print_intro(void);
