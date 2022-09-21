@@ -15,8 +15,7 @@ void	free_cmd(t_cmd *cmd)
 			free(cmd_copy->cmd);
 		if (cmd_copy->argv)
 			freeopt(cmd_copy->argv);
-		if (cmd_copy->env)
-			freeopt(cmd_copy->env);
 		free(cmd_copy);
 	}
+	free(cmd);
 }
