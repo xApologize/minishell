@@ -19,5 +19,4 @@ void	env_split(t_data *data, char **envp_copy)
 	free(data->path_split[0]);
 	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp) - 5);
 	free(tmp);
-	data->path_split[0] = data->path_split[0] + 5;
 }
