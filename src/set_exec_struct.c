@@ -25,6 +25,7 @@ int	nb_pipes(t_data *data)
 
 	i = 0;
 	j = 0;
+	data->indexmeta_length = ft_strlen(data->indexmeta);
 	while (data->indexmeta[i] != '\0')
 	{
 		if (data->indexmeta[i] == '|')
