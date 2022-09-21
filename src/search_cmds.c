@@ -101,10 +101,9 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		handle_builtin(cmd);
+		handle_builtin(cmd, data);
 	else
 		pipex(cmd, data);
 	close_fd(cmd);
 	free_cmd(cmd);
-	//print_struct(cmd);
 }
