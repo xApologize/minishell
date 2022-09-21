@@ -60,7 +60,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	char	*line_cp;
 
 	i = 0;
-	line_cp = data->line;
+	line_cp = ft_strdup(data->line);
 	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
@@ -75,6 +75,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
+	free(line_cp);
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
@@ -101,9 +102,10 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		handle_builtin(cmd, data);
+		_envp_copy = handle_builtin(cmd, data);
 	else
 		pipex(cmd, data);
 	close_fd(cmd);
+	free_data(data);
 	free_cmd(cmd);
 }
