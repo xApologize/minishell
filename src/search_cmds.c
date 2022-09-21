@@ -17,12 +17,12 @@ void	print_struct(t_cmd *cmd)
 	j = 0;
 	while (tmp != NULL)
 	{
-		// printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
-		// printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
-		// printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
+		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
+		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
+		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
 		while (tmp->argv[i + 1] != NULL)
 		{
-			// printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
+			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
 			i++;
 		}
 		i = 0;
@@ -107,7 +107,9 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		handle_builtin(cmd, data);
-	pipex(cmd, data);
+		handle_builtin(cmd);
+	else
+		pipex(cmd, data);
 	close_fd(cmd);
+	print_struct(cmd);
 }
