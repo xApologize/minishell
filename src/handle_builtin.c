@@ -8,7 +8,7 @@
 // handle_env done
 // 
 
-char	**handle_builtin(t_cmd *cmd)
+char	**handle_builtin(t_cmd *cmd, t_data *data)
 {
 
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
@@ -24,7 +24,7 @@ char	**handle_builtin(t_cmd *cmd)
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		handle_env(cmd);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)
-		handle_exit(cmd);
+		handle_exit(cmd, data);
 	else if (ft_strcmp(cmd->argv[0], "pepe") == 0)
 		pepe();
 	return (cmd->env);
