@@ -26,7 +26,6 @@
 typedef struct s_data
 {
 	char	**path_split;
-	char	**line_split;
 	char	*indexmeta;
 	char	*line;
 	int		indexmeta_length;

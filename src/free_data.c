@@ -6,6 +6,5 @@ void free_data(t_data *data)
 	free(data->indexmeta);
 	data->line -= data->line_lenght;
 	free(data->line);
-	freeopt(data->line_split);
 	freeopt(data->path_split);
 }
