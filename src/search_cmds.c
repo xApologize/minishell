@@ -70,8 +70,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 		cmd->cmd = get_path(line_cp, data);
 	while (*line_cp != '\0')
 		line_cp++;
-	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
-		cmd->argv = get_argv(data);
+	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
