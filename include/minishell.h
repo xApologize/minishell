@@ -28,7 +28,8 @@ typedef struct s_data
 	char	**path_split;
 	char	*indexmeta;
 	char	*line;
-	int		indexmeta_length;
+	char	*save_indexmeta;
+	char	*save_line;
 	int		if_no_meta;
 	int		line_lenght;
 	bool	error_status;
