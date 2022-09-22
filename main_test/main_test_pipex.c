@@ -12,21 +12,31 @@ int main()
 	cmd3->argv = calloc(sizeof(char *), 3);
 	cmd4->argv = calloc(sizeof(char *), 3);
 
-	cmd1->cmd = "/bin/cat";
-	cmd1->argv[0] = "cat";
-	cmd1->argv[1] = "main_test.c";
+	// cmd1->cmd = "/bin/sleep";
+	// cmd1->argv[0] = "sleep";
+	// cmd1->argv[1] = "5";
+ //
+	// cmd2->cmd = "/bin/sleep";
+	// cmd2->argv[0] = "sleep";
+	// cmd2->argv[1] = "2";
+ //
+	// cmd1->next = cmd2;
+	// cmd2->next = NULL;
 
-	cmd2->cmd = "/usr/bin/grep";
-	cmd2->argv[0] = "grep";
-	cmd2->argv[1] = "malloc";
+	cmd1->cmd = "/bin/cat2";
+	cmd1->argv[0] = "cat2";
+	cmd1->argv[1] = "main_test_pipex.c";
 
-	cmd3->cmd = "/usr/bin/grep";
-	cmd3->argv[0] = "grep";
-	cmd3->argv[1] = "argv";
+	cmd2->cmd = "/usr/bin/g3rep";
+	cmd2->argv[0] = "g3rep";
+	cmd2->argv[1] = "calloc";
+
+	cmd3->cmd = "/usr/bin/hewad";
+	cmd3->argv[0] = "hewad";
+	cmd3->argv[1] = "-2";
 
 	cmd4->cmd = "/usr/bin/wc";
 	cmd4->argv[0] = "wc";
-	cmd4->argv[1] = "-l";
 
 	cmd1->next = cmd2;
 	cmd2->next = cmd3;

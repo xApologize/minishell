@@ -1,32 +1,32 @@
 #include "../include/minishell.h"
 
-char	**handle_unset(char **opt, char **envp_copy)
+char	**handle_unset(t_cmd *cmd)
 {
 	int		i;
 	bool	copy;
 
 	i = 1;
 	copy = false;
-	while (opt[i])
+	while (cmd->argv[i])
 	{
-		if (!checkvalidarg(opt[i]))
-			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", opt[i]);
+		if (!checkvalidarg(cmd->argv[i]))
+			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", cmd->argv[i]);
 		else
 		{
 			copy = true;
-			modifyvar(opt[i], envp_copy);
+			modifyvar(cmd->argv[i], cmd->env);
 		}
 		i++;
 	}
 	if (!copy)
-		return (envp_copy);
+		return (cmd->env);
 	else
-		return (copynewenvp(envp_copy));
+		return (copynewenvp(cmd->env));
 }
 
-bool checkifunset(char *var, char *envp_var)
+bool	checkifunset(char *var, char *envp_var)
 {
-	char **split_envp;
+	char	**split_envp;
 
 	split_envp = ft_split(envp_var, '=');
 	if (ft_strcmp(var, split_envp[0]) == 0)
@@ -38,7 +38,7 @@ bool checkifunset(char *var, char *envp_var)
 	return (false);
 }
 
-char **copynewenvp(char **envp_copy)
+char	**copynewenvp(char **envp_copy)
 {
 	int		i;
 	int		j;

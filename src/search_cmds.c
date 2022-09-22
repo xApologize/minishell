@@ -1,54 +1,115 @@
 #include "../include/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <strings.h>
+#include <sys/fcntl.h>
+#include <sys/unistd.h>
+#include <unistd.h>
 
-void	search_cmd(t_data *data)
+void	print_struct(t_cmd *cmd)
 {
+	t_cmd	*tmp;
 	int		i;
-	char	*cmd_join;
 	int		j;
-	char	*check_path;
 
+	tmp = cmd;
 	i = 0;
 	j = 0;
-	trim_path(data);
-	while (data->line_split[i] != NULL)
+	while (tmp != NULL)
 	{
-		cmd_join = ft_strjoin("/", data->line_split[i]);
-		while (data->path_split[j] != NULL)
+		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
+		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
+		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
+		while (tmp->argv[i + 1] != NULL)
 		{
-			check_path = ft_strjoin(data->path_split[j], cmd_join);
-			j++;
+			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
+			i++;
 		}
-		i++;
-		(void) check_path;
+		i = 0;
+		j++;
+		tmp = tmp->next;
 	}
-	access(check_path, F_OK);
 }
 
-void	env_split(t_data *data, char **envp_copy)
+int	is_builtin(char *line)
 {
-	int	find;
-
-	find = 0;
-	data->path_split = NULL;
-	while (envp_copy[find])
-	{
-		if (ft_strncmp(envp_copy[find], "PATH=", 5) == 0)
-			break ;
-		find++;
-	}
-	if (envp_copy[find] != NULL)
-		data->path_split = ft_split(envp_copy[find], ':');
-}
-
-void	trim_path(t_data *data)
-{
-	char	*tmp;
+	char	**builtin;
 	int		i;
 
+	builtin = ft_calloc(9, sizeof(char*));
+	builtin[0] = "echo";
+	builtin[1] = "cd";
+	builtin[2] = "pwd";
+	builtin[3] = "export";
+	builtin[4] = "unset";
+	builtin[5] = "env";
+	builtin[6] = "exit";
+	builtin[7] = "pepe";
+	builtin[8] = NULL;
 	i = 0;
-	tmp = ft_strdup(data->path_split[0]);
-	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
-	free(tmp);
-	while (data->path_split[i])
+	while (builtin[i])
+	{
+		if (ft_strcmp(line, builtin[i]) == 0)
+		{
+			free(builtin);
+			return(1);
+		}
 		i++;
+	}
+	free(builtin);
+	return (0);
+}
+
+int	set_cmd(t_cmd *cmd, t_data *data)
+{
+	int		i;
+	char	*line_cp;
+
+	i = 0;
+	line_cp = data->line;
+	if(is_builtin(line_cp) == 1)
+	{
+		cmd->is_builtin = 1;
+		cmd->cmd = line_cp;
+	}
+	else
+		cmd->cmd = get_path(line_cp, data);
+	while (*line_cp != '\0')
+		line_cp++;
+	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
+		cmd->argv = get_argv(data);
+	while (*data->line != '\0')
+		data->line++;
+	return (i - 1);
+}
+
+void	search_cmd(t_data *data, t_cmd *cmd)
+{
+	t_cmd	*tmp_cmd;
+
+	tmp_cmd = cmd;
+	while (*data->indexmeta != '\0')
+	{
+		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))
+			get_fd(tmp_cmd, data, *data->indexmeta);
+		else if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
+		{
+			data->indexmeta++;
+			data->line++;
+		}
+		else if (*data->line == '\0' && *data->indexmeta == '|')
+		{
+			tmp_cmd = tmp_cmd->next;
+			data->line++;
+			data->indexmeta++;
+		}
+		else
+			set_cmd(tmp_cmd, data);
+	}
+	if (cmd->is_builtin == 1 && cmd->next == NULL)
+		handle_builtin(cmd);
+	else
+		pipex(cmd, data);
+	close_fd(cmd);
+	print_struct(cmd);
 }

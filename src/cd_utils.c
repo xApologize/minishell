@@ -5,7 +5,8 @@ static char *ft_pwdjoinfree(const char *s1, const char *s2)
 	int		s1len;
 	int		s2len;
 	int		i;
-	char	*newstring;	
+	char	*newstring;
+
 	if (!s1 || !s2)
 		return (NULL);
 	s1len = ft_strlen((char *)s1);
@@ -62,7 +63,6 @@ int	find_pwd(char **envp_copy)
 	return (-1);
 }
 
-
 void	update_pwd(char **envp_copy)
 {
 	int		index_pwd;
@@ -92,15 +92,15 @@ void	update_pwd(char **envp_copy)
 	}
 }
 
-void	handle_cd(char **opt, char **envp_copy)
+void	handle_cd(t_cmd *cmd)
 {
 	int	res;
 
-	if (opt[1] == NULL)
-		res = chdir(get_home(envp_copy));
+	if (cmd->argv[1] == NULL)
+		res = chdir(get_home(cmd->env));
 	else
-		res = chdir(opt[1]);
-	update_pwd(envp_copy);
+		res = chdir(cmd->argv[1]);
+	update_pwd(cmd->env);
 	if (res == -1)
-		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), opt[1]);
+		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), cmd->argv[1]);
 }

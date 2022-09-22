@@ -1,16 +1,26 @@
 #include "../include/minishell.h"
 
-void	handle_echo(char *line, char **opt)
+void	handle_echo(t_cmd *cmd)
 {
-	if (check_n(opt[1]) == 1)
-		print_echo_with_n(line);
+	char *line;
+
+	if (cmd->argv[1])
+	{
+		line = make_line(cmd->argv);
+
+		if (check_n(cmd->argv[1]) == 1)
+			print_echo_with_n(line);
+		else
+			print_echo_without_n(line);
+		free(line);
+	}
 	else
-		print_echo_without_n(line);
+		printf("\n");
 }
 
 int	skip_echo(char *line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line[i] == '\t' || line[i] == ' ')
@@ -50,8 +60,8 @@ void	print_echo_with_n(char *line)
 {
 	int		i;
 	int		j;
-	char 	*str;
-	char 	*pstr;
+	char	*str;
+	char	*pstr;
 
 	i = skip_n(line);
 	j = ft_strlen(line);

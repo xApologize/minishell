@@ -1,17 +1,35 @@
 #include "../include/minishell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
-void	pipex(t_cmd *cmd)
+void	pipex(t_cmd *cmd, t_data *data)
 {
-	while (cmd->next != NULL)
+	int	i;
+	int	*pid_child;
+	int	status;
+	int	stdin_copy;
+	int	stdout_copy;
+
+	pid_child = malloc(sizeof(int) * table_length(cmd));
+	i = 0;
+	(void) data;
+	stdin_copy = dup(STDIN_FILENO);
+	stdout_copy = dup(STDOUT_FILENO);
+	while (cmd != NULL)
 	{
-		redir(cmd);
+		pid_child[i] = handle_pipe_cmd(cmd);
+		i++;
 		cmd = cmd->next;
 	}
-	redir(cmd);
-	exec_cmd(cmd);
+	while (i >= 0)
+		waitpid(pid_child[--i], &status, 0);
+	dup2(stdin_copy, STDIN_FILENO);
+	dup2(stdout_copy, STDOUT_FILENO);
 }
 
-void	redir(t_cmd *cmd)
+int	pipex_redir(t_cmd *cmd)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -26,16 +44,50 @@ void	redir(t_cmd *cmd)
 	}
 	if (pid == 0)
 	{
+		redir_utils(cmd);
 		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		exec_cmd(cmd);
 	}
+	close(pipe_fd[PIPE_READ]);
+	close(pipe_fd[PIPE_WRITE]);
+	close_fork_fd(cmd);
+	return (pid);
+}
+
+int	exec_fork_cmd(t_cmd	*cmd)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		redir_utils(cmd);
+		exec_cmd(cmd);
+	}
+	close_fork_fd(cmd);
+	return (pid);
 }
 
 void	exec_cmd(t_cmd *cmd)
 {
-	execve(cmd->cmd, cmd->argv, cmd->environ);
+	execve(cmd->cmd, cmd->argv, cmd->env);
 	dprintf(2, "something went wrong: %s\n", cmd->cmd);
-	exit(0);
+	exit(127);
+}
+
+int	table_length(t_cmd *cmd)
+{
+	t_cmd	*tmp;
+	int		i;
+
+	tmp = cmd;
+	i = 0;
+	while (tmp != NULL)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
 }

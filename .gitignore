@@ -1,10 +1,11 @@
 *.out
 *.o
 *.swp
-*.dSYM
+**.dSYM
 lib/libft.a
 .DS_Store
 .vscode
 minishell
 src/pipex
+outfile*
 src/heredoc
