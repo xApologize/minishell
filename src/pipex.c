@@ -30,7 +30,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 	free(pid_child);
 }
 
-int	pipex_redir(t_cmd *cmd)
+int	pipex_redir(t_cmd *cmd, t_data *data)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -49,7 +49,10 @@ int	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
-		exec_cmd(cmd);
+		if (cmd->is_builtin == 1)
+			handle_builtin(cmd, data);
+		else
+			exec_cmd(cmd);
 	}
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
