@@ -1,10 +1,4 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include <sys/fcntl.h>
-#include <sys/unistd.h>
-#include <unistd.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -66,7 +60,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	char	*line_cp;
 
 	i = 0;
-	line_cp = data->line;
+	line_cp = ft_strdup(data->line);
 	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
@@ -76,11 +70,11 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 		cmd->cmd = get_path(line_cp, data);
 	while (*line_cp != '\0')
 		line_cp++;
-	if (*line_cp == '\0' && ft_strchr(" \n", *data->indexmeta))
-		cmd->argv = get_argv(data);
+	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
+	free(line_cp);
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
@@ -107,9 +101,10 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		handle_builtin(cmd);
+		_envp_copy = handle_builtin(cmd, data);
 	else
 		pipex(cmd, data);
 	close_fd(cmd);
-	print_struct(cmd);
+	free_cmd(cmd);
+	free_data(data);
 }

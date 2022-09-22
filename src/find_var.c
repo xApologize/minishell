@@ -14,12 +14,12 @@ int	find_var(char *arg, char **envp_copy)
 		envp_split = ft_split(envp_copy[index], '=');
 		if (ft_strcmp(arg_split[0], envp_split[0]) == 0)
 		{
-			freeopt(arg_split);
-			freeopt(envp_split);
+			free_the_pp(arg_split);
+			free_the_pp(envp_split);
 			return (index);
 		}
-		freeopt(envp_split);
+		free_the_pp(envp_split);
 	}
-	freeopt(arg_split);
+	free_the_pp(arg_split);
 	return (-1);
 }

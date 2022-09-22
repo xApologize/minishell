@@ -15,7 +15,7 @@ char	*return_dollar(char *line, char **envp_copy)
 	{
 		split_path = ft_split(envp_copy[index], '=');
 		return_line = ft_strdup(split_path[1]);
-		freeopt(split_path);
+		free_the_pp(split_path);
 	}
 	else
 		return_line = (ft_strdup(""));

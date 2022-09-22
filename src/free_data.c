@@ -2,8 +2,9 @@
 
 void free_data(t_data *data)
 {
+	data->indexmeta = data->save_indexmeta;
 	free(data->indexmeta);
+	data->line = data->save_line;
 	free(data->line);
-	freeopt(data->line_split);
-	freeopt(data->path_split);
+	free_the_pp(data->path_split);
 }

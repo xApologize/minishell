@@ -15,7 +15,7 @@ char	**addtoenv(char *arg, char **envp_copy)
 		new_envp[j] = ft_strdup(envp_copy[j]);
 	new_envp[i] = ft_strdup(arg);
 	new_envp[i + 1] = NULL;
-	freeopt(envp_copy);
+	free_the_pp(envp_copy);
 	return (new_envp);
 }
 
