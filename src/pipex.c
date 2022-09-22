@@ -51,7 +51,6 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 		close(pipe_fd[PIPE_WRITE]);
 		if (cmd->is_builtin == 1)
 		{
-			printf("called handle_builtin in pipex_redir\n");
 			handle_builtin(cmd, data);
 			exit(1);
 		}
