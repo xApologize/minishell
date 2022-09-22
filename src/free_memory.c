@@ -13,6 +13,8 @@ void	free_cmd(t_cmd *cmd)
 		cmd = cmd->next;
 		if (cmd_copy->argv)
 			free_the_pp(cmd_copy->argv);
+		if (cmd_copy->cmd)
+			free(cmd_copy->cmd);
 		free(cmd_copy);
 	}
 	free(cmd);

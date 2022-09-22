@@ -64,7 +64,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = line_cp;
+		cmd->cmd = ft_strdup(line_cp);
 	}
 	else
 		cmd->cmd = get_path(line_cp, data);
