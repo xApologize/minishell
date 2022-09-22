@@ -6,9 +6,9 @@ void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
 	tokenize(data);
 	status(data);
 	env_split(data, envp_copy);
-	cmd = set_exec_struct(data, envp_copy);
 	data->save_indexmeta = data->indexmeta;
 	data->save_line = data->line;
+	cmd = set_exec_struct(data, envp_copy);
 	search_cmd(data, cmd);
 }
 

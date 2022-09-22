@@ -2,9 +2,9 @@
 
 void free_data(t_data *data)
 {
-	data->indexmeta -= data->indexmeta_length;
+	data->indexmeta = data->save_indexmeta;
 	free(data->indexmeta);
-	data->line -= data->line_lenght;
+	data->line = data->save_line;
 	free(data->line);
 	freeopt(data->path_split);
 }
