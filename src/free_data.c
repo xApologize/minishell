@@ -6,5 +6,5 @@ void free_data(t_data *data)
 	free(data->indexmeta);
 	data->line = data->save_line;
 	free(data->line);
-	freeopt(data->path_split);
+	free_the_pp(data->path_split);
 }

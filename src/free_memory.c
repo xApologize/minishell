@@ -12,7 +12,7 @@ void	free_cmd(t_cmd *cmd)
 		cmd_copy = cmd;
 		cmd = cmd->next;
 		if (cmd_copy->argv)
-			freeopt(cmd_copy->argv);
+			free_the_pp(cmd_copy->argv);
 		free(cmd_copy);
 	}
 	free(cmd);

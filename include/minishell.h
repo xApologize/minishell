@@ -113,7 +113,7 @@ void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
 
 
-//freeopt.c
+//free_the_pp.c
 void		free_the_pp(char **opt);
 
 //get_home.c

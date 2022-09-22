@@ -31,10 +31,10 @@ bool	checkifunset(char *var, char *envp_var)
 	split_envp = ft_split(envp_var, '=');
 	if (ft_strcmp(var, split_envp[0]) == 0)
 	{
-		freeopt(split_envp);
+		free_the_pp(split_envp);
 		return (true);
 	}
-	freeopt(split_envp);
+	free_the_pp(split_envp);
 	return (false);
 }
 
@@ -58,7 +58,7 @@ char	**copynewenvp(char **envp_copy)
 		i++;
 	}
 	new_envp[j] = NULL;
-	freeopt(envp_copy);
+	free_the_pp(envp_copy);
 	return (new_envp);
 }
 

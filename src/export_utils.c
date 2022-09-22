@@ -64,12 +64,12 @@ int	check_modify_env(char *arg, char **envp_copy)
 		split_envp_copy = ft_split(envp_copy[i], '=');
 		if (ft_strcmp(split_arg[0], split_envp_copy[0]) == 0)
 		{
-			freeopt(split_arg);
-			freeopt(split_envp_copy);
+			free_the_pp(split_arg);
+			free_the_pp(split_envp_copy);
 			return (1);
 		}
-		freeopt(split_envp_copy);
+		free_the_pp(split_envp_copy);
 	}
-	freeopt(split_arg);
+	free_the_pp(split_arg);
 	return (0);
 }
