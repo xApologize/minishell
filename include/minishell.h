@@ -114,7 +114,7 @@ void		free_data(t_data *data);
 
 
 //freeopt.c
-void		freeopt(char **opt);
+void		free_the_pp(char **opt);
 
 //get_home.c
 char		*get_home(char **envp_copy);

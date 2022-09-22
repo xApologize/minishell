@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	freeopt(char **opt)
+void	free_the_pp(char **opt)
 {
 	int	i;
 
