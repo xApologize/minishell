@@ -25,8 +25,6 @@ void	close_fork_fd(t_cmd *cmd)
 
 int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 {
-	// if (cmd->is_builtin == 1)
-	// 	handle_builtin(cmd, data);
 	(void) data;
 	if (cmd->next != NULL)
 		return (pipex_redir(cmd, data));

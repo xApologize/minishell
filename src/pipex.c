@@ -50,7 +50,11 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
 		if (cmd->is_builtin == 1)
+		{
+			printf("called handle_builtin in pipex_redir\n");
 			handle_builtin(cmd, data);
+			exit(1);
+		}
 		else
 			exec_cmd(cmd);
 	}
@@ -77,7 +81,7 @@ int	exec_fork_cmd(t_cmd	*cmd)
 void	exec_cmd(t_cmd *cmd)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
-	dprintf(2, "something went wrong: %s\n", cmd->cmd);
+	dprintf(2, "msh: %s: command not found\n", cmd->cmd);
 	exit(127);
 }
 
