@@ -60,7 +60,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	char	*line_cp;
 
 	i = 0;
-	line_cp = ft_strdup(data->line);
+	line_cp = data->line;
 	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
@@ -74,7 +74,6 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
-	free(line_cp);
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
