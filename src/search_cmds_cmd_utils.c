@@ -1,6 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 char	*access_path(char *line)
 {

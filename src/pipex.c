@@ -8,13 +8,13 @@ void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
 	int	*pid_child;
-	int	status;
+	int	table_size;
 	int	stdin_copy;
 	int	stdout_copy;
 
-	pid_child = malloc(sizeof(int) * table_length(cmd));
+	table_size = table_length(cmd);
+	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
-	(void) data;
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
 	while (cmd != NULL)
@@ -23,8 +23,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 		i++;
 		cmd = cmd->next;
 	}
-	while (i >= 0)
-		waitpid(pid_child[--i], &status, 0);
+	wait_child(pid_child, table_size);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	free(pid_child);
