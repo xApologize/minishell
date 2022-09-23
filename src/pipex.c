@@ -8,13 +8,13 @@ void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
 	int	*pid_child;
-	int	status;
+	int	table_size;
 	int	stdin_copy;
 	int	stdout_copy;
 
-	pid_child = malloc(sizeof(int) * table_length(cmd));
+	table_size = table_length(cmd);
+	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
-	(void) data;
 	stdin_copy = dup(STDIN_FILENO);
 	stdout_copy = dup(STDOUT_FILENO);
 	while (cmd != NULL)
@@ -23,14 +23,13 @@ void	pipex(t_cmd *cmd, t_data *data)
 		i++;
 		cmd = cmd->next;
 	}
-	while (i >= 0)
-		waitpid(pid_child[--i], &status, 0);
+	wait_child(pid_child, table_size);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	free(pid_child);
 }
 
-int	pipex_redir(t_cmd *cmd)
+int	pipex_redir(t_cmd *cmd, t_data *data)
 {
 	int	pid;
 	int	pipe_fd[2];
@@ -49,7 +48,13 @@ int	pipex_redir(t_cmd *cmd)
 		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
 		close(pipe_fd[PIPE_WRITE]);
-		exec_cmd(cmd);
+		if (cmd->is_builtin == 1)
+		{
+			handle_builtin(cmd, data);
+			exit(1);
+		}
+		else
+			exec_cmd(cmd);
 	}
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
@@ -74,7 +79,7 @@ int	exec_fork_cmd(t_cmd	*cmd)
 void	exec_cmd(t_cmd *cmd)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
-	dprintf(2, "something went wrong: %s\n", cmd->cmd);
+	dprintf(2, "msh: %s: command not found\n", cmd->cmd);
 	exit(127);
 }
 

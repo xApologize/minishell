@@ -9,8 +9,10 @@ char	*return_dollar(char *line, char **envp_copy)
 
 	var = return_var(line);
 	index = find_var(var, envp_copy);
+	// var and index are ok
 	split_path = NULL;
 	free(var);
+	var = NULL;
 	if (index != -1)
 	{
 		split_path = ft_split(envp_copy[index], '=');

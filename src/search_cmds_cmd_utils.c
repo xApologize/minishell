@@ -1,6 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 char	*access_path(char *line)
 {
@@ -51,7 +52,7 @@ char	*get_path(char *line_cp, t_data *data)
 		free(access_try);
 	}
 	free(slash);
-	return (line_cp);
+	return (ft_strdup(line_cp));
 }
 
 int	get_argv_count(t_data *data)
