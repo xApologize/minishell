@@ -109,10 +109,11 @@ int			check_dup_env(char *arg, char **envp_copy);
 int			find_var(char *arg, char **envp_copy);
 
 //free_data.c
-void		free_cmd(t_cmd *cmd);
 
 // free_data.c
+void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
+void		free_data_cmd(t_cmd *cmd, t_data *data);
 
 
 //free_the_pp.c
@@ -135,6 +136,12 @@ void		handle_exit(t_cmd *cmd, t_data *data);
 
 //heredoc.c
 int			heredoc(t_data *data);
+
+//make_line.c
+char		*make_line(char **argv);
+
+//minishell_utils.c
+void	restore_std(t_data *data);
 
 //parsing.c
 void		parsing(char **envp_copy, t_data *data, t_cmd *cmd);
@@ -201,6 +208,10 @@ void		set_fd_out(t_cmd *cmd, int append, t_data *data);
 void		get_fd(t_cmd *cmd, t_data *data, char meta);
 void		close_fd(t_cmd *cmd);
 
+//search_cmd_utils.c
+void		handle_single_builtin(t_cmd *cmd, t_data *data);
+void		skip_char(t_data *data);
+
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data, char **env);
 int			nb_pipes(t_data *data);
@@ -237,8 +248,5 @@ void		modifyvar(char *var, char **envp_copy);
 
 //unwrap_dollar.c
 char		*unwrap_dollar(char *line, char **envp_copy);
-
-//make_line.c
-char		*make_line(char **argv);
 
 #endif
