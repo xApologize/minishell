@@ -30,6 +30,8 @@ typedef struct s_data
 	char	*line;
 	char	*save_line;
 	char	*save_indexmeta;
+	int		stdin_cp;
+	int		stdout_cp;
 	int		if_no_meta;
 	int		line_lenght;
 	bool	error_status;

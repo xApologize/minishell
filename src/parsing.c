@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
 void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
 {
@@ -8,6 +9,8 @@ void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
 	env_split(data, envp_copy);
 	data->save_indexmeta = data->indexmeta;
 	data->save_line = data->line;
+	data->stdin_cp = dup(STDIN_FILENO);
+	data->stdout_cp = dup(STDOUT_FILENO);
 	cmd = set_exec_struct(data, envp_copy);
 	search_cmd(data, cmd);
 }
