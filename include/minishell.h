@@ -159,6 +159,7 @@ int			table_length(t_cmd *cmd);
 void		redir_utils(t_cmd *cmd);
 void		close_fork_fd(t_cmd *cmd);
 int			handle_pipe_cmd(t_cmd *cmd, t_data *data);
+void		wait_child(int *pid_child, int table_size);
 
 //print_intro.c
 void		print_intro(void);
