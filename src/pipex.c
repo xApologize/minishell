@@ -9,14 +9,10 @@ void	pipex(t_cmd *cmd, t_data *data)
 	int	i;
 	int	*pid_child;
 	int	table_size;
-	int	stdin_copy;
-	int	stdout_copy;
 
 	table_size = table_length(cmd);
 	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
-	stdin_copy = dup(STDIN_FILENO);
-	stdout_copy = dup(STDOUT_FILENO);
 	while (cmd != NULL)
 	{
 		pid_child[i] = handle_pipe_cmd(cmd, data);
@@ -24,8 +20,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 		cmd = cmd->next;
 	}
 	wait_child(pid_child, table_size);
-	dup2(stdin_copy, STDIN_FILENO);
-	dup2(stdout_copy, STDOUT_FILENO);
+	restore_std(data);
 	free(pid_child);
 }
 
@@ -79,7 +74,7 @@ int	exec_fork_cmd(t_cmd	*cmd)
 void	exec_cmd(t_cmd *cmd)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
-	dprintf(2, "msh: %s: command not found\n", cmd->cmd);
+	dprintf(2, "minicougarsh: %s: command not found\n", cmd->cmd);
 	exit(127);
 }
 

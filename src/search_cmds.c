@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 #include <stdio.h>
+#include <unistd.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -87,24 +88,19 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))
 			get_fd(tmp_cmd, data, *data->indexmeta);
 		else if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
-		{
-			data->indexmeta++;
-			data->line++;
-		}
+			skip_char(data);
 		else if (*data->line == '\0' && *data->indexmeta == '|')
 		{
 			tmp_cmd = tmp_cmd->next;
-			data->line++;
-			data->indexmeta++;
+			skip_char(data);
 		}
 		else
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		_envp_copy = handle_builtin(cmd, data);
+		handle_single_builtin(cmd, data);
 	else
 		pipex(cmd, data);
 	close_fd(cmd);
-	free_cmd(cmd);
-	free_data(data);
+	free_data_cmd(cmd, data);
 }
