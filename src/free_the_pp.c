@@ -10,7 +10,9 @@ void	free_the_pp(char **opt)
 	while (opt[i])
 	{
 		free(opt[i]);
+		opt[i] = NULL;
 		i++;
 	}
 	free(opt);
+	opt = NULL;
 }

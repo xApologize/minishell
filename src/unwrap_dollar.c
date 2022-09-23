@@ -5,7 +5,7 @@ char	*unwrap_dollar(char *line, char **envp_copy)
 	char	*new_line;
 	char	*value;
 
-	new_line = ft_calloc(1, 1);
+	new_line = ft_calloc(10, 1);
 	while (*line)
 	{
 		if (*line == '\'')
@@ -15,6 +15,7 @@ char	*unwrap_dollar(char *line, char **envp_copy)
 			value = return_dollar(line, envp_copy);
 			new_line = ft_strjoinfree(new_line, value);
 			free(value);
+			value = NULL;
 			line = skip_dollar(line);
 		}
 		new_line = charjoinfree(new_line, *line);
