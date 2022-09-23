@@ -19,3 +19,18 @@ void	free_cmd(t_cmd *cmd)
 	}
 	free(cmd);
 }
+
+void free_data(t_data *data)
+{
+	data->indexmeta = data->save_indexmeta;
+	free(data->indexmeta);
+	data->line = data->save_line;
+	free(data->line);
+	free_the_pp(data->path_split);
+}
+
+void	free_data_cmd(t_cmd *cmd, t_data *data)
+{
+	free_cmd(cmd);
+	free_data(data);
+}
