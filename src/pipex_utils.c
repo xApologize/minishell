@@ -34,3 +34,18 @@ int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 		return (exec_fork_cmd(cmd));
 	return (0);
 }
+
+void	wait_child(int *pid_child, int table_size)
+{
+	int	status;
+	int	i;
+
+	status = 0;
+	i = 0;
+	while (i < table_size)
+	{
+		waitpid(pid_child[i], &status, 0);
+		set_exit_code(WEXITSTATUS(status));
+		i++;
+	}
+}

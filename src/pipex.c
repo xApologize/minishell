@@ -8,7 +8,6 @@ void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
 	int	*pid_child;
-	int	status;
 	int	table_size;
 	int	stdin_copy;
 	int	stdout_copy;
@@ -24,12 +23,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 		i++;
 		cmd = cmd->next;
 	}
-	i = -1;
-	while (++i < table_size)
-	{
-		waitpid(pid_child[i], &status, 0);
-		set_exit_code(WEXITSTATUS(status));
-	}
+	wait_child(pid_child, table_size);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
 	free(pid_child);
