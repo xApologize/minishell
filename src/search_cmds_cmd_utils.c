@@ -52,7 +52,7 @@ char	*get_path(char *line_cp, t_data *data)
 		free(access_try);
 	}
 	free(slash);
-	return (strdup(line_cp));
+	return (ft_strdup(line_cp));
 }
 
 int	get_argv_count(t_data *data)
