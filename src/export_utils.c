@@ -11,10 +11,10 @@ char	**handle_export(t_cmd *cmd)
 	{
 		valid_env = checkvalidenv(cmd->argv[i]);
 		valid_assign = checkvalidassign(valid_env, cmd->argv[i]);
-		if (valid_assign == true && check_modify_env(cmd->argv[i], cmd->env) == 1)
-			cmd->env = modify_var(cmd->argv[i], cmd->env);
-		if (valid_assign == true && check_dup_env(cmd->argv[i], cmd->env) == 0)
-			cmd->env = addtoenv(cmd->argv[i], cmd->env);
+		if (valid_assign == true && check_modify_env(cmd->argv[i]) == 1)
+			cmd->env = modify_var(cmd->argv[i]);
+		if (valid_assign == true && check_dup_env(cmd->argv[i]) == 0)
+			cmd->env = addtoenv(cmd->argv[i]);
 	}
 	return (cmd->env);
 }
@@ -51,7 +51,7 @@ bool	checkvalidassign(bool env_stat, char *arg)
 	return (true);
 }
 
-int	check_modify_env(char *arg, char **envp_copy)
+int	check_modify_env(char *arg)
 {
 	int		i;
 	char	**split_arg;
@@ -59,9 +59,9 @@ int	check_modify_env(char *arg, char **envp_copy)
 
 	i = -1;
 	split_arg = ft_split(arg, '=');
-	while (envp_copy[++i])
+	while (g_envp_copy[++i])
 	{
-		split_envp_copy = ft_split(envp_copy[i], '=');
+		split_envp_copy = ft_split(g_envp_copy[i], '=');
 		if (ft_strcmp(split_arg[0], split_envp_copy[0]) == 0)
 		{
 			free_the_pp(split_arg);

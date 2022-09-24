@@ -25,15 +25,15 @@ static char *ft_pwdjoinfree(const char *s1, const char *s2)
 	return (newstring);
 }
 
-int	find_oldpwd(char **envp_copy)
+int	find_oldpwd(void)
 {
 	int		index;
 	char	**envp_split;
 
 	index = -1;
-	while (envp_copy[++index])
+	while (g_envp_copy[++index])
 	{
-		envp_split = ft_split(envp_copy[index], '=');
+		envp_split = ft_split(g_envp_copy[index], '=');
 		if (ft_strcmp("OLDPWD", envp_split[0]) == 0)
 		{
 			free_the_pp(envp_split);
@@ -44,15 +44,15 @@ int	find_oldpwd(char **envp_copy)
 	return (-1);
 }
 
-int	find_pwd(char **envp_copy)
+int	find_pwd(void)
 {
 	int		index;
 	char	**envp_split;
 
 	index = -1;
-	while (envp_copy[++index])
+	while (g_envp_copy[++index])
 	{
-		envp_split = ft_split(envp_copy[index], '=');
+		envp_split = ft_split(g_envp_copy[index], '=');
 		if (ft_strcmp("PWD", envp_split[0]) == 0)
 		{
 			free_the_pp(envp_split);
@@ -63,7 +63,7 @@ int	find_pwd(char **envp_copy)
 	return (-1);
 }
 
-void	update_pwd(char **envp_copy)
+void	update_pwd(void)
 {
 	int		index_pwd;
 	int		index_oldpwd;
@@ -73,20 +73,20 @@ void	update_pwd(char **envp_copy)
 	new_path = NULL;
 	old_path = NULL;
 	new_path = getcwd(new_path, 0);
-	index_oldpwd = find_oldpwd(envp_copy);
-	index_pwd = find_pwd(envp_copy);
+	index_oldpwd = find_oldpwd();
+	index_pwd = find_pwd();
 	if (index_pwd != -1)
 	{
-		old_path = ft_split(envp_copy[index_pwd], '=');
-		free(envp_copy[index_pwd]);
-		envp_copy[index_pwd] = ft_pwdjoinfree("PWD=", new_path);
+		old_path = ft_split(g_envp_copy[index_pwd], '=');
+		free(g_envp_copy[index_pwd]);
+		g_envp_copy[index_pwd] = ft_pwdjoinfree("PWD=", new_path);
 	}
 	if (index_oldpwd != -1 && index_pwd != -1)
 	{
 		if (old_path[1])
 		{
-			free(envp_copy[index_oldpwd]);
-			envp_copy[index_oldpwd] = ft_strjoin("OLDPWD=", old_path[1]);
+			free(g_envp_copy[index_oldpwd]);
+			g_envp_copy[index_oldpwd] = ft_strjoin("OLDPWD=", old_path[1]);
 			free_the_pp(old_path);
 		}
 	}
@@ -97,10 +97,10 @@ void	handle_cd(t_cmd *cmd)
 	int	res;
 
 	if (cmd->argv[1] == NULL)
-		res = chdir(get_home(cmd->env));
+		res = chdir(get_home());
 	else
 		res = chdir(cmd->argv[1]);
-	update_pwd(cmd->env);
+	update_pwd();
 	if (res == -1)
 		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), cmd->argv[1]);
 }

@@ -17,7 +17,7 @@ int	main(void)
 	t_cmd		*cmd;
 	extern char	**environ;
 
-	_envp_copy = envp_cp(environ);
+	g_envp_copy = envp_cp(environ);
 	print_intro();
 	sig_handling();
 	cmd = NULL;
@@ -26,8 +26,8 @@ int	main(void)
 		data.line = rl_gets();
 		if (data.line == NULL)
 			exit(0);
-		data.line = handle_dollar(data.line, _envp_copy);
-		parsing(_envp_copy, &data, cmd);
+		data.line = handle_dollar(data.line);
+		parsing(&data, cmd);
 	}
 	return (0);
 }

@@ -6,7 +6,6 @@ char	*return_var(char *line)
 
 	var = ft_calloc(10, 1);
 	line++;
-	
 	while (*line)
 	{
 		if (ft_strchr("<>|\t \n\"", *line))

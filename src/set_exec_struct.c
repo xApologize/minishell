@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 
-t_cmd	*set_exec_struct(t_data *data, char **env)
+t_cmd	*set_exec_struct(t_data *data)
 {
 	int		i;
 	int		noeud;
@@ -12,7 +12,7 @@ t_cmd	*set_exec_struct(t_data *data, char **env)
 	list = NULL;
 	while (i < noeud)
 	{
-		add_nodes(&list, create_nodes(env));
+		add_nodes(&list, create_nodes(g_envp_copy));
 		i++;
 	}
 	return (list);
@@ -45,7 +45,7 @@ t_cmd	*create_nodes(char **env)
 	node->redir_in = STDIN_FILENO;
 	node->redir_out = STDOUT_FILENO;
 	node->cmd = NULL;
-	node->env = _envp_copy;
+	node->env = g_envp_copy;
 	node->argv = NULL;
 	node->next = NULL;
 	node->is_builtin = 0;

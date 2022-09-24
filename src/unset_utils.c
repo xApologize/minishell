@@ -14,14 +14,14 @@ char	**handle_unset(t_cmd *cmd)
 		else
 		{
 			copy = true;
-			modifyvar(cmd->argv[i], cmd->env);
+			modifyvar(cmd->argv[i]);
 		}
 		i++;
 	}
 	if (!copy)
 		return (cmd->env);
 	else
-		return (copynewenvp(cmd->env));
+		return (copynewenvp());
 }
 
 bool	checkifunset(char *var, char *envp_var)
@@ -38,57 +38,57 @@ bool	checkifunset(char *var, char *envp_var)
 	return (false);
 }
 
-char	**copynewenvp(char **envp_copy)
+char	**copynewenvp(void)
 {
 	int		i;
 	int		j;
 	char	**new_envp;
 
-	i = countnewvars(envp_copy);
+	i = countnewvars();
 	j = 0;
 	new_envp = malloc((i + 1) * sizeof(char *));
 	i = 0;
-	while (envp_copy[i])
+	while (g_envp_copy[i])
 	{
-		if (ft_strcmp(envp_copy[i], "dncp!") != 0)
+		if (ft_strcmp(g_envp_copy[i], "dncp!") != 0)
 		{
-			new_envp[j] = ft_strdup(envp_copy[i]);
+			new_envp[j] = ft_strdup(g_envp_copy[i]);
 			j++;
 		}
 		i++;
 	}
 	new_envp[j] = NULL;
-	free_the_pp(envp_copy);
+	free_the_pp(g_envp_copy);
 	return (new_envp);
 }
 
-int	countnewvars(char **envp_copy)
+int	countnewvars(void)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (envp_copy[i])
+	while (g_envp_copy[i])
 	{
-		if (ft_strcmp(envp_copy[i], "dncp!") != 0)
+		if (ft_strcmp(g_envp_copy[i], "dncp!") != 0)
 			j++;
 		i++;
 	}
 	return (j);
 }
 
-void	modifyvar(char *var, char **envp_copy)
+void	modifyvar(char *var)
 {
 	int	i;
 
 	i = 0;
-	while (envp_copy[i])
+	while (g_envp_copy[i])
 	{
-		if (checkifunset(var, envp_copy[i]))
+		if (checkifunset(var, g_envp_copy[i]))
 		{
-			free(envp_copy[i]);
-			envp_copy[i] = ft_strdup("dncp!");
+			free(g_envp_copy[i]);
+			g_envp_copy[i] = ft_strdup("dncp!");
 		}
 		i++;
 	}

@@ -1,18 +1,18 @@
 #include "../include/minishell.h"
 
-void	free_the_pp(char **opt)
+void	free_the_pp(char **pp)
 {
 	int	i;
 
 	i = 0;
-	if (!opt || !*opt)
+	if (!pp || !*pp)
 		return ;
-	while (opt[i])
+	while (pp[i])
 	{
-		free(opt[i]);
-		opt[i] = NULL;
+		free(pp[i]);
+		pp[i] = NULL;
 		i++;
 	}
-	free(opt);
-	opt = NULL;
+	free(pp);
+	pp = NULL;
 }

@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
 //Function to find the index of an existing variable so it can be replaced with an updated value
-int	find_var(char *arg, char **envp_copy)
+int	find_var(char *arg)
 {
 	int		index;
 	char	**arg_split;
@@ -9,9 +9,9 @@ int	find_var(char *arg, char **envp_copy)
 
 	index = -1;
 	arg_split = ft_split(arg, '=');
-	while (envp_copy[++index])
+	while (g_envp_copy[++index])
 	{
-		envp_split = ft_split(envp_copy[index], '=');
+		envp_split = ft_split(g_envp_copy[index], '=');
 		if (ft_strcmp(arg_split[0], envp_split[0]) == 0)
 		{
 			free_the_pp(arg_split);

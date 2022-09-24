@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	*unwrap_dollar(char *line, char **envp_copy)
+char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
 	char	*value;
@@ -12,7 +12,7 @@ char	*unwrap_dollar(char *line, char **envp_copy)
 			skip_single_quote(line);
 		if (*line == '$')
 		{
-			value = return_dollar(line, envp_copy);
+			value = return_dollar(line);
 			new_line = ft_strjoinfree(new_line, value);
 			free(value);
 			value = NULL;
