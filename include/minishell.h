@@ -116,6 +116,9 @@ void		free_data(t_data *data);
 //free_the_pp.c
 void		free_the_pp(char **opt);
 
+// ft_strtrimfree.c
+char		*ft_strtrimfree(const char *s1, const char *set);
+
 //get_home.c
 char		*get_home(char **envp_copy);
 
