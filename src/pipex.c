@@ -49,7 +49,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 			exit(1);
 		}
 		else
-			exec_cmd(cmd);
+			exec_cmd(cmd, data);
 	}
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
@@ -57,7 +57,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	return (pid);
 }
 
-int	exec_fork_cmd(t_cmd	*cmd)
+int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 {
 	int	pid;
 
@@ -65,16 +65,23 @@ int	exec_fork_cmd(t_cmd	*cmd)
 	if (pid == 0)
 	{
 		redir_utils(cmd);
-		exec_cmd(cmd);
+		if (cmd->is_builtin == 1)
+		{
+			handle_builtin(cmd, data);
+			exit(1);
+		}
+	else
+		exec_cmd(cmd, data);
 	}
 	close_fork_fd(cmd);
 	return (pid);
 }
 
-void	exec_cmd(t_cmd *cmd)
+void	exec_cmd(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	dprintf(2, "minicougarsh: %s: command not found\n", cmd->cmd);
+	free_data_cmd(cmd, data);
 	exit(127);
 }
 

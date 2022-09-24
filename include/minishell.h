@@ -160,8 +160,8 @@ void		pepe(void);
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
 int			pipex_redir(t_cmd *cmd, t_data *data);
-int			exec_fork_cmd(t_cmd	*cmd);
-void		exec_cmd(t_cmd *cmd);
+int			exec_fork_cmd(t_cmd	*cmd, t_data *data);
+void		exec_cmd(t_cmd *cmd, t_data *data);
 int			table_length(t_cmd *cmd);
 
 //pipex_utils.c
