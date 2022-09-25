@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**handle_unset(t_cmd *cmd)
+void	handle_unset(t_cmd *cmd)
 {
 	int		i;
 	bool	copy;
@@ -19,9 +19,9 @@ char	**handle_unset(t_cmd *cmd)
 		i++;
 	}
 	if (!copy)
-		return (cmd->env);
+		return ;
 	else
-		return (copynewenvp());
+		copynewenvp();
 }
 
 bool	checkifunset(char *var, char *envp_var)
@@ -38,7 +38,7 @@ bool	checkifunset(char *var, char *envp_var)
 	return (false);
 }
 
-char	**copynewenvp(void)
+void	copynewenvp(void)
 {
 	int		i;
 	int		j;
@@ -59,7 +59,7 @@ char	**copynewenvp(void)
 	}
 	new_envp[j] = NULL;
 	free_the_pp(g_envp_copy);
-	return (new_envp);
+	g_envp_copy = new_envp;
 }
 
 int	countnewvars(void)

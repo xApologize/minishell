@@ -229,9 +229,9 @@ void		skip_single_quote(char *line);
 void		status(t_data *data);
 
 //unset_utils.c
-char		**handle_unset(t_cmd *cmd);
+void		handle_unset(t_cmd *cmd);
 bool		checkifunset(char *var, char *envp_var);
-char		**copynewenvp(void);
+void		copynewenvp(void);
 int			countnewvars(void);
 void		modifyvar(char *var);
 

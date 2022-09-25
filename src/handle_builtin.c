@@ -20,7 +20,7 @@ void	handle_builtin(t_cmd *cmd, t_data *data)
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
 		handle_export(cmd);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
-		cmd->env = handle_unset(cmd);
+		handle_unset(cmd);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
 		handle_env(cmd);
 	else if (ft_strcmp(cmd->argv[0], "exit") == 0)

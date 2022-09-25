@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-// need to deal with export that needs to work with variables between quotes
+// need to fix handle_unset
 // need to add return status code to builtins
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
 int	main(void)
