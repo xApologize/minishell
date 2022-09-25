@@ -132,6 +132,7 @@ void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
 void		handle_exit(t_cmd *cmd, t_data *data);
+bool		check_if_num(const char *n);
 
 //heredoc.c
 int			heredoc(t_data *data);
