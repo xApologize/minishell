@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
 
-// need to add return status code to builtins  -- cd done, echo done, export done, exit done, pwd done, 
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
 int	main(void)
 {
