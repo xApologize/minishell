@@ -70,9 +70,6 @@ bool		check_dollar(char *line);
 //check_n.c
 int			check_n(char *opt);
 
-//checkassign.c
-bool		checkassign(char *arg);
-
 //checkenvformat.c
 int			checkenvformat(char *var);
 
@@ -102,6 +99,8 @@ int			check_modify_env(char *arg);
 void		addtoenv(char *arg);
 void		modify_var(char *arg);
 int			check_dup_env(char *arg);
+char		*strip_quotes(char *arg);
+bool		checkassign(char *arg);
 
 //find_var.c
 int			find_var(char *arg);
