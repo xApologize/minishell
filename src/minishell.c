@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
-// fix echo that prints quotes when it should not
 // need to deal with export that needs to work with variables between quotes
+// need to add return status code to builtins
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
 int	main(void)
 {

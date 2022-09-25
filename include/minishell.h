@@ -93,14 +93,14 @@ void		print_echo_without_n(char *line);
 char		**envp_cp(char **envp);
 
 //export_utils.c
-char		**handle_export(t_cmd *cmd);
+void		handle_export(t_cmd *cmd);
 bool		checkvalidenv(char *arg);
 bool		checkvalidassign(bool env_stat, char *arg);
 int			check_modify_env(char *arg);
 
 //export_utils2.c
-char		**addtoenv(char *arg);
-char		**modify_var(char *arg);
+void		addtoenv(char *arg);
+void		modify_var(char *arg);
 int			check_dup_env(char *arg);
 
 //find_var.c
@@ -123,7 +123,7 @@ char		*ft_strtrimfree(const char *s1, const char *set);
 char		*get_home(void);
 
 //handle_builtin.c
-char		**handle_builtin(t_cmd *cmd, t_data *data);
+void		handle_builtin(t_cmd *cmd, t_data *data);
 
 //handle_dollar.c
 char		*handle_dollar(char *line);

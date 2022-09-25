@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**addtoenv(char *arg)
+void	addtoenv(char *arg)
 {
 	char	**new_envp;
 	int		i;
@@ -16,17 +16,16 @@ char	**addtoenv(char *arg)
 	new_envp[i] = ft_strdup(arg);
 	new_envp[i + 1] = NULL;
 	free_the_pp(g_envp_copy);
-	return (new_envp);
+	g_envp_copy = new_envp;
 }
 
-char	**modify_var(char *arg)
+void	modify_var(char *arg)
 {
 	int	index;
 
 	index = find_var(arg);
 	free(g_envp_copy[index]);
 	g_envp_copy[index] = ft_strdup(arg);
-	return (g_envp_copy);
 }
 
 int	check_dup_env(char *arg)

@@ -8,7 +8,7 @@
 // handle_env done
 // 
 
-char	**handle_builtin(t_cmd *cmd, t_data *data)
+void	handle_builtin(t_cmd *cmd, t_data *data)
 {
 
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)
@@ -18,7 +18,7 @@ char	**handle_builtin(t_cmd *cmd, t_data *data)
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
 		handle_pwd(cmd);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)
-		cmd->env = handle_export(cmd);
+		handle_export(cmd);
 	else if (ft_strcmp(cmd->argv[0], "unset") == 0)
 		cmd->env = handle_unset(cmd);
 	else if (ft_strcmp(cmd->argv[0], "env") == 0)
@@ -27,5 +27,4 @@ char	**handle_builtin(t_cmd *cmd, t_data *data)
 		handle_exit(cmd, data);
 	else if (ft_strcmp(cmd->argv[0], "pepe") == 0)
 		pepe();
-	return (cmd->env);
 }

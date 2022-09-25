@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**handle_export(t_cmd *cmd)
+void	handle_export(t_cmd *cmd)
 {
 	int		i;
 	bool	valid_env;
@@ -12,11 +12,10 @@ char	**handle_export(t_cmd *cmd)
 		valid_env = checkvalidenv(cmd->argv[i]);
 		valid_assign = checkvalidassign(valid_env, cmd->argv[i]);
 		if (valid_assign == true && check_modify_env(cmd->argv[i]) == 1)
-			cmd->env = modify_var(cmd->argv[i]);
+			modify_var(cmd->argv[i]);
 		if (valid_assign == true && check_dup_env(cmd->argv[i]) == 0)
-			cmd->env = addtoenv(cmd->argv[i]);
+			addtoenv(cmd->argv[i]);
 	}
-	return (cmd->env);
 }
 
 bool	checkvalidenv(char *arg)

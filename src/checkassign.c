@@ -7,7 +7,7 @@ bool checkassign(char *arg)
 	i = -1;
 	while (arg[++i])
 	{
-		if (ft_isalnum(arg[i]) == 1 && arg[i + 1] == '=')
+		if ((ft_isalnum(arg[i]) == 1 || arg[i] == '"') && arg[i + 1] == '=')
 			return (true);
 	}
 	return (false);
