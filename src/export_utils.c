@@ -17,9 +17,15 @@ void	handle_export(t_cmd *cmd)
 		valid_env = checkvalidenv(cmd->argv[i]);
 		valid_assign = checkvalidassign(valid_env, cmd->argv[i]);
 		if (valid_assign == true && check_modify_env(cmd->argv[i]) == 1)
+		{
 			modify_var(cmd->argv[i]);
+			set_exit_code(0);
+		}
 		if (valid_assign == true && check_dup_env(cmd->argv[i]) == 0)
+		{
 			addtoenv(cmd->argv[i]);
+			set_exit_code(0);
+		}
 	}
 }
 
@@ -48,6 +54,7 @@ bool	checkvalidassign(bool env_stat, char *arg)
 	{
 		dprintf(STDERR_FILENO, \
 		"msh: export: '%s': not a valid identifier\n", arg);
+		set_exit_code(1);
 		return (false);
 	}
 	else if (!is_valid)

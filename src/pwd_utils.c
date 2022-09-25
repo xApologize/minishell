@@ -11,11 +11,15 @@ void	handle_pwd(t_cmd *cmd)
 	while (cmd->argv[args])
 		args++;
 	if (args > 1)
+	{
 		ft_putstr_fd("pwd: too many arguments\n", STDERR_FILENO);
+		set_exit_code(1);
+	}
 	else
 	{
 		path = getcwd(path, 0);
 		printf("%s\n", path);
 		free(path);
+		set_exit_code(0);
 	}
 }

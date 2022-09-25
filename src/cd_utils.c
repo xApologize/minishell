@@ -97,10 +97,19 @@ void	handle_cd(t_cmd *cmd)
 	int	res;
 
 	if (cmd->argv[1] == NULL)
+	{
 		res = chdir(get_home());
+		set_exit_code(0);
+	}
 	else
+	{
 		res = chdir(cmd->argv[1]);
+		set_exit_code(0);
+	}
 	update_pwd();
 	if (res == -1)
+	{
 		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), cmd->argv[1]);
+		set_exit_code(1);
+	}
 }

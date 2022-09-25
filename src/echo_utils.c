@@ -16,6 +16,7 @@ void	handle_echo(t_cmd *cmd)
 	}
 	else
 		printf("\n");
+	set_exit_code(0);
 }
 
 int	skip_echo(char *line)
