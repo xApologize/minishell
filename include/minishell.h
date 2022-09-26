@@ -61,9 +61,6 @@ int			find_pwd(void);
 void		update_pwd(void);
 void		handle_cd(t_cmd *cmd);
 
-//check_dollar.c
-bool		check_dollar(char *line);
-
 //check_n.c
 int			check_n(char *opt);
 
@@ -78,11 +75,16 @@ int			clear_whitespace(int i, char *str);
 
 //dollar_utils.c
 char		*handle_dollar(char *line);
-int			find_var(char *arg);
 char		*return_dollar(char *line);
-char		*skip_dollar(char *line);
+char		*return_var(char *line);
+int			find_var(char *arg);
 char		*charjoinfree(const char *s1, const char c);
 
+//dollar_utils2.c
+bool		check_dollar(char *line);
+char		*unwrap_dollar(char *line);
+void		skip_single_quote(char *line);
+char		*skip_dollar(char *line);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
@@ -169,7 +171,6 @@ void		double_check(t_data *data);
 void		single_check(t_data *data);
 
 //return_var.c
-char		*return_var(char *line);
 
 //rl_gets.c
 char		*rl_gets(void);
@@ -211,7 +212,6 @@ int			*get_exit_code(void);
 void		set_exit_code(int status_code);
 
 //skip_single_quote.c
-void		skip_single_quote(char *line);
 
 //status_error.c
 void		status(t_data *data);
@@ -222,9 +222,6 @@ bool		checkifunset(char *var, char *envp_var);
 void		copynewenvp(void);
 int			countnewvars(void);
 void		modifyvar(char *var);
-
-//unwrap_dollar.c
-char		*unwrap_dollar(char *line);
 
 //make_line.c
 char		*make_line(char **argv);
