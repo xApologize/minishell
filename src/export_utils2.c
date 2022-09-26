@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-char	**addtoenv(char *arg, char **envp_copy)
+void	addtoenv(char *arg)
 {
 	char	**new_envp;
 	int		i;
@@ -8,36 +8,101 @@ char	**addtoenv(char *arg, char **envp_copy)
 
 	i = 0;
 	j = -1;
-	while (envp_copy[i])
+	while (g_envp_copy[i])
 		i++;
 	new_envp = malloc((i + 2) * sizeof(char *));
-	while (envp_copy[++j])
-		new_envp[j] = ft_strdup(envp_copy[j]);
-	new_envp[i] = ft_strdup(arg);
+	while (g_envp_copy[++j])
+		new_envp[j] = ft_strdup(g_envp_copy[j]);
+	new_envp[i] = ft_strdup(strip_quotes(arg));
 	new_envp[i + 1] = NULL;
-	free_the_pp(envp_copy);
-	return (new_envp);
+	free_the_pp(g_envp_copy);
+	g_envp_copy = new_envp;
 }
 
-char	**modify_var(char *arg, char **envp_copy)
+void	modify_var(char *arg)
 {
-	int	index;
+	int		index;
+	char	**split_arg;
+	char	*new_arg;
 
-	index = find_var(arg, envp_copy);
-	free(envp_copy[index]);
-	envp_copy[index] = ft_strdup(arg);
-	return (envp_copy);
+	index = find_var(arg);
+	split_arg = ft_split(arg, '=');
+	new_arg = NULL;
+	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	{
+		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+		new_arg = ft_strdup(split_arg[0]);
+		new_arg = ft_strjoinfree(new_arg, "=");
+		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+		free(g_envp_copy[index]);
+		g_envp_copy[index] = ft_strdup(new_arg);
+		free(new_arg);
+	}
+	else
+	{
+		free(g_envp_copy[index]);
+		g_envp_copy[index] = ft_strdup(arg);
+	}
+	free_the_pp(split_arg);
 }
 
-int	check_dup_env(char *arg, char **envp_copy)
+int	check_dup_env(char *arg)
+{
+	int		i;
+	char	**split_arg;
+	char	*new_arg;
+
+	i = -1;
+	split_arg = ft_split(arg, '=');
+	new_arg = NULL;
+	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	{
+		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+		new_arg = ft_strdup(split_arg[0]);
+		new_arg = ft_strjoinfree(new_arg, "=");
+		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+	}
+	else
+		new_arg = arg;
+	while (g_envp_copy[++i])
+		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
+			return (1);
+	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+		free(new_arg);
+	free_the_pp(split_arg);
+	return (0);
+}
+
+bool	checkassign(char *arg)
 {
 	int	i;
 
 	i = -1;
-	while (envp_copy[++i])
+	while (arg[++i])
 	{
-		if (ft_strcmp(envp_copy[i], arg) == 0)
-			return (1);
+		if ((ft_isalnum(arg[i]) == 1 || arg[i] == '"' \
+			|| arg[i] == '\'') && arg[i + 1] == '=')
+			return (true);
 	}
-	return (0);
+	return (false);
+}
+
+char	*strip_quotes(char *arg)
+{
+	char	**split_arg;
+	char	*new_arg;
+
+	split_arg = ft_split(arg, '=');
+	new_arg = NULL;
+	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	{
+		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+		new_arg = ft_strdup(split_arg[0]);
+		new_arg = ft_strjoinfree(new_arg, "=");
+		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+		free_the_pp(split_arg);
+		return (new_arg);
+	}
+	free_the_pp(split_arg);
+	return (arg);
 }

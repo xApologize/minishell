@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 void	print_struct(t_cmd *cmd)
 {
@@ -30,7 +31,7 @@ int	is_builtin(char *line)
 	char	**builtin;
 	int		i;
 
-	builtin = ft_calloc(9, sizeof(char*));
+	builtin = ft_calloc(9, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -46,7 +47,7 @@ int	is_builtin(char *line)
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
 			free(builtin);
-			return(1);
+			return (1);
 		}
 		i++;
 	}
@@ -60,11 +61,11 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	char	*line_cp;
 
 	i = 0;
-	line_cp = ft_strdup(data->line);
-	if(is_builtin(line_cp) == 1)
+	line_cp = data->line;
+	if (is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = line_cp;
+		cmd->cmd = ft_strdup(line_cp);
 	}
 	else
 		cmd->cmd = get_path(line_cp, data);
@@ -74,7 +75,6 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 	while (*data->line != '\0')
 		data->line++;
 	return (i - 1);
-	free(line_cp);
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
@@ -101,7 +101,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 			set_cmd(tmp_cmd, data);
 	}
 	if (cmd->is_builtin == 1 && cmd->next == NULL)
-		_envp_copy = handle_builtin(cmd, data);
+		handle_builtin(cmd, data);
 	else
 		pipex(cmd, data);
 	close_fd(cmd);

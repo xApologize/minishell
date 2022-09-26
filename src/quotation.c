@@ -1,46 +1,53 @@
 #include "../include/minishell.h"
 
-bool	error_quotation(t_data *data)
+void	error_quotation(t_data *data)
+{
+	data->error_quotes = false;
+	double_check(data);
+	if (data->error_quotes == false)
+		single_check(data);
+	if (data->error_quotes == true)
+		dprintf(STDERR_FILENO, "minicougar: odd number of quotes\n");
+}
+
+void	double_check(t_data *data)
 {
 	int	i;
+	int	trigger;
 
-	data->error_quotes = false;
-	i = 0;
-	while (data->line[i] != '\0')
+	i = -1;
+	trigger = 0;
+	while (data->line[++i])
 	{
-		if (data->line[i] == '\'')
+		if (data->line[i] == '"' && trigger == 0)
 		{
+			trigger = 1;
 			i++;
-			i = squotes(i, data);
 		}
-		if (data->line[i] == '\"')
-		{
-			i++;
-			i = dquotes(i, data);
-		}
-		i++;
+		if (data->line[i] == '"' && trigger == 1)
+			trigger = 0;
 	}
-	return (false);
+	if (trigger == 1)
+		data->error_quotes = true;
 }
 
-int	squotes(int i, t_data *data)
+void	single_check(t_data *data)
 {
-	while (data->line[i] != '\'')
-	{
-		if (data->line[i] == '\0')
-			data->error_quotes = true;
-		i++;
-	}
-	return (i);
-}
+	int	i;
+	int	trigger;
 
-int	dquotes(int i, t_data *data)
-{
-	while (data->line[i] != '\"')
+	i = -1;
+	trigger = 0;
+	while (data->line[++i])
 	{
-		if (data->line[i] == '\0')
-			data->error_quotes = true;
-		i++;
+		if (data->line[i] == '\'' && trigger == 0)
+		{
+			trigger = 1;
+			i++;
+		}
+		if (data->line[i] == '\'' && trigger == 1)
+			trigger = 0;
 	}
-	return (i);
+	if (trigger == 1)
+		data->error_quotes = true;
 }
