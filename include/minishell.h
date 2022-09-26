@@ -26,9 +26,10 @@
 typedef struct s_data
 {
 	char	**path_split;
-	char	**line_split;
 	char	*indexmeta;
 	char	*line;
+	char	*save_line;
+	char	*save_indexmeta;
 	int		if_no_meta;
 	int		line_lenght;
 	bool	error_status;
@@ -105,8 +106,15 @@ int			check_dup_env(char *arg, char **envp_copy);
 //find_var.c
 int			find_var(char *arg, char **envp_copy);
 
-//freeopt.c
-void		freeopt(char **opt);
+//free_data.c
+void		free_cmd(t_cmd *cmd);
+
+// free_data.c
+void		free_data(t_data *data);
+
+
+//free_the_pp.c
+void		free_the_pp(char **opt);
 
 //get_home.c
 char		*get_home(char **envp_copy);
@@ -150,7 +158,7 @@ int			table_length(t_cmd *cmd);
 //pipex_utils.c
 void		redir_utils(t_cmd *cmd);
 void		close_fork_fd(t_cmd *cmd);
-int			handle_pipe_cmd(t_cmd *cmd);
+int			handle_pipe_cmd(t_cmd *cmd, t_data *data);
 
 //print_intro.c
 void		print_intro(void);
@@ -229,8 +237,5 @@ char		*unwrap_dollar(char *line, char **envp_copy);
 
 //make_line.c
 char		*make_line(char **argv);
-
-// free_data.c
-void		free_data(t_data *data);
 
 #endif

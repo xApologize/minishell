@@ -38,13 +38,15 @@ t_cmd	*create_nodes(char **env)
 {
 	t_cmd	*node;
 
+	(void) env;
 	node = malloc(sizeof(t_cmd));
 	if (!node)
 		return(NULL);
 	node->redir_in = STDIN_FILENO;
 	node->redir_out = STDOUT_FILENO;
 	node->cmd = NULL;
-	node->env = env;
+	node->env = _envp_copy;
+	node->argv = NULL;
 	node->next = NULL;
 	node->is_builtin = 0;
 return (node);

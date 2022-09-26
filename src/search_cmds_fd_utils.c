@@ -13,6 +13,8 @@ void	set_fd_in(t_cmd *cmd, t_data *data)
 		return ;
 	if (access(data->line, F_OK) == 0)
 		cmd->redir_in = open(data->line, O_RDWR);
+	else
+		dprintf(2, "Minicougar: %s: No such file or directory\n", data->line);
 	while (*data->line != '\0')
 		data->line++;
 }
@@ -28,7 +30,7 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 		data->indexmeta++;
 	}
 	if (append == 0)
-		cmd->redir_out = open(data->line, O_RDWR | O_CREAT, 0777);
+		cmd->redir_out = open(data->line, O_RDWR | O_TRUNC | O_CREAT, 0777);
 	else
 		cmd->redir_out = open(data->line, O_RDWR | O_APPEND | O_CREAT, 0777);
 	while (*data->line != '\0')

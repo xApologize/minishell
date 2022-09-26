@@ -2,7 +2,8 @@
 
 void	env_split(t_data *data, char **envp_copy)
 {
-	int	find;
+	int		find;
+	char	*tmp;
 
 	find = 0;
 	data->path_split = NULL;
@@ -14,18 +15,8 @@ void	env_split(t_data *data, char **envp_copy)
 	}
 	if (envp_copy[find] != NULL)
 		data->path_split = ft_split(envp_copy[find], ':');
-	data->path_split[0] = data->path_split[0] + 5;
-}
-
-void	trim_path(t_data *data)
-{
-	char	*tmp;
-	int		i;
-
-	i = 0;
 	tmp = ft_strdup(data->path_split[0]);
-	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp));
+	free(data->path_split[0]);
+	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp) - 5);
 	free(tmp);
-	while (data->path_split[i])
-		i++;
 }

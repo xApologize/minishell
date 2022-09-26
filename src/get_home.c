@@ -13,10 +13,10 @@ char	*get_home(char **envp_copy)
 		if (ft_strcmp(split_envp[0], "HOME") == 0)
 		{
 			rstring = ft_strdup(split_envp[1]);
-			freeopt(split_envp);
+			free_the_pp(split_envp);
 			return (rstring);
 		}
-		freeopt(split_envp);
+		free_the_pp(split_envp);
 		i++;
 	}
 	return (NULL);

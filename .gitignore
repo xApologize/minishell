@@ -9,3 +9,4 @@ minishell
 src/pipex
 outfile*
 src/heredoc
+minishell.dSYM

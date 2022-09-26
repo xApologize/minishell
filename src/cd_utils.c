@@ -36,10 +36,10 @@ int	find_oldpwd(char **envp_copy)
 		envp_split = ft_split(envp_copy[index], '=');
 		if (ft_strcmp("OLDPWD", envp_split[0]) == 0)
 		{
-			freeopt(envp_split);
+			free_the_pp(envp_split);
 			return (index);
 		}
-		freeopt(envp_split);
+		free_the_pp(envp_split);
 	}
 	return (-1);
 }
@@ -55,10 +55,10 @@ int	find_pwd(char **envp_copy)
 		envp_split = ft_split(envp_copy[index], '=');
 		if (ft_strcmp("PWD", envp_split[0]) == 0)
 		{
-			freeopt(envp_split);
+			free_the_pp(envp_split);
 			return (index);
 		}
-		freeopt(envp_split);
+		free_the_pp(envp_split);
 	}
 	return (-1);
 }
@@ -87,7 +87,7 @@ void	update_pwd(char **envp_copy)
 		{
 			free(envp_copy[index_oldpwd]);
 			envp_copy[index_oldpwd] = ft_strjoin("OLDPWD=", old_path[1]);
-			freeopt(old_path);
+			free_the_pp(old_path);
 		}
 	}
 }

@@ -19,7 +19,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 	stdout_copy = dup(STDOUT_FILENO);
 	while (cmd != NULL)
 	{
-		pid_child[i] = handle_pipe_cmd(cmd);
+		pid_child[i] = handle_pipe_cmd(cmd, data);
 		i++;
 		cmd = cmd->next;
 	}
@@ -27,6 +27,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 		waitpid(pid_child[--i], &status, 0);
 	dup2(stdin_copy, STDIN_FILENO);
 	dup2(stdout_copy, STDOUT_FILENO);
+	free(pid_child);
 }
 
 int	pipex_redir(t_cmd *cmd)
