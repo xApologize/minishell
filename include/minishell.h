@@ -61,9 +61,6 @@ int			find_pwd(void);
 void		update_pwd(void);
 void		handle_cd(t_cmd *cmd);
 
-//charjoinfree.c
-char		*charjoinfree(const char *s1, const char c);
-
 //check_dollar.c
 bool		check_dollar(char *line);
 
@@ -78,6 +75,14 @@ bool		checkvalidarg(char *arg);
 
 //clear_whitespace.c
 int			clear_whitespace(int i, char *str);
+
+//dollar_utils.c
+char		*handle_dollar(char *line);
+int			find_var(char *arg);
+char		*return_dollar(char *line);
+char		*skip_dollar(char *line);
+char		*charjoinfree(const char *s1, const char c);
+
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
@@ -102,17 +107,9 @@ int			check_dup_env(char *arg);
 char		*strip_quotes(char *arg);
 bool		checkassign(char *arg);
 
-//find_var.c
-int			find_var(char *arg);
-
-//free_data.c
+//free_memory.c
 void		free_cmd(t_cmd *cmd);
-
-// free_data.c
 void		free_data(t_data *data);
-
-
-//free_the_pp.c
 void		free_the_pp(char **pp);
 
 // ft_strtrimfree.c
@@ -123,9 +120,6 @@ char		*get_home(void);
 
 //handle_builtin.c
 void		handle_builtin(t_cmd *cmd, t_data *data);
-
-//handle_dollar.c
-char		*handle_dollar(char *line);
 
 //handle_env.c
 void		handle_env(t_cmd *cmd);
@@ -149,9 +143,6 @@ void		print_line(t_data *data);
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
 
-//pepe.c
-void		pepe(void);
-
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
 int			pipex_redir(t_cmd *cmd, t_data *data);
@@ -167,6 +158,7 @@ void		wait_child(int *pid_child, int table_size);
 
 //print_intro.c
 void		print_intro(void);
+void		pepe(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
@@ -175,9 +167,6 @@ void		handle_pwd(t_cmd *cmd);
 void		error_quotation(t_data *data);
 void		double_check(t_data *data);
 void		single_check(t_data *data);
-
-//return_dollar.c
-char		*return_dollar(char *line);
 
 //return_var.c
 char		*return_var(char *line);
@@ -220,9 +209,6 @@ void		sigint_handler(int signum);
 //singleton_statuscode.c
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
-
-//skip_dollar.c
-char		*skip_dollar(char *line);
 
 //skip_single_quote.c
 void		skip_single_quote(char *line);

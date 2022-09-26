@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-static char *ft_pwdjoinfree(const char *s1, const char *s2)
+static char	*ft_pwdjoinfree(const char *s1, const char *s2)
 {
 	int		s1len;
 	int		s2len;

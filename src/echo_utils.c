@@ -2,12 +2,11 @@
 
 void	handle_echo(t_cmd *cmd)
 {
-	char *line;
+	char	*line;
 
 	if (cmd->argv[1])
 	{
 		line = make_line(cmd->argv);
-
 		if (check_n(cmd->argv[1]) == 1)
 			print_echo_with_n(line);
 		else
@@ -45,7 +44,7 @@ int	skip_n(char *line)
 		if (trigger == 1 && (line[i] == ' ' || line[i] == '\t'))
 			trigger = 0;
 		if (trigger == 0 && ft_isalnum(line[i]) == 1)
-			return (i); 
+			return (i);
 		if (trigger == 1 && ft_isalnum(line[i]) == 1 && line[i] != 'n')
 		{
 			while (line[i] != ' ' && line[i] != '\t')

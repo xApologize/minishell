@@ -11,7 +11,7 @@ void	parsing(t_data *data, t_cmd *cmd)
 		data->save_indexmeta = data->indexmeta;
 		data->save_line = data->line;
 		cmd = set_exec_struct(data);
-		search_cmd(data, cmd);	
+		search_cmd(data, cmd);
 	}
 }
 

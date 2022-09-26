@@ -12,8 +12,8 @@ void	error_quotation(t_data *data)
 
 void	double_check(t_data *data)
 {
-	int i;
-	int trigger;
+	int	i;
+	int	trigger;
 
 	i = -1;
 	trigger = 0;
@@ -33,8 +33,8 @@ void	double_check(t_data *data)
 
 void	single_check(t_data *data)
 {
-	int i;
-	int trigger;
+	int	i;
+	int	trigger;
 
 	i = -1;
 	trigger = 0;

@@ -31,7 +31,7 @@ int	is_builtin(char *line)
 	char	**builtin;
 	int		i;
 
-	builtin = ft_calloc(9, sizeof(char*));
+	builtin = ft_calloc(9, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -47,7 +47,7 @@ int	is_builtin(char *line)
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
 			free(builtin);
-			return(1);
+			return (1);
 		}
 		i++;
 	}
@@ -62,7 +62,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	if(is_builtin(line_cp) == 1)
+	if (is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
 		cmd->cmd = ft_strdup(line_cp);

@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
 
-
 void	handle_pwd(t_cmd *cmd)
 {
 	int		args;

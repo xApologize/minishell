@@ -43,12 +43,12 @@ void	modify_var(char *arg)
 		free(g_envp_copy[index]);
 		g_envp_copy[index] = ft_strdup(arg);
 	}
-		free_the_pp(split_arg);
+	free_the_pp(split_arg);
 }
 
 int	check_dup_env(char *arg)
 {
-	int	i;
+	int		i;
 	char	**split_arg;
 	char	*new_arg;
 
@@ -73,14 +73,15 @@ int	check_dup_env(char *arg)
 	return (0);
 }
 
-bool checkassign(char *arg)
+bool	checkassign(char *arg)
 {
 	int	i;
 
 	i = -1;
 	while (arg[++i])
 	{
-		if ((ft_isalnum(arg[i]) == 1 || arg[i] == '"' || arg[i] == '\'') && arg[i + 1] == '=')
+		if ((ft_isalnum(arg[i]) == 1 || arg[i] == '"' \
+			|| arg[i] == '\'') && arg[i + 1] == '=')
 			return (true);
 	}
 	return (false);

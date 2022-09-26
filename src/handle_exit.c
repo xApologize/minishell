@@ -2,7 +2,7 @@
 
 void	handle_exit(t_cmd *cmd, t_data *data)
 {
-	int exit_status;
+	int	exit_status;
 
 	exit_status = 0;
 	if (count_args(cmd) > 2)
@@ -16,7 +16,8 @@ void	handle_exit(t_cmd *cmd, t_data *data)
 		if (cmd->argv[1] && check_if_num(cmd->argv[1]) == true)
 			exit_status = ft_atoi(cmd->argv[1]);
 		else
-			dprintf(STDERR_FILENO, "minicougar: exit: %s: numeric argument required\n", cmd->argv[1]);
+			dprintf(STDERR_FILENO, "minicougar: exit: \
+			%s: numeric argument required\n", cmd->argv[1]);
 	}
 	if (exit_status >= 0 && exit_status <= 127)
 		set_exit_code(exit_status);

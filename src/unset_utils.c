@@ -11,7 +11,8 @@ void	handle_unset(t_cmd *cmd)
 	{
 		if (!checkvalidarg(cmd->argv[i]))
 		{
-			dprintf(STDERR_FILENO, "msh: unset: '%s': not a valid identifier\n", cmd->argv[i]);
+			dprintf(STDERR_FILENO, "msh: unset:\
+			'%s': not a valid identifier\n", cmd->argv[i]);
 			set_exit_code(1);
 			return ;
 		}

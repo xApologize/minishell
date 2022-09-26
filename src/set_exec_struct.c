@@ -41,7 +41,7 @@ t_cmd	*create_nodes(char **env)
 	(void) env;
 	node = malloc(sizeof(t_cmd));
 	if (!node)
-		return(NULL);
+		return (NULL);
 	node->redir_in = STDIN_FILENO;
 	node->redir_out = STDOUT_FILENO;
 	node->cmd = NULL;
@@ -49,7 +49,7 @@ t_cmd	*create_nodes(char **env)
 	node->argv = NULL;
 	node->next = NULL;
 	node->is_builtin = 0;
-return (node);
+	return (node);
 }
 
 void	add_nodes(t_cmd **cmd, t_cmd *new_cmd)

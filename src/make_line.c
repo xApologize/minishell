@@ -1,9 +1,9 @@
 #include "../include/minishell.h"
 
-char *make_line(char **argv)
+char	*make_line(char **argv)
 {
-	char *line;
-	int i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	line = ft_calloc(1, 1);
@@ -13,7 +13,7 @@ char *make_line(char **argv)
 			argv[i] = ft_strtrimfree(argv[i], "'\"");
 		line = ft_strjoinfree(line, argv[i]);
 		if (argv[i + 1] == NULL)
-			break;
+			break ;
 		line = ft_strjoinfree(line, " ");
 		i++;
 	}

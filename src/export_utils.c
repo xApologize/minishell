@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
 
-
 // need to adapt check_modifyvar		--	needs further testing
 // need to adapt modify_var		--	needs further testing
 // need to adapt check_dup_env		--	needs further testing
