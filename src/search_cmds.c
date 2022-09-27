@@ -62,7 +62,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	if (is_builtin(line_cp) == 1)
+	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
 		cmd->cmd = ft_strdup(line_cp);
