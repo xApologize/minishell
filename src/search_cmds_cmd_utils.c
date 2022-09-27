@@ -6,7 +6,7 @@
 char	*access_path(char *line)
 {
 	if (access(line, X_OK) == 0)
-		return (line);
+		return (ft_strdup(line));
 	// free(line);
 	return (NULL);
 }
@@ -25,7 +25,7 @@ char	*access_relative_path(char *line)
 	}
 	// free(slash);
 	// free(pwd_join);
-	return (line);
+	return (ft_strdup(line));
 }
 
 char	*get_path(char *line_cp, t_data *data)
