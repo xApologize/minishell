@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//join strings together separated by a line space
 char	*make_line(char **argv)
 {
 	char	*line;

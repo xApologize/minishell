@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//adds the new variable to the environment
 void	addtoenv(char *arg)
 {
 	char	**new_envp;
@@ -19,6 +20,7 @@ void	addtoenv(char *arg)
 	g_envp_copy = new_envp;
 }
 
+//if the argument was already part of the environement variables, modifies it to the new value
 void	modify_var(char *arg)
 {
 	int		index;
@@ -46,6 +48,7 @@ void	modify_var(char *arg)
 	free_the_pp(split_arg);
 }
 
+//checks if the argument is already in the environment variables
 int	check_dup_env(char *arg)
 {
 	int		i;

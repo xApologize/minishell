@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//checks if 
 int	checkenvformat(char *var)
 {
 	int	i;

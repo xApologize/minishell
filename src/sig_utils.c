@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//rewires sigint and sigquit
 void	sig_handling(void)
 {
 	struct sigaction	sa_sigint;
@@ -13,6 +14,7 @@ void	sig_handling(void)
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
+//reset sigint and sigquit to their original state
 void	sig_reset(void)
 {
 	struct sigaction	sa_sigint;
@@ -27,6 +29,7 @@ void	sig_reset(void)
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
+//handler function for sigint
 void	sigint_handler(int signum)
 {
 	if (signum == SIGINT)

@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//makes a copy of the original environment variables
 char	**envp_cp(char **envp)
 {
 	char	**envp_copy;

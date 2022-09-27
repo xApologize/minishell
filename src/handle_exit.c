@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 
+//exits the program and frees all memory
+//takes an int as an argument that's used to set exit_status_code before exiting
 void	handle_exit(t_cmd *cmd, t_data *data)
 {
 	int	exit_status;

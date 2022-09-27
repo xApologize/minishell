@@ -20,6 +20,7 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd);
 }
 
+//free char **
 void	free_the_pp(char **pp)
 {
 	int	i;

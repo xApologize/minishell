@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//same as ft_strjoinfree. joins 2 strings and frees the once given as first argument
 static char	*ft_pwdjoinfree(const char *s1, const char *s2)
 {
 	int		s1len;
@@ -25,6 +26,7 @@ static char	*ft_pwdjoinfree(const char *s1, const char *s2)
 	return (newstring);
 }
 
+//searches the environment variables for the OLDPWD. Returns the index if found, -1 if not
 int	find_oldpwd(void)
 {
 	int		index;
@@ -44,6 +46,7 @@ int	find_oldpwd(void)
 	return (-1);
 }
 
+//same as find_oldpwd. Returns the index if found, -1 if not
 int	find_pwd(void)
 {
 	int		index;
@@ -63,6 +66,7 @@ int	find_pwd(void)
 	return (-1);
 }
 
+//updates OLDPWD and PWD environment variables according to the new path given when using cd. If either OLDPWD or PWD are unset does nothing
 void	update_pwd(void)
 {
 	int		index_pwd;
@@ -92,6 +96,7 @@ void	update_pwd(void)
 	}
 }
 
+//changes current directory based on argument given. Also updates PWD and OLDPWD.
 void	handle_cd(t_cmd *cmd)
 {
 	int	res;

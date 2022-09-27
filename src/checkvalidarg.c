@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//checks if arg is valid. If not returns 0
 bool	checkvalidarg(char *arg)
 {
 	int	i;

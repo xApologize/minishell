@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//priints the given arguments out followed by a \n by default. if n option used newline is omitted.
 void	handle_echo(t_cmd *cmd)
 {
 	char	*line;
@@ -18,6 +19,7 @@ void	handle_echo(t_cmd *cmd)
 	set_exit_code(0);
 }
 
+//skips echo so it doesn't get printed
 int	skip_echo(char *line)
 {
 	int	i;
@@ -30,6 +32,7 @@ int	skip_echo(char *line)
 	return (i);
 }
 
+//skips multiple n options
 int	skip_n(char *line)
 {
 	int	i;
@@ -56,6 +59,7 @@ int	skip_n(char *line)
 	return (-1);
 }
 
+//prints the arguments with a newline at the end
 void	print_echo_with_n(char *line)
 {
 	int		i;
@@ -72,6 +76,7 @@ void	print_echo_with_n(char *line)
 	free(pstr);
 }
 
+//prints the arguments without a newline at the end
 void	print_echo_without_n(char *line)
 {
 	int		i;

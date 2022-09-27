@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
 char	*handle_dollar(char *line)
 {
 	char	*new_line;
@@ -12,6 +13,7 @@ char	*handle_dollar(char *line)
 	return (line);
 }
 
+//finds and replaces the $var if found within the environment variables
 char	*return_dollar(char *line)
 {
 	char	*return_line;
@@ -34,7 +36,7 @@ char	*return_dollar(char *line)
 		return_line = (ft_strdup(""));
 	return (return_line);
 }
-
+//copies the variables up until a token, newline, space or the end of the string is reached
 char	*return_var(char *line)
 {
 	char	*var;
@@ -50,7 +52,7 @@ char	*return_var(char *line)
 	}
 	return (var);
 }
-
+//returns the index of the variable if found in the environment variables. returns -1 if not found
 int	find_var(char *arg)
 {
 	int		index;
@@ -73,7 +75,7 @@ int	find_var(char *arg)
 	free_the_pp(arg_split);
 	return (-1);
 }
-
+//copies one character at a time into a string
 char	*charjoinfree(const char *s1, const char c)
 {
 	char	*newstring;

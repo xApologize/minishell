@@ -1,13 +1,6 @@
 #include "../include/minishell.h"
 
-// handle echo done
-// handle_cd done
-// handle_pwd
-// handle_export done
-// handle_unset done
-// handle_env done
-// 
-
+//dispatches builtin to appropriate function
 void	handle_builtin(t_cmd *cmd, t_data *data)
 {
 	if (ft_strcmp(cmd->argv[0], "echo") == 0)

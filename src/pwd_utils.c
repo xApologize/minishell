@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//finds and prints the currrent working directory
 void	handle_pwd(t_cmd *cmd)
 {
 	int		args;

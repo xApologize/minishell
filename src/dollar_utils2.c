@@ -1,5 +1,5 @@
 #include "../include/minishell.h"
-
+//returns true if string contains a valid $ for expanding
 bool	check_dollar(char *line)
 {
 	int		i;
@@ -23,6 +23,7 @@ bool	check_dollar(char *line)
 	return (false);
 }
 
+//returns the expanded line. Copies char by char. if it encounters an expansion it finds it and adds it to the string. if not found, adds nothing
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
@@ -46,7 +47,7 @@ char	*unwrap_dollar(char *line)
 	}
 	return (new_line);
 }
-
+//skips single_quotes since there is not supposed to be an expansion within single quotes
 void	skip_single_quote(char *line)
 {
 	while (*line != '\'' && *line != '\0')
@@ -55,7 +56,7 @@ void	skip_single_quote(char *line)
 	}
 	line++;
 }
-
+//skips the expansion so it is not copied into the new string
 char	*skip_dollar(char *line)
 {
 	while (*line)

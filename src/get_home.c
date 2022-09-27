@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//gets the value of home from the environment variables
 char	*get_home(void)
 {
 	char	**split_envp;
