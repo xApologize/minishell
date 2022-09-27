@@ -7,7 +7,7 @@ char	*rl_gets(void)
 	char	*backslash;
 
 	printf("\033[0;37m");
-	line = readline("Minicougar>$ ");
+	line = readline("minicougar>$ ");
 	backslash = ft_strjoin(line, "\n");
 	if (line && *line)
 		add_history(line);

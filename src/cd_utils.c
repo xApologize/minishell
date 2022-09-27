@@ -114,7 +114,7 @@ void	handle_cd(t_cmd *cmd)
 	update_pwd();
 	if (res == -1)
 	{
-		dprintf(STDERR_FILENO, "cd: %s: %s\n", strerror(errno), cmd->argv[1]);
+		dprintf(STDERR_FILENO, "minicougar: cd: %s: %s\n", strerror(errno), cmd->argv[1]);
 		set_exit_code(1);
 	}
 }
