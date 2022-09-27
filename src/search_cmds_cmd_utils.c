@@ -6,7 +6,7 @@
 char	*access_path(char *line)
 {
 	if (access(line, X_OK) == 0)
-		return (ft_strdup(line));
+		return (line);
 	// free(line);
 	return (NULL);
 }
