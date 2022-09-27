@@ -14,7 +14,7 @@ void	set_fd_in(t_cmd *cmd, t_data *data)
 	if (access(data->line, F_OK) == 0)
 		cmd->redir_in = open(data->line, O_RDWR);
 	else
-		dprintf(2, "Minicougar: %s: No such file or directory\n", data->line);
+		dprintf(2, "minicougar: %s: No such file or directory\n", data->line);
 	while (*data->line != '\0')
 		data->line++;
 }
