@@ -58,7 +58,7 @@ char		**g_envp_copy;
 //cd_utils.c
 int			find_oldpwd(void);
 int			find_pwd(void);
-void		update_pwd(void);
+void		update_pwd(char *home);
 void		handle_cd(t_cmd *cmd);
 
 //check_n.c

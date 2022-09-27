@@ -8,6 +8,7 @@ char	*handle_dollar(char *line)
 	if (check_dollar(line))
 	{
 		new_line = unwrap_dollar(line);
+		free(line);
 		return (new_line);
 	}
 	return (line);
