@@ -45,5 +45,4 @@ void	free_data(t_data *data)
 	data->line = data->save_line;
 	free(data->line);
 	free_the_pp(data->path_split);
-	rl_clear_history();
 }
