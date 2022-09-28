@@ -134,6 +134,10 @@ int			count_args(t_cmd *cmd);
 //heredoc.c
 int			heredoc(t_data *data);
 
+//misc_utils.c
+int			get_mem_len(char *arg);
+char		*stripshit(char *arg);
+
 //parsing.c
 void		parsing(t_data *data, t_cmd *cmd);
 void		tokenize(t_data *data);
