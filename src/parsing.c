@@ -58,7 +58,7 @@ int	quote(int i, t_data *data)
 		}
 	}
 	i++;
-	return (i);
+	return (i - 1);
 }
 
 void	findlenght(t_data *data)
