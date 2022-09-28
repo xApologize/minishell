@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-int		get_mem_len(char *arg)
+int	get_mem_len(char *arg)
 {
 	int	i;
 	int	count;
@@ -10,7 +10,7 @@ int		get_mem_len(char *arg)
 	while (arg[++i])
 	{
 		if (arg[i] != '\'' && arg[i] != '"')
-			count++; 
+			count++;
 	}
 	return (count);
 }
