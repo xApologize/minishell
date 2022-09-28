@@ -8,6 +8,7 @@ void	handle_export(t_cmd *cmd)
 	bool	valid_assign;
 
 	i = 0;
+	printf("adress of cmd->argv[1]: %p\n", cmd->argv[1]);
 	while (cmd->argv[++i])
 	{
 		valid_env = checkvalidenv(cmd->argv[i]);

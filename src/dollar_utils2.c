@@ -61,7 +61,7 @@ char	*skip_dollar(char *line)
 {
 	while (*line)
 	{
-		if (ft_strchr("<>|\t \n\"\0", *line))
+		if (ft_strchr("<>|\t \n\"=\0", *line))
 			break ;
 		line++;
 	}
