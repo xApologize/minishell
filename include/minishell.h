@@ -83,7 +83,6 @@ char		*charjoinfree(const char *s1, const char c);
 //dollar_utils2.c
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
-void		skip_single_quote(char *line);
 char		*skip_dollar(char *line);
 
 //echo_utils.c

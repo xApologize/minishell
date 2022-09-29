@@ -8,8 +8,8 @@ char	*rl_gets(void)
 
 	printf("\033[0;37m");
 	line = readline("minicougar>$ ");
-	backslash = ft_strjoinfree(line, "\n");
 	if (line && *line)
 		add_history(line);
+	backslash = ft_strjoinfree(line, "\n");
 	return (backslash);
 }
