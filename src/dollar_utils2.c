@@ -38,7 +38,7 @@ char	*unwrap_dollar(char *line)
 			trigger = 0;	
 		if (*line == '\'' && trigger == 0)
 			trigger = 1;
-		if (*line == '$' && trigger == 0)
+		while (*line == '$' && trigger == 0)
 		{
 			value = return_dollar(line);
 			new_line = ft_strjoinfree(new_line, value);
@@ -55,12 +55,10 @@ char	*unwrap_dollar(char *line)
 //skips the expansion so it is not copied into the new string
 char	*skip_dollar(char *line)
 {
-	line++;
-	while (*line)
+	while (++line)
 	{
-		if (ft_isalnum(*line) == 0 && *line != '$')
+		if (ft_isalnum(*line) == 0)
 			break ;
-		line++;
 	}
 	return (line);
 }
