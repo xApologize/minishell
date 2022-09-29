@@ -55,25 +55,16 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-char		**_envp_copy;
+char		**g_envp_copy;
 
 //cd_utils.c
-int			find_oldpwd(char **envp_copy);
-int			find_pwd(char **envp_copy);
-void		update_pwd(char **envp_copy);
+int			find_oldpwd(void);
+int			find_pwd(void);
+void		update_pwd(void);
 void		handle_cd(t_cmd *cmd);
-
-//charjoinfree.c
-char		*charjoinfree(const char *s1, const char c);
-
-//check_dollar.c
-bool		check_dollar(char *line);
 
 //check_n.c
 int			check_n(char *opt);
-
-//checkassign.c
-bool		checkassign(char *arg);
 
 //checkenvformat.c
 int			checkenvformat(char *var);
@@ -83,6 +74,19 @@ bool		checkvalidarg(char *arg);
 
 //clear_whitespace.c
 int			clear_whitespace(int i, char *str);
+
+//dollar_utils.c
+char		*handle_dollar(char *line);
+char		*return_dollar(char *line);
+char		*return_var(char *line);
+int			find_var(char *arg);
+char		*charjoinfree(const char *s1, const char c);
+
+//dollar_utils2.c
+bool		check_dollar(char *line);
+char		*unwrap_dollar(char *line);
+void		skip_single_quote(char *line);
+char		*skip_dollar(char *line);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
@@ -95,44 +99,40 @@ void		print_echo_without_n(char *line);
 char		**envp_cp(char **envp);
 
 //export_utils.c
-char		**handle_export(t_cmd *cmd);
+void		handle_export(t_cmd *cmd);
 bool		checkvalidenv(char *arg);
 bool		checkvalidassign(bool env_stat, char *arg);
-int			check_modify_env(char *arg, char **envp_copy);
+int			check_modify_env(char *arg);
 
 //export_utils2.c
-char		**addtoenv(char *arg, char **envp_copy);
-char		**modify_var(char *arg, char **envp_copy);
-int			check_dup_env(char *arg, char **envp_copy);
+void		addtoenv(char *arg);
+void		modify_var(char *arg);
+int			check_dup_env(char *arg);
+char		*strip_quotes(char *arg);
+bool		checkassign(char *arg);
 
-//find_var.c
-int			find_var(char *arg, char **envp_copy);
-
-//free_data.c
-
-// free_data.c
+//free_memory.c
 void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
+void		free_the_pp(char **pp);
 void		free_data_cmd(t_cmd *cmd, t_data *data);
 
-
-//free_the_pp.c
-void		free_the_pp(char **opt);
+// ft_strtrimfree.c
+char		*ft_strtrimfree(const char *s1, const char *set);
 
 //get_home.c
-char		*get_home(char **envp_copy);
+char		*get_home(void);
 
 //handle_builtin.c
-char		**handle_builtin(t_cmd *cmd, t_data *data);
-
-//handle_dollar.c
-char		*handle_dollar(char *line, char **envp_copy);
+void		handle_builtin(t_cmd *cmd, t_data *data);
 
 //handle_env.c
 void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
 void		handle_exit(t_cmd *cmd, t_data *data);
+bool		check_if_num(const char *n);
+int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
@@ -144,18 +144,15 @@ char		*make_line(char **argv);
 void	restore_std(t_data *data);
 
 //parsing.c
-void		parsing(char **envp_copy, t_data *data, t_cmd *cmd);
+void		parsing(t_data *data, t_cmd *cmd);
 void		tokenize(t_data *data);
 int			quote(int i, t_data *data);
 void		findlenght(t_data *data);
 void		print_line(t_data *data);
 
 //parsing_utils.c
-void		env_split(t_data *data, char **envp_copy);
+void		env_split(t_data *data);
 void		trim_path(t_data *data);
-
-//pepe.c
-void		pepe(void);
 
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
@@ -172,20 +169,17 @@ void		wait_child(int *pid_child, int table_size);
 
 //print_intro.c
 void		print_intro(void);
+void		pepe(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
 
 //quotation.c
-bool		error_quotation(t_data *data);
-int			squotes(int i, t_data *data);
-int			dquotes(int i, t_data *data);
-
-//return_dollar.c
-char		*return_dollar(char *line, char **envp_copy);
+void		error_quotation(t_data *data);
+void		double_check(t_data *data);
+void		single_check(t_data *data);
 
 //return_var.c
-char		*return_var(char *line);
 
 //rl_gets.c
 char		*rl_gets(void);
@@ -213,7 +207,7 @@ void		handle_single_builtin(t_cmd *cmd, t_data *data);
 void		skip_char(t_data *data);
 
 //set_exec_struct.c
-t_cmd		*set_exec_struct(t_data *data, char **env);
+t_cmd		*set_exec_struct(t_data *data);
 int			nb_pipes(t_data *data);
 t_cmd 		*create_nodes(char **env);
 void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
@@ -230,23 +224,16 @@ void		sigint_handler(int signum);
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
 
-//skip_dollar.c
-char		*skip_dollar(char *line);
-
 //skip_single_quote.c
-void		skip_single_quote(char *line);
 
 //status_error.c
 void		status(t_data *data);
 
 //unset_utils.c
-char		**handle_unset(t_cmd *cmd);
+void		handle_unset(t_cmd *cmd);
 bool		checkifunset(char *var, char *envp_var);
-char		**copynewenvp(char **envp_copy);
-int			countnewvars(char **envp_copy);
-void		modifyvar(char *var, char **envp_copy);
-
-//unwrap_dollar.c
-char		*unwrap_dollar(char *line, char **envp_copy);
+void		copynewenvp(void);
+int			countnewvars(void);
+void		modifyvar(char *var);
 
 #endif

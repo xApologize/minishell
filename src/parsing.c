@@ -1,18 +1,28 @@
 #include "../include/minishell.h"
 #include <unistd.h>
 
-void	parsing(char **envp_copy, t_data *data, t_cmd *cmd)
+void	parsing(t_data *data, t_cmd *cmd)
 {
 	error_quotation(data);
 	tokenize(data);
 	status(data);
-	env_split(data, envp_copy);
+	env_split(data);
 	data->save_indexmeta = data->indexmeta;
 	data->save_line = data->line;
 	data->stdin_cp = dup(STDIN_FILENO);
 	data->stdout_cp = dup(STDOUT_FILENO);
-	cmd = set_exec_struct(data, envp_copy);
+	cmd = set_exec_struct(data);
 	search_cmd(data, cmd);
+	if (data->error_quotes == false)
+	{
+		tokenize(data);
+		status(data);
+		env_split(data);
+		data->save_indexmeta = data->indexmeta;
+		data->save_line = data->line;
+		cmd = set_exec_struct(data);
+		search_cmd(data, cmd);
+	}
 }
 
 void	tokenize(t_data *data)

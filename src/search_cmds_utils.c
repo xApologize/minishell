@@ -3,7 +3,7 @@
 void	handle_single_builtin(t_cmd *cmd, t_data *data)
 {
 	redir_utils(cmd);
-	_envp_copy = handle_builtin(cmd, data);
+	handle_builtin(cmd, data);
 	restore_std(data);
 }
 

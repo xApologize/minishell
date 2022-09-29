@@ -13,6 +13,8 @@ void	set_fd_in(t_cmd *cmd, t_data *data)
 		return ;
 	if (access(data->line, F_OK) == 0)
 		cmd->redir_in = open(data->line, O_RDWR);
+	else
+		dprintf(2, "minicougar: %s: No such file or directory\n", data->line);
 	while (*data->line != '\0')
 		data->line++;
 }
@@ -21,7 +23,6 @@ void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 {
 	if (!cmd || !data->line)
 		return ;
-	//printf("line out: %s\n", data->line);
 	while (*data->line == '\0' && ft_strchr(" >", *data->indexmeta))
 	{
 		data->line++;
@@ -55,7 +56,7 @@ void	get_fd(t_cmd *cmd, t_data *data, char meta)
 
 void	close_fd(t_cmd *cmd)
 {
-	t_cmd *tmp;
+	t_cmd	*tmp;
 
 	tmp = cmd;
 	while (tmp != NULL)
