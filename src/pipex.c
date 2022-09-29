@@ -9,14 +9,10 @@ void	pipex(t_cmd *cmd, t_data *data)
 	int	i;
 	int	*pid_child;
 	int	table_size;
-	int	stdin_copy;
-	int	stdout_copy;
 
 	table_size = table_length(cmd);
 	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
-	stdin_copy = dup(STDIN_FILENO);
-	stdout_copy = dup(STDOUT_FILENO);
 	while (cmd != NULL)
 	{
 		pid_child[i] = handle_pipe_cmd(cmd, data);
@@ -24,8 +20,7 @@ void	pipex(t_cmd *cmd, t_data *data)
 		cmd = cmd->next;
 	}
 	wait_child(pid_child, table_size);
-	dup2(stdin_copy, STDIN_FILENO);
-	dup2(stdout_copy, STDOUT_FILENO);
+	restore_std(data);
 	free(pid_child);
 }
 
@@ -54,7 +49,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 			exit(1);
 		}
 		else
-			exec_cmd(cmd);
+			exec_cmd(cmd, data);
 	}
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
@@ -62,7 +57,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	return (pid);
 }
 
-int	exec_fork_cmd(t_cmd	*cmd)
+int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 {
 	int	pid;
 
@@ -70,16 +65,23 @@ int	exec_fork_cmd(t_cmd	*cmd)
 	if (pid == 0)
 	{
 		redir_utils(cmd);
-		exec_cmd(cmd);
+		if (cmd->is_builtin == 1)
+		{
+			handle_builtin(cmd, data);
+			exit(1);
+		}
+	else
+		exec_cmd(cmd, data);
 	}
 	close_fork_fd(cmd);
 	return (pid);
 }
 
-void	exec_cmd(t_cmd *cmd)
+void	exec_cmd(t_cmd *cmd, t_data *data)
 {
 	execve(cmd->cmd, cmd->argv, cmd->env);
-	dprintf(2, "msh: %s: command not found\n", cmd->cmd);
+	dprintf(2, "minicougarsh: %s: command not found\n", cmd->cmd);
+	free_data_cmd(cmd, data);
 	exit(127);
 }
 

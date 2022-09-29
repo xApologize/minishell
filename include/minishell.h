@@ -30,6 +30,8 @@ typedef struct s_data
 	char	*line;
 	char	*save_line;
 	char	*save_indexmeta;
+	int		stdin_cp;
+	int		stdout_cp;
 	int		if_no_meta;
 	int		line_lenght;
 	bool	error_status;
@@ -113,6 +115,7 @@ bool		checkassign(char *arg);
 void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
 void		free_the_pp(char **pp);
+void		free_data_cmd(t_cmd *cmd, t_data *data);
 
 // ft_strtrimfree.c
 char		*ft_strtrimfree(const char *s1, const char *set);
@@ -134,6 +137,12 @@ int			count_args(t_cmd *cmd);
 //heredoc.c
 int			heredoc(t_data *data);
 
+//make_line.c
+char		*make_line(char **argv);
+
+//minishell_utils.c
+void	restore_std(t_data *data);
+
 //parsing.c
 void		parsing(t_data *data, t_cmd *cmd);
 void		tokenize(t_data *data);
@@ -148,8 +157,8 @@ void		trim_path(t_data *data);
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
 int			pipex_redir(t_cmd *cmd, t_data *data);
-int			exec_fork_cmd(t_cmd	*cmd);
-void		exec_cmd(t_cmd *cmd);
+int			exec_fork_cmd(t_cmd	*cmd, t_data *data);
+void		exec_cmd(t_cmd *cmd, t_data *data);
 int			table_length(t_cmd *cmd);
 
 //pipex_utils.c
@@ -193,6 +202,10 @@ void		set_fd_out(t_cmd *cmd, int append, t_data *data);
 void		get_fd(t_cmd *cmd, t_data *data, char meta);
 void		close_fd(t_cmd *cmd);
 
+//search_cmd_utils.c
+void		handle_single_builtin(t_cmd *cmd, t_data *data);
+void		skip_char(t_data *data);
+
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data);
 int			nb_pipes(t_data *data);
@@ -222,8 +235,5 @@ bool		checkifunset(char *var, char *envp_var);
 void		copynewenvp(void);
 int			countnewvars(void);
 void		modifyvar(char *var);
-
-//make_line.c
-char		*make_line(char **argv);
 
 #endif
