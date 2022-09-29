@@ -15,7 +15,7 @@ int	heredoc(t_data *data)
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strcmp(line, data->line) == 0)
+		if (line == NULL || ft_strcmp(line, data->line) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
 		write(fd[1], return_line, ft_strlen(return_line));
