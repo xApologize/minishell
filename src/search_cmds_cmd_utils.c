@@ -7,7 +7,6 @@ char	*access_path(char *line)
 {
 	if (access(line, X_OK) == 0)
 		return (ft_strdup(line));
-	// free(line);
 	return (NULL);
 }
 
@@ -30,6 +29,8 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*access_try;
 
 	i = 0;
+	if (!data->path_split)
+		return (ft_strdup(line_cp));
 	if (*line_cp == '/')
 		return (access_path(line_cp));
 	if (*line_cp == '.')

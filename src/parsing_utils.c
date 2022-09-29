@@ -13,8 +13,9 @@ void	env_split(t_data *data)
 			break ;
 		find++;
 	}
-	if (g_envp_copy[find] != NULL)
-		data->path_split = ft_split(g_envp_copy[find], ':');
+	if (g_envp_copy[find] == NULL)
+		return ;
+	data->path_split = ft_split(g_envp_copy[find], ':');
 	tmp = ft_strdup(data->path_split[0]);
 	free(data->path_split[0]);
 	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp) - 5);

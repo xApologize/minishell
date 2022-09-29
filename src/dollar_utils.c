@@ -37,6 +37,7 @@ char	*return_dollar(char *line)
 		return_line = (ft_strdup(""));
 	return (return_line);
 }
+
 //copies the variables up until a token, newline, space or the end of the string is reached
 char	*return_var(char *line)
 {
