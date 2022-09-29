@@ -1,8 +1,11 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
 void	parsing(t_data *data, t_cmd *cmd)
 {
 	error_quotation(data);
+	data->stdin_cp = dup(STDIN_FILENO);
+	data->stdout_cp = dup(STDOUT_FILENO);
 	if (data->error_quotes == false)
 	{
 		tokenize(data);
