@@ -9,13 +9,14 @@ void	parsing(t_data *data, t_cmd *cmd)
 	if (data->error_quotes == false)
 	{
 		tokenize(data);
-		status(data);
 		env_split(data);
 		data->save_indexmeta = data->indexmeta;
 		data->save_line = data->line;
 		cmd = set_exec_struct(data);
 		search_cmd(data, cmd);
 	}
+	close(data->stdin_cp);
+	close(data->stdout_cp);
 }
 
 void	tokenize(t_data *data)

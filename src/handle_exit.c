@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
 //exits the program and frees all memory
 //test
@@ -25,6 +26,8 @@ void	handle_exit(t_cmd *cmd, t_data *data)
 	free_data(data);
 	free_cmd(cmd);
 	free_the_pp(g_envp_copy);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
 	if (exit_status >= 0 && exit_status <= 127)
 		exit(exit_status);
 	else

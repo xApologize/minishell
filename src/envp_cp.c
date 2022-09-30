@@ -9,7 +9,7 @@ char	**envp_cp(char **envp)
 	i = 0;
 	while (envp[i])
 		i++;
-	envp_copy = malloc((i + 1) * sizeof(char *));
+	envp_copy = ft_calloc((i + 1), sizeof(char *));
 	i = 0;
 	while (envp[i])
 	{

@@ -70,7 +70,6 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 			handle_builtin(cmd, data);
 			exit(1);
 		}
-	else
 		exec_cmd(cmd, data);
 	}
 	close_fork_fd(cmd);
@@ -79,7 +78,9 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 
 void	exec_cmd(t_cmd *cmd, t_data *data)
 {
-	execve(cmd->cmd, cmd->argv, cmd->env);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
+	execve(cmd->cmd, cmd->argv, g_envp_copy);
 	dprintf(2, "minicougarsh: %s: command not found\n", cmd->cmd);
 	free_data_cmd(cmd, data);
 	exit(127);
