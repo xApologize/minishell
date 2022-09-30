@@ -46,3 +46,9 @@ void	free_data(t_data *data)
 	free(data->line);
 	free_the_pp(data->path_split);
 }
+
+void	free_data_cmd(t_cmd *cmd, t_data *data)
+{
+	free_cmd(cmd);
+	free_data(data);
+}
