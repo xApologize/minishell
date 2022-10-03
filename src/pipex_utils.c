@@ -48,8 +48,6 @@ void	wait_child(int *pid_child, int table_size)
 	{
 		waitpid(pid_child[i], &status, 0);
 		set_exit_code(WEXITSTATUS(status));
-		// if (WIFSIGNALED(status) == 0)
-		// 	break ;
 		i++;
 	}
 }
