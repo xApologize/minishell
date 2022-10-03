@@ -178,6 +178,9 @@ void		tlaid(void);
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
 
+//quit_handle.c
+void		quit_handling(int signum);
+
 //quotation.c
 void		error_quotation(t_data *data);
 void		double_check(t_data *data);
