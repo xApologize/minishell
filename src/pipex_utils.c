@@ -37,14 +37,17 @@ int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 void	wait_child(int *pid_child, int table_size)
 {
 	int	status;
-	int	i;
+	// int	i;
 
 	status = 0;
-	i = 0;
-	while (i < table_size)
+	// i = 0;
+	(void) pid_child;
+	(void) table_size;
+	while (1)
 	{
-		waitpid(pid_child[i], &status, 0);
+		waitpid(-1, &status, 0);
 		set_exit_code(WEXITSTATUS(status));
-		i++;
+		if (WIFSIGNALED(status) == 0)
+			break ;
 	}
 }
