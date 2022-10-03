@@ -217,12 +217,12 @@ t_cmd 		*create_nodes(char **env);
 void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
 
-//sig_handling.c
-void		sig_handling(void);
-
 //sig_utils.c
 void		sig_reset(void);
+void		sig_handling(void);
 void		sigint_handler(int signum);
+void		quiet_handling(void);
+void		shush(int signum);
 
 //singleton_statuscode.c
 int			*get_exit_code(void);
