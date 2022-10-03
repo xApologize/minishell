@@ -29,10 +29,10 @@ void	close_fork_fd(t_cmd *cmd)
 
 int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 {
-	if (cmd->cmd == NULL)
-		return (0);
-	else if (cmd->next != NULL)
+	if (cmd->next != NULL)
 		return (pipex_redir(cmd, data));
+	else if (cmd->cmd == NULL)
+		return (0);
 	else
 		return (exec_fork_cmd(cmd, data));
 	return (0);
