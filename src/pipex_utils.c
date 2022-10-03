@@ -1,4 +1,8 @@
 #include "../include/minishell.h"
+#include <signal.h>
+#include <stdio.h>
+#include <sys/signal.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void	redir_utils(t_cmd *cmd)
@@ -37,17 +41,15 @@ int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 void	wait_child(int *pid_child, int table_size)
 {
 	int	status;
-	// int	i;
+	int	i;
 
-	status = 0;
-	// i = 0;
-	(void) pid_child;
-	(void) table_size;
-	while (1)
+	i = 0;
+	while (i < table_size)
 	{
-		waitpid(-1, &status, 0);
+		waitpid(pid_child[i], &status, 0);
 		set_exit_code(WEXITSTATUS(status));
-		if (WIFSIGNALED(status) == 0)
-			break ;
+		// if (WIFSIGNALED(status) == 0)
+		// 	break ;
+		i++;
 	}
 }

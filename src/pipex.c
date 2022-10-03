@@ -72,6 +72,7 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 		}
 		exec_cmd(cmd, data);
 	}
+	restore_std(data);
 	close_fork_fd(cmd);
 	return (pid);
 }
