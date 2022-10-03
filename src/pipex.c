@@ -48,8 +48,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 			handle_builtin(cmd, data);
 			exit(1);
 		}
-		else
-			exec_cmd(cmd, data);
+		exec_cmd(cmd, data);
 	}
 	close(pipe_fd[PIPE_READ]);
 	close(pipe_fd[PIPE_WRITE]);
