@@ -1,5 +1,5 @@
 #include "../include/minishell.h"
-
+//returns true if string contains a valid $ for expanding
 bool	check_dollar(char *line)
 {
 	int		i;
@@ -23,17 +23,22 @@ bool	check_dollar(char *line)
 	return (false);
 }
 
+//returns the expanded line. Copies char by char. if it encounters an expansion it finds it and adds it to the string. if not found, adds nothing
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
 	char	*value;
+	int		trigger;
 
+	trigger = 0;
 	new_line = ft_calloc(10, 1);
 	while (*line)
 	{
-		if (*line == '\'')
-			skip_single_quote(line);
-		if (*line == '$')
+		if (*line == '\'' && trigger == 1)
+			trigger = 0;	
+		if (*line == '\'' && trigger == 0)
+			trigger = 1;
+		while (*line == '$' && trigger == 0)
 		{
 			value = return_dollar(line);
 			new_line = ft_strjoinfree(new_line, value);
@@ -47,22 +52,13 @@ char	*unwrap_dollar(char *line)
 	return (new_line);
 }
 
-void	skip_single_quote(char *line)
-{
-	while (*line != '\'' && *line != '\0')
-	{
-		line++;
-	}
-	line++;
-}
-
+//skips the expansion so it is not copied into the new string
 char	*skip_dollar(char *line)
 {
-	while (*line)
+	while (++line)
 	{
-		if (ft_strchr("<>|\t \n\"\0", *line))
+		if (ft_isalnum(*line) == 0)
 			break ;
-		line++;
 	}
 	return (line);
 }

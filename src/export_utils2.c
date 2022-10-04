@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//adds the new variable to the environment
 void	addtoenv(char *arg)
 {
 	char	**new_envp;
@@ -13,12 +14,13 @@ void	addtoenv(char *arg)
 	new_envp = malloc((i + 2) * sizeof(char *));
 	while (g_envp_copy[++j])
 		new_envp[j] = ft_strdup(g_envp_copy[j]);
-	new_envp[i] = ft_strdup(strip_quotes(arg));
+	new_envp[i] = strip_quotes(arg);
 	new_envp[i + 1] = NULL;
 	free_the_pp(g_envp_copy);
 	g_envp_copy = new_envp;
 }
 
+//if the argument was already part of the environement variables, modifies it to the new value
 void	modify_var(char *arg)
 {
 	int		index;
@@ -46,6 +48,19 @@ void	modify_var(char *arg)
 	free_the_pp(split_arg);
 }
 
+//checks if the argument is already in the environment variables
+char	*return_stripped_env(char **split_arg)
+{
+	char *new_arg;
+
+	new_arg = NULL;
+	split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+	new_arg = ft_strdup(split_arg[0]);
+	new_arg = ft_strjoinfree(new_arg, "=");
+	new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+	return (new_arg);
+}
+
 int	check_dup_env(char *arg)
 {
 	int		i;
@@ -54,20 +69,18 @@ int	check_dup_env(char *arg)
 
 	i = -1;
 	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
 	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
-	{
-		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
-		new_arg = ft_strdup(split_arg[0]);
-		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
-	}
+		new_arg = return_stripped_env(split_arg);
 	else
 		new_arg = arg;
 	while (g_envp_copy[++i])
 		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
+		{
+			free_the_pp(split_arg);
+			free(new_arg);
 			return (1);
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+		}
+	if (new_arg != arg)
 		free(new_arg);
 	free_the_pp(split_arg);
 	return (0);
@@ -104,5 +117,5 @@ char	*strip_quotes(char *arg)
 		return (new_arg);
 	}
 	free_the_pp(split_arg);
-	return (arg);
+	return (ft_strdup(arg));
 }

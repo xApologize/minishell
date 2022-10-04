@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-// Implementation of env builtin
+// Prints all the environment variables
 void	handle_env(t_cmd *cmd)
 {
 	int	i;

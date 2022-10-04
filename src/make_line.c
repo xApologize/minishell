@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//join strings together separated by a line space
 char	*make_line(char **argv)
 {
 	char	*line;
@@ -17,5 +18,6 @@ char	*make_line(char **argv)
 		line = ft_strjoinfree(line, " ");
 		i++;
 	}
+	line = stripshit(line);
 	return (line);
 }

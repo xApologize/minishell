@@ -9,10 +9,10 @@ int	main(void)
 
 	g_envp_copy = envp_cp(environ);
 	print_intro();
-	sig_handling();
 	cmd = NULL;
 	while (1)
 	{
+		sig_handling();
 		data.line = rl_gets();
 		if (data.line == NULL)
 			exit(0);

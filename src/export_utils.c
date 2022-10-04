@@ -1,9 +1,6 @@
 #include "../include/minishell.h"
 
-// need to adapt check_modifyvar		--	needs further testing
-// need to adapt modify_var		--	needs further testing
-// need to adapt check_dup_env		--	needs further testing
-// need to adapt addtoenv		--	needs further testing
+//
 void	handle_export(t_cmd *cmd)
 {
 	int		i;
@@ -52,7 +49,7 @@ bool	checkvalidassign(bool env_stat, char *arg)
 	if (!env_stat)
 	{
 		dprintf(STDERR_FILENO, \
-		"msh: export: '%s': not a valid identifier\n", arg);
+		"export: '%s': not a valid identifier\n", arg);
 		set_exit_code(1);
 		return (false);
 	}

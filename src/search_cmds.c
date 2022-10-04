@@ -63,7 +63,7 @@ int	set_cmd(t_cmd *cmd, t_data *data)
 
 	i = 0;
 	line_cp = data->line;
-	if (is_builtin(line_cp) == 1)
+	if(is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
 		cmd->cmd = ft_strdup(line_cp);
@@ -83,6 +83,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 	t_cmd	*tmp_cmd;
 
 	tmp_cmd = cmd;
+	quiet_handling();
 	while (*data->indexmeta != '\0')
 	{
 		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))

@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//same as ft_strtrim but frees string given as argument
 static int	ft_isinset(char const *set, char c)
 {
 	int	i;

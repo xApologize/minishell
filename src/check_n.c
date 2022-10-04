@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//checks if argument contains -n option. Works with multiple chained n's
 int	check_n(char *opt)
 {
 	int	i;

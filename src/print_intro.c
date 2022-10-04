@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//print intro when shell is first called
 void	print_intro(void)
 {
 	printf("\033[0;34m");
@@ -22,6 +23,7 @@ MMMMMMMM               MMMMMMMM  SSSSSSSSSSSSSSS    HHHHHHHHH     HHHHHHHHH\n");
 	printf("\033[0;35m");
 }
 
+//hidden function
 void	pepe(void)
 {
 	printf("\033[0;32m");

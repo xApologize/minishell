@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
 
+//finds and removes specified arg from environment variables if found 
 void	handle_unset(t_cmd *cmd)
 {
 	int		i;
@@ -11,7 +12,7 @@ void	handle_unset(t_cmd *cmd)
 	{
 		if (!checkvalidarg(cmd->argv[i]))
 		{
-			dprintf(STDERR_FILENO, "msh: unset:\
+			dprintf(STDERR_FILENO, "minicougar: unset: \
 			'%s': not a valid identifier\n", cmd->argv[i]);
 			set_exit_code(1);
 			return ;
@@ -28,6 +29,7 @@ void	handle_unset(t_cmd *cmd)
 		copynewenvp();
 }
 
+//checks if var is part of the environment variables. returns true if found, false otherwise
 bool	checkifunset(char *var, char *envp_var)
 {
 	char	**split_envp;
@@ -42,6 +44,7 @@ bool	checkifunset(char *var, char *envp_var)
 	return (false);
 }
 
+//creates new environment variables minus the ones that are removed
 void	copynewenvp(void)
 {
 	int		i;
@@ -66,6 +69,7 @@ void	copynewenvp(void)
 	g_envp_copy = new_envp;
 }
 
+//gets number of variables to be copied
 int	countnewvars(void)
 {
 	int	i;
@@ -82,6 +86,7 @@ int	countnewvars(void)
 	return (j);
 }
 
+//sets var to !dncp so it does not get copied over into the new environment variables
 void	modifyvar(char *var)
 {
 	int	i;

@@ -1,5 +1,9 @@
 #include "../include/minishell.h"
+#include <unistd.h>
 
+//exits the program and frees all memory
+//test
+//takes an int as an argument that's used to set exit_status_code before exiting
 void	handle_exit(t_cmd *cmd, t_data *data)
 {
 	int	exit_status;
@@ -19,14 +23,15 @@ void	handle_exit(t_cmd *cmd, t_data *data)
 			dprintf(STDERR_FILENO, "minicougar: exit: \
 			%s: numeric argument required\n", cmd->argv[1]);
 	}
-	if (exit_status >= 0 && exit_status <= 127)
-		set_exit_code(exit_status);
-	else
-		set_exit_code(0);
 	free_data(data);
 	free_cmd(cmd);
 	free_the_pp(g_envp_copy);
-	exit(0);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
+	if (exit_status >= 0 && exit_status <= 127)
+		exit(exit_status);
+	else
+		exit(0);
 }
 
 bool	check_if_num(const char *n)

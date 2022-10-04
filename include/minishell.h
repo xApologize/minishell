@@ -60,7 +60,7 @@ char		**g_envp_copy;
 //cd_utils.c
 int			find_oldpwd(void);
 int			find_pwd(void);
-void		update_pwd(void);
+void		update_pwd(char *home);
 void		handle_cd(t_cmd *cmd);
 
 //check_n.c
@@ -85,7 +85,6 @@ char		*charjoinfree(const char *s1, const char c);
 //dollar_utils2.c
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
-void		skip_single_quote(char *line);
 char		*skip_dollar(char *line);
 
 //echo_utils.c
@@ -137,6 +136,10 @@ int			count_args(t_cmd *cmd);
 //heredoc.c
 int			heredoc(t_data *data);
 
+//misc_utils.c
+int			get_mem_len(char *arg);
+char		*stripshit(char *arg);
+
 //make_line.c
 char		*make_line(char **argv);
 
@@ -170,9 +173,13 @@ void		wait_child(int *pid_child, int table_size);
 //print_intro.c
 void		print_intro(void);
 void		pepe(void);
+void		tlaid(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
+
+//quit_handle.c
+void		quit_handling(int signum);
 
 //quotation.c
 void		error_quotation(t_data *data);
@@ -213,12 +220,12 @@ t_cmd 		*create_nodes(char **env);
 void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
 
-//sig_handling.c
-void		sig_handling(void);
-
 //sig_utils.c
 void		sig_reset(void);
+void		sig_handling(void);
 void		sigint_handler(int signum);
+void		quiet_handling(void);
+void		shush(int signum);
 
 //singleton_statuscode.c
 int			*get_exit_code(void);
