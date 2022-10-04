@@ -155,7 +155,6 @@ void		print_line(t_data *data);
 //parsing_utils.c
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
-char		*charjoin(const char *s1, const char c);
 void		set_trigger_on(int *i, int *trigger, t_data *data);
 void		print_parse_error(t_data *data);
 
