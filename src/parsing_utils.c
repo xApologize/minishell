@@ -51,5 +51,10 @@ void	set_trigger_on(int *i, int *trigger, t_data *data)
 
 void	print_parse_error(t_data *data)
 {
-	dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '%s'", data->invalid_parse);
+	if (ft_strchr("\n", data->invalid_parse[0]))
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token 'newline'\n");
+	else if (ft_strchr(data->line, '|'))
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '|'\n");
+	else
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '%s'\n", data->invalid_parse);
 }

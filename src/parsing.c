@@ -9,20 +9,21 @@ void	check_validity(t_data *data)
 	i = -1;
 	trigger = 0;
 	data->parse_status = false;
+	data->invalid_parse = ft_calloc(1, 1);
 	while (data->line[++i])
 	{
 		if (ft_strchr("<>|", data->line[i]) && trigger == 0)
 			set_trigger_on(&i, &trigger, data);
-		if (!ft_strchr("<>|", data->line[i]) \
+		if (!ft_strchr("<>|", data->line[i]) && data->line[i] != ' ' \
 			&& ft_isprint(data->line[i]) == 1 && trigger == 1)
 			trigger = 0;
-		if (ft_strchr("<>|", data->line[i]) && trigger == 1)
+		if (ft_strchr("\n<>|", data->line[i]) && trigger == 1)
 		{
 			data->parse_status = true;
-			data->invalid_parse = charjoin(data->invalid_parse, data->line[i]);
+			data->invalid_parse = charjoinfree(data->invalid_parse, data->line[i]);
 			if ((data->line[i] == '<' && data->line[i + 1] == '<') \
 				|| (data->line[i] == '>' && data->line[i + 1] == '>'))
-				data->invalid_parse = charjoinfree(data->line, data->line[i]);
+				data->invalid_parse = charjoinfree(data->invalid_parse, data->line[i]);
 			break ;
 		}
 	}
@@ -35,15 +36,17 @@ void	parsing(t_data *data, t_cmd *cmd)
 	data->stdout_cp = dup(STDOUT_FILENO);
 	if (data->error_quotes == false)
 	{
-		tokenize(data);
-		status(data);
-		env_split(data);
-		data->save_indexmeta = data->indexmeta;
-		data->save_line = data->line;
-		cmd = set_exec_struct(data);
 		check_validity(data);
 		if (data->parse_status == false)
+		{
+			tokenize(data);
+			status(data);
+			env_split(data);
+			data->save_indexmeta = data->indexmeta;
+			data->save_line = data->line;
+			cmd = set_exec_struct(data);
 			search_cmd(data, cmd);
+		}	
 		else
 			print_parse_error(data);
 	}
