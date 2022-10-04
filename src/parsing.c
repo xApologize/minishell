@@ -1,6 +1,25 @@
 #include "../include/minishell.h"
 #include <unistd.h>
 
+void	check_arg(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (ft_strchr("|<>", line[i]))
+		{
+			while (ft_isalnum(line[i]))
+			{
+				i++;
+			}
+			printf("line: %c\n", line[i]);
+		}
+		i++;
+	}
+}
+
 void	parsing(t_data *data, t_cmd *cmd)
 {
 	error_quotation(data);
@@ -8,6 +27,7 @@ void	parsing(t_data *data, t_cmd *cmd)
 	data->stdout_cp = dup(STDOUT_FILENO);
 	if (data->error_quotes == false)
 	{
+		check_arg(data->line);
 		tokenize(data);
 		env_split(data);
 		data->save_indexmeta = data->indexmeta;
