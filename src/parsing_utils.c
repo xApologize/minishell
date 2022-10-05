@@ -21,25 +21,6 @@ void	env_split(t_data *data)
 	free(tmp);
 }
 
-char	*charjoin(const char *s1, const char c)
-{
-	char	*newstring;
-	int		len;
-
-	len = ft_strlen(s1);
-	newstring = ft_calloc(len + 2, sizeof(char));
-	len = 0;
-	while (s1[len])
-	{
-		newstring[len] = s1[len];
-		len++;
-	}
-	newstring[len] = c;
-	newstring[len + 1] = '\0';
-	s1 = NULL;
-	return (newstring);
-}
-
 void	set_trigger_on(int *i, int *trigger, t_data *data)
 {
 	*trigger = 1;
@@ -51,7 +32,7 @@ void	set_trigger_on(int *i, int *trigger, t_data *data)
 
 void	print_parse_error(t_data *data)
 {
-	if (ft_strchr("\n", data->invalid_parse[0]))
+	if (ft_strchr("\n", data->invalid_parse[0]) && !ft_strchr(data->line, '|'))
 		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token 'newline'\n");
 	else if (ft_strchr(data->line, '|'))
 		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '|'\n");
