@@ -24,7 +24,7 @@ char	*access_relative_path(char *line)
 	if (access(pwd_join, X_OK) == 0)
 		return (pwd_join);
 	dprintf(2, "minicougar: %s: no such file or directory\n", line);
-	return (ft_strdup(line));
+	return (NULL);
 }
 
 char	*get_path(char *line_cp, t_data *data)
