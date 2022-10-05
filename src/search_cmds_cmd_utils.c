@@ -7,8 +7,8 @@ char	*access_path(char *line)
 {
 	if (access(line, X_OK) == 0)
 		return (ft_strdup(line));
-	// free(line);
-	return (ft_strdup(line));
+	dprintf(2, "minicougar: %s: no such file or directory\n", line);
+	return (NULL);
 }
 
 char	*access_relative_path(char *line)
