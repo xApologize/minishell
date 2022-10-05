@@ -70,7 +70,6 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 			handle_builtin(cmd, data);
 			exit(1);
 		}
-	else
 		exec_cmd(cmd, data);
 	}
 	close_fork_fd(cmd);
