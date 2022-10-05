@@ -2,13 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/unistd.h>
+#include <unistd.h>
 
-char	*access_path(char *line)
+char	*access_absolute_path(char *line)
 {
 	if (access(line, X_OK) == 0)
 		return (ft_strdup(line));
-	// free(line);
-	return (ft_strdup(line));
+	else
+		dprintf(2, "minicougar: %s: no such file or directory\n", line);
+	return (NULL);
 }
 
 char	*access_relative_path(char *line)
@@ -18,8 +21,9 @@ char	*access_relative_path(char *line)
 
 	slash = ft_strjoin("/", line);
 	pwd_join = ft_strjoin(getenv("PWD"), slash);
-	if (access_path(pwd_join) != NULL)
+	if (access(pwd_join, X_OK) == 0)
 		return (pwd_join);
+	dprintf(2, "minicougar: %s: no such file or directory\n", line);
 	return (ft_strdup(line));
 }
 
@@ -31,14 +35,14 @@ char	*get_path(char *line_cp, t_data *data)
 
 	i = 0;
 	if (*line_cp == '/')
-		return (access_path(line_cp));
+		return (access_absolute_path(line_cp));
 	if (*line_cp == '.')
 		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
 	while (data->path_split[i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
-		if (access_path(access_try) != NULL)
+		if (access(access_try, X_OK) == 0)
 		{
 			free(slash);
 			return (access_try);
