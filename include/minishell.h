@@ -174,7 +174,6 @@ void		wait_child(int *pid_child, int table_size);
 //print_intro.c
 void		print_intro(void);
 void		pepe(void);
-void		tlaid(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
