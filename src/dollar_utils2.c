@@ -99,7 +99,7 @@ char	*unwrap_enigma(char *line)
 			trigger = 0;	
 		if (*line == '\'' && trigger == 0)
 			trigger = 1;
-		while ((*line == '$' && *line + 1 == '?') && trigger == 0)
+		while ((*line == '$' && *(line + 1) == '?') && trigger == 0)
 		{
 			value = ft_itoa(*get_exit_code());
 			new_line = ft_strjoinfree(new_line, value);
