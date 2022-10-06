@@ -30,7 +30,6 @@ typedef struct s_data
 	char	*line;
 	char	*save_line;
 	char	*save_indexmeta;
-	char	*invalid_parse;
 	bool	parse_status;
 	int		stdin_cp;
 	int		stdout_cp;
@@ -159,7 +158,7 @@ void		print_line(t_data *data);
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
 void		set_trigger_on(int *i, int *trigger, t_data *data);
-void		print_parse_error(t_data *data);
+void		print_parse_error(void);
 
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);

@@ -8,7 +8,7 @@
 char	*access_absolute_path(char *line)
 {
 	if (access(line, X_OK) == 0)
-		return (line);
+		return (ft_strdup(line));
 	return (NULL);
 }
 
