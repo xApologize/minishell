@@ -72,7 +72,7 @@ int	check_dup_env(char *arg)
 	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
 		new_arg = return_stripped_env(split_arg);
 	else
-		new_arg = arg;
+		new_arg = ft_strdup(arg);
 	while (g_envp_copy[++i])
 		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
 		{
@@ -80,8 +80,7 @@ int	check_dup_env(char *arg)
 			free(new_arg);
 			return (1);
 		}
-	if (new_arg != arg)
-		free(new_arg);
+	free(new_arg);
 	free_the_pp(split_arg);
 	return (0);
 }
