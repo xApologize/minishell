@@ -49,7 +49,7 @@ bool	checkvalidassign(bool env_stat, char *arg)
 	if (!env_stat)
 	{
 		dprintf(STDERR_FILENO, \
-		"msh: export: '%s': not a valid identifier\n", arg);
+		"export: '%s': not a valid identifier\n", arg);
 		set_exit_code(1);
 		return (false);
 	}

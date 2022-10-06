@@ -62,7 +62,7 @@ char		**g_envp_copy;
 //cd_utils.c
 int			find_oldpwd(void);
 int			find_pwd(void);
-void		update_pwd(void);
+void		update_pwd(char *home);
 void		handle_cd(t_cmd *cmd);
 
 //check_n.c
@@ -87,7 +87,6 @@ char		*charjoinfree(const char *s1, const char c);
 //dollar_utils2.c
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
-void		skip_single_quote(char *line);
 char		*skip_dollar(char *line);
 
 //echo_utils.c
@@ -139,11 +138,15 @@ int			count_args(t_cmd *cmd);
 //heredoc.c
 int			heredoc(t_data *data);
 
+//misc_utils.c
+int			get_mem_len(char *arg);
+char		*stripshit(char *arg);
+
 //make_line.c
 char		*make_line(char **argv);
 
 //minishell_utils.c
-void	restore_std(t_data *data);
+void		restore_std(t_data *data);
 
 //parsing.c
 void		parsing(t_data *data, t_cmd *cmd);
@@ -178,12 +181,13 @@ void		pepe(void);
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
 
+//quit_handle.c
+void		quit_handling(int signum);
+
 //quotation.c
 void		error_quotation(t_data *data);
 void		double_check(t_data *data);
 void		single_check(t_data *data);
-
-//return_var.c
 
 //rl_gets.c
 char		*rl_gets(void);
@@ -211,6 +215,7 @@ void		close_fd(t_cmd *cmd);
 //search_cmd_utils.c
 void		handle_single_builtin(t_cmd *cmd, t_data *data);
 void		skip_char(t_data *data);
+char		*access_path(char *line);
 
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data);
@@ -219,21 +224,16 @@ t_cmd 		*create_nodes(char **env);
 void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
 
-//sig_handling.c
-void		sig_handling(void);
-
 //sig_utils.c
 void		sig_reset(void);
+void		sig_handling(void);
 void		sigint_handler(int signum);
+void		quiet_handling(void);
+void		shush(int signum);
 
 //singleton_statuscode.c
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
-
-//skip_single_quote.c
-
-//status_error.c
-void		status(t_data *data);
 
 //unset_utils.c
 void		handle_unset(t_cmd *cmd);

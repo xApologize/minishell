@@ -1,4 +1,8 @@
 #include "../include/minishell.h"
+#include <signal.h>
+#include <stdio.h>
+#include <sys/signal.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 void	redir_utils(t_cmd *cmd)
@@ -40,7 +44,6 @@ void	wait_child(int *pid_child, int table_size)
 	int	ret;
 	int	i;
 
-	status = 0;
 	i = 0;
 	//(void) pid_child;
 	while (1)

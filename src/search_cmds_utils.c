@@ -13,9 +13,9 @@ void	skip_char(t_data *data)
 	data->line++;
 }
 
-// char	*access_path(char *line)
-// {
-// 	if (access(line, X_OK) == 0)
-// 		return (ft_strdup(line));
-// 	return (NULL);
-// }
+char	*access_path(char *line)
+{
+	if (access(line, X_OK) == 0)
+		return (ft_strdup(line));
+	return (NULL);
+}

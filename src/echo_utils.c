@@ -1,5 +1,7 @@
 #include "../include/minishell.h"
 
+//make strip_shit to remove all weird characters
+
 //priints the given arguments out followed by a \n by default. if n option used newline is omitted.
 void	handle_echo(t_cmd *cmd)
 {

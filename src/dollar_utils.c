@@ -8,6 +8,7 @@ char	*handle_dollar(char *line)
 	if (check_dollar(line))
 	{
 		new_line = unwrap_dollar(line);
+		free(line);
 		return (new_line);
 	}
 	return (line);
@@ -36,6 +37,7 @@ char	*return_dollar(char *line)
 		return_line = (ft_strdup(""));
 	return (return_line);
 }
+
 //copies the variables up until a token, newline, space or the end of the string is reached
 char	*return_var(char *line)
 {
@@ -45,7 +47,7 @@ char	*return_var(char *line)
 	line++;
 	while (*line)
 	{
-		if (ft_strchr("<>|\t \n\"", *line))
+		if (ft_isalnum(*line) == 0)
 			break ;
 		var = charjoinfree(var, *line);
 		line++;
