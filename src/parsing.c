@@ -9,7 +9,6 @@ void	check_validity(t_data *data)
 	i = -1;
 	trigger = 0;
 	data->parse_status = false;
-	data->invalid_parse = ft_calloc(1, 1);
 	while (data->line[++i])
 	{
 		if (ft_strchr("<>|", data->line[i]) && trigger == 0)
@@ -20,14 +19,11 @@ void	check_validity(t_data *data)
 		if (ft_strchr("\n<>|", data->line[i]) && trigger == 1)
 		{
 			data->parse_status = true;
-			data->invalid_parse = charjoinfree(data->invalid_parse, data->line[i]);
-			if ((data->line[i] == '<' && data->line[i + 1] == '<') \
-				|| (data->line[i] == '>' && data->line[i + 1] == '>'))
-				data->invalid_parse = charjoinfree(data->invalid_parse, data->line[i]);
 			break ;
 		}
 	}
 }
+
 
 void	parsing(t_data *data, t_cmd *cmd)
 {
