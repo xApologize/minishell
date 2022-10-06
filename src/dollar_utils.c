@@ -9,7 +9,8 @@ char	*handle_dollar(char *line)
 	{
 		new_line = unwrap_enigma(line);
 		free(line);
-		return (new_line);
+		if (!check_dollar(new_line))
+			return (new_line);
 	}
 	else if (check_dollar(line))
 	{
