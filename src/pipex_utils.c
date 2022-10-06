@@ -37,12 +37,19 @@ int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 void	wait_child(int *pid_child, int table_size)
 {
 	int	status;
+	int	ret;
 	int	i;
 
 	status = 0;
 	i = 0;
-	while (i < table_size)
+	//(void) pid_child;
+	while (1)
 	{
+		if ((ret = waitpid(pid_child[table_size - 1], &status, 0)) == 0)
+		{
+			set_exit_code(WEXITSTATUS(status));
+			break ;
+		}
 		waitpid(pid_child[i], &status, 0);
 		set_exit_code(WEXITSTATUS(status));
 		i++;
