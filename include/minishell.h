@@ -88,6 +88,8 @@ char		*charjoinfree(const char *s1, const char c);
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
 char		*skip_dollar(char *line);
+bool		check_question(char *line);
+char		*unwrap_enigma(char *line);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
