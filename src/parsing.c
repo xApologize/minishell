@@ -43,7 +43,7 @@ void	parsing(t_data *data, t_cmd *cmd)
 			search_cmd(data, cmd);
 		}	
 		else
-			print_parse_error(data);
+			print_parse_error();
 	}
 	close(data->stdin_cp);
 	close(data->stdout_cp);
