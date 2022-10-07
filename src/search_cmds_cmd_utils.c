@@ -5,10 +5,10 @@
 
 char	*access_path(char *line)
 {
+	//gerer les erreur
 	if (access(line, X_OK) == 0)
-		return (ft_strdup(line));
-	// free(line);
-	return (ft_strdup(line));
+		return (line);
+	return (NULL);
 }
 
 char	*access_relative_path(char *line)
@@ -16,11 +16,13 @@ char	*access_relative_path(char *line)
 	char	*slash;
 	char	*pwd_join;
 
+	//gerer les erreur
 	slash = ft_strjoin("/", line);
 	pwd_join = ft_strjoin(getenv("PWD"), slash);
+	free(slash);
 	if (access_path(pwd_join) != NULL)
 		return (pwd_join);
-	return (ft_strdup(line));
+	return (line);
 }
 
 char	*get_path(char *line_cp, t_data *data)
@@ -29,7 +31,10 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
+	//gerer les erreur
 	i = 0;
+	if (!data->path_split)
+		return (ft_strdup(line_cp));
 	if (*line_cp == '/')
 		return (access_path(line_cp));
 	if (*line_cp == '.')

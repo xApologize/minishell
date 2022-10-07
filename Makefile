@@ -2,7 +2,12 @@
 PROJECT_NAME	= minishell
 
 #--C FILES--# > all .c files
-C_FILES			= $(notdir $(wildcard src/*.c))
+C_FILES			=	cd_utils.c dollar_utils2.c ft_strtrimfree.c make_line.c pipex_utils.c search_cmds_cmd_utils.c status_error.c			\
+					check_n.c echo_utils.c get_home.c minishell.c print_intro.c search_cmds_fd_utils.c unset_utils.c checkenvformat.c		\
+					envp_cp.c handle_builtin.c minishell_utils.c pwd_utils.c search_cmds_utils.c checkvalidarg.c export_utils.c				\
+					handle_env.c parsing.c quotation.c set_exec_struct.c clear_whitespace.c export_utils2.c handle_exit.c parsing_utils.c	\
+					rl_gets.c sig_utils.c dollar_utils.c free_memory.c heredoc.c pipex.c search_cmds.c singleton_statuscode.c
+
 
 #--C FILES TO O FILES--# > where you make the .o files dependencies
 O_FILES			= $(C_FILES:.c=.o)
@@ -14,7 +19,6 @@ NAME			= $(PROJECT_NAME)
 GCC					= gcc
 MKDIR				= mkdir
 RM					= rm
-MAKE				= make
 NORMINETTE			= norminette
 
 #--FLAGS--# > flags used by the command above
