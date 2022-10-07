@@ -160,7 +160,7 @@ void		print_line(t_data *data);
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
 void		set_trigger_on(int *i, int *trigger, t_data *data);
-void		print_parse_error(void);
+void		print_parse_error(t_data *data);
 
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
