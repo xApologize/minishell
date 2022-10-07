@@ -21,3 +21,26 @@ void	env_split(t_data *data)
 	data->path_split[0] = ft_substr(tmp, 5, ft_strlen(tmp) - 5);
 	free(tmp);
 }
+
+void	set_trigger_on(int *i, int *trigger, t_data *data)
+{
+	*trigger = 1;
+	if ((data->line[*i] == '<' && data->line[*i + 1] == '<') \
+		|| (data->line[*i] == '>' && data->line[*i + 1] == '>'))
+		*i += 1;
+	*i += 1;
+}
+
+void	print_parse_error(t_data *data)
+{
+	char **split_line;
+
+	split_line = ft_split(data->line, ' ');
+	if (ft_strchr("\n", data->invalid_parse[0]) && !ft_strchr(data->line, '|'))
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token 'newline'\n");
+	else if (ft_strchr(split_line[0], '|'))
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '|'\n");
+	else
+		dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token '%s'\n", data->invalid_parse);
+	free_the_pp(split_line);
+}

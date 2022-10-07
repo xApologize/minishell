@@ -30,6 +30,8 @@ typedef struct s_data
 	char	*line;
 	char	*save_line;
 	char	*save_indexmeta;
+	char	*invalid_parse;
+	bool	parse_status;
 	int		stdin_cp;
 	int		stdout_cp;
 	int		if_no_meta;
@@ -156,6 +158,8 @@ void		print_line(t_data *data);
 //parsing_utils.c
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
+void		set_trigger_on(int *i, int *trigger, t_data *data);
+void		print_parse_error(t_data *data);
 
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
@@ -173,7 +177,6 @@ void		wait_child(int *pid_child, int table_size);
 //print_intro.c
 void		print_intro(void);
 void		pepe(void);
-void		tlaid(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
@@ -199,6 +202,8 @@ int			set_cmd(t_cmd *cmd, t_data *data);
 void		search_cmd(t_data *data, t_cmd *cmd);
 
 //search_cmds_cmd_utils.c
+char		*access_absolute_path(char *line);
+char		*access_relative_path(char *line);
 char		*get_path(char *line_cp, t_data *data);
 int			get_argv_count(t_data *data);
 char		**get_argv(t_data *data);
