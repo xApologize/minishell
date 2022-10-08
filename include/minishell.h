@@ -141,7 +141,7 @@ int			heredoc(t_data *data);
 
 //misc_utils.c
 int			get_mem_len(char *arg);
-char		*stripshit(char *arg);
+char		*stripstring(char *arg);
 
 //make_line.c
 char		*make_line(char **argv);

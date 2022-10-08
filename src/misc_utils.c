@@ -15,7 +15,7 @@ int	get_mem_len(char *arg)
 	return (count);
 }
 
-char	*stripshit(char *arg)
+char	*stripstring(char *arg)
 {
 	char	*new_string;
 	int		i;

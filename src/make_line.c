@@ -18,6 +18,6 @@ char	*make_line(char **argv)
 		line = ft_strjoinfree(line, " ");
 		i++;
 	}
-	line = stripshit(line);
+	line = stripstring(line);
 	return (line);
 }
