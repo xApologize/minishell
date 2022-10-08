@@ -31,7 +31,9 @@ void	set_trigger_on(int *i, int *trigger, t_data *data)
 	*i += 1;
 }
 
-void	print_parse_error(void)
+void	print_parse_error(t_data *data)
 {
+	free(data->line);
+	set_exit_code(127);
 	dprintf(STDERR_FILENO, "minicougar: syntax error near unexpected token\n");
 }
