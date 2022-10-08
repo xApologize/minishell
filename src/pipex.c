@@ -46,7 +46,7 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
-			exit(1);
+			exit(0);
 		}
 		exec_cmd(cmd, data);
 	}
