@@ -227,6 +227,7 @@ t_cmd 		*get_last(t_cmd *cmd);
 
 //sig_utils.c
 void		sig_reset(void);
+void		sig_ignore(void);
 void		sig_handling(void);
 void		sigint_handler(int signum);
 void		quiet_handling(void);

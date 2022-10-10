@@ -32,6 +32,21 @@ void	quiet_handling(void)
 }
 
 //reset sigint and sigquit to their original state
+void	sig_ignore(void)
+{
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
+
+	sa_sigint.sa_handler = SIG_IGN;
+	sa_sigint.sa_mask = 0;
+	sa_sigquit.sa_handler = SIG_IGN;
+	sa_sigquit.sa_mask = 0;
+	sigemptyset(&sa_sigint.sa_mask);
+	sa_sigint.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
+}
+
 void	sig_reset(void)
 {
 	struct sigaction	sa_sigint;

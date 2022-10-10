@@ -18,8 +18,13 @@ void	handle_pwd(t_cmd *cmd)
 	else
 	{
 		path = getcwd(path, 0);
-		printf("%s\n", path);
-		free(path);
-		set_exit_code(0);
+		if (path)
+		{
+			printf("%s\n", path);
+			free(path);
+			set_exit_code(0);
+		}
+		else
+			set_exit_code(1);
 	}
 }
