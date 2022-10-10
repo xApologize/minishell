@@ -37,14 +37,13 @@ void	start_heredoc(int fd, t_data *data)
 	{
 		line = readline("> ");
 		if (line == NULL || ft_strcmp(line, data->line) == 0)
-		{
-			free(line);
 			break ;
-		}
 		return_line = ft_strjoin(line, "\n");
 		write(fd , return_line, ft_strlen(return_line));
-		free(line);
 		free(return_line);
+		free(line);
 	}
-	//close(fd);
+	if (line)
+		free(line);
+	close(fd);
 }
