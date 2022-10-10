@@ -1,6 +1,7 @@
 #include "../include/minishell.h"
 #include <stdio.h>
 #include <sys/fcntl.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 int		heredoc(t_data *data)
@@ -9,9 +10,20 @@ int		heredoc(t_data *data)
 	int	pid;
 
 	fd = open("/tmp/minishell_heredoc.txt", O_CREAT | O_TRUNC | O_RDWR, 0777);
+	while (*data->line == '\0')
+	{
+		data->line++;
+		data->indexmeta++;
+	}
 	pid = fork();
 	if (pid == 0)
+	{
 		start_heredoc(fd, data);
+		exit(0);
+	}
+	waitpid(pid, NULL, 0);
+	while (*data->line != '\0')
+		data->line++;
 	return (fd);
 }
 
@@ -20,11 +32,6 @@ void	start_heredoc(int fd, t_data *data)
 	char	*line;
 	char	*return_line;
 
-	while (*data->line == '\0')
-	{
-		data->line++;
-		data->indexmeta++;
-	}
 	while (1)
 	{
 		line = readline("> ");
@@ -36,6 +43,5 @@ void	start_heredoc(int fd, t_data *data)
 		free(return_line);
 	}
 	free(line);
-	while (*data->line != '\0')
-		data->line++;
+	close(fd);
 }
