@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+#include <stdio.h>
 
 void	set_fd_in(t_cmd *cmd, t_data *data)
 {
