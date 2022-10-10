@@ -9,7 +9,7 @@ int		heredoc(t_data *data)
 	int	fd;
 	int	pid;
 
-	fd = open("/tmp/minishell_heredoc.txt", O_CREAT | O_TRUNC | O_RDWR, 0777);
+	fd = open("/tmp/minishell_heredoc.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	while (*data->line == '\0')
 	{
 		data->line++;
@@ -24,7 +24,8 @@ int		heredoc(t_data *data)
 	waitpid(pid, NULL, 0);
 	while (*data->line != '\0')
 		data->line++;
-	return (fd);
+	close(fd);
+	return (open("/tmp/minishell_heredoc.txt", O_RDWR));
 }
 
 void	start_heredoc(int fd, t_data *data)
