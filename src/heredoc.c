@@ -18,6 +18,7 @@ int		heredoc(t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		sig_reset();
 		start_heredoc(fd, data);
 		exit(0);
 	}
@@ -36,12 +37,14 @@ void	start_heredoc(int fd, t_data *data)
 	{
 		line = readline("> ");
 		if (line == NULL || ft_strcmp(line, data->line) == 0)
+		{
+			free(line);
 			break ;
+		}
 		return_line = ft_strjoin(line, "\n");
 		write(fd , return_line, ft_strlen(return_line));
 		free(line);
 		free(return_line);
 	}
-	free(line);
-	close(fd);
+	//close(fd);
 }
