@@ -193,6 +193,9 @@ void		error_quotation(t_data *data);
 void		double_check(t_data *data);
 void		single_check(t_data *data);
 
+//remove_shlvl.c
+void	remove_shlvl(void);
+
 //rl_gets.c
 char		*rl_gets(void);
 

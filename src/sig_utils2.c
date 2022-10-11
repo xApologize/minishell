@@ -61,6 +61,9 @@ void	hd_handler(int signum)
 	tcsetattr(0, 0, &termios_repl);
 	if (signum == SIGINT)
 	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
 		unlink("/tmp/minishell_heredoc.txt");
 		exit(0);
 	}
