@@ -13,6 +13,8 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <string.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 // option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
 # define PIPE_READ 0
