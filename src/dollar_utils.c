@@ -5,6 +5,12 @@ char	*handle_dollar(char *line)
 {
 	char	*new_line;
 
+	if (check_question(line))
+	{
+		new_line = unwrap_enigma(line);
+		free(line);
+		line = new_line;
+	}
 	if (check_dollar(line))
 	{
 		new_line = unwrap_dollar(line);

@@ -9,6 +9,8 @@ void	redir_utils(t_cmd *cmd)
 {
 	if (cmd->redir_in != STDIN_FILENO)
 	{
+		if (cmd->redir_in == -1)
+			return ;
 		dup2(cmd->redir_in, STDIN_FILENO);
 		close(cmd->redir_in);
 	}
@@ -29,7 +31,9 @@ void	close_fork_fd(t_cmd *cmd)
 
 int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 {
-	if (cmd->next != NULL)
+	if (cmd->redir_in == -1)
+		return(0);
+	else if (cmd->next != NULL)
 		return (pipex_redir(cmd, data));
 	else if (cmd->cmd == NULL)
 		return (0);
@@ -51,3 +55,4 @@ void	wait_child(int *pid_child, int table_size)
 		i++;
 	}
 }
+

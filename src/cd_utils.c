@@ -129,8 +129,6 @@ void	handle_cd(t_cmd *cmd)
 	{
 		home = get_home();
 		res = chdir(home);
-		if (home)
-			free(home);
 		set_exit_code(0);
 	}
 	else

@@ -21,9 +21,9 @@ void	quiet_handling(void)
 	struct sigaction	sa_sigint;
 	struct sigaction	sa_sigquit;
 
-	sa_sigint.sa_handler = shush;
+	sa_sigint.sa_handler = shush_handler;
 	sa_sigint.sa_mask = 0;
-	sa_sigquit.sa_handler = quit_handling;
+	sa_sigquit.sa_handler = quit_handler;
 	sa_sigquit.sa_mask = 0;
 	sigemptyset(&sa_sigint.sa_mask);
 	sa_sigint.sa_flags = SA_RESTART;
@@ -32,6 +32,21 @@ void	quiet_handling(void)
 }
 
 //reset sigint and sigquit to their original state
+void	sig_ignore(void)
+{
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
+
+	sa_sigint.sa_handler = SIG_IGN;
+	sa_sigquit.sa_handler = SIG_IGN;
+	sigemptyset(&sa_sigint.sa_mask);
+	sigemptyset(&sa_sigquit.sa_mask);
+	sa_sigint.sa_flags = 0;
+	sa_sigquit.sa_flags = 0;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
+}
+
 void	sig_reset(void)
 {
 	struct sigaction	sa_sigint;
@@ -46,24 +61,16 @@ void	sig_reset(void)
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
 
-//handler function for sigint
-void	sigint_handler(int signum)
+void	sig_heredoc(void)
 {
-	if (signum == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	struct sigaction	sa_sigint;
+	struct sigaction	sa_sigquit;
 
-void	shush(int signum)
-{
-	if (signum == SIGINT)
-	{
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
+	sa_sigint.sa_handler = hd_handler;
+	sa_sigquit.sa_handler = SIG_IGN;
+	sigemptyset(&sa_sigint.sa_mask);
+	sa_sigint.sa_flags = 0;
+	sa_sigquit.sa_flags = 0;
+	sigaction(SIGINT, &sa_sigint, NULL);
+	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }

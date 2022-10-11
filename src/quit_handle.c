@@ -2,6 +2,11 @@
 
 void	quit_handling(int signum)
 {
+	struct termios	termios_save;
+
+	tcgetattr(0, &termios_save);
+	termios_save.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &termios_save);
 	if (signum == 3)
 	{
 		write(1, "Quit\n", 5);
