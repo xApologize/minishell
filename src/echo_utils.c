@@ -48,7 +48,7 @@ int	skip_n(char *line)
 			trigger = 1;
 		if (trigger == 1 && (line[i] == ' ' || line[i] == '\t'))
 			trigger = 0;
-		if (trigger == 0 && ft_isalnum(line[i]) == 1)
+		if (trigger == 0 && (ft_isalnum(line[i]) == 1 || ft_strchr("<>|", line[i])))
 			return (i);
 		if (trigger == 1 && ft_isalnum(line[i]) == 1 && line[i] != 'n')
 		{
