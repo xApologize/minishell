@@ -120,6 +120,7 @@ void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
 void		free_the_pp(char **pp);
 void		free_data_cmd(t_cmd *cmd, t_data *data);
+void		free_all(t_cmd *cmd, t_data *data);
 
 // ft_strtrimfree.c
 char		*ft_strtrimfree(const char *s1, const char *set);
@@ -194,7 +195,7 @@ void		double_check(t_data *data);
 void		single_check(t_data *data);
 
 //remove_shlvl.c
-void	remove_shlvl(void);
+void		remove_shlvl(void);
 
 //rl_gets.c
 char		*rl_gets(void);
