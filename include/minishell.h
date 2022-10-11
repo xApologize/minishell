@@ -194,9 +194,6 @@ void		error_quotation(t_data *data);
 void		double_check(t_data *data);
 void		single_check(t_data *data);
 
-//remove_shlvl.c
-void		remove_shlvl(void);
-
 //rl_gets.c
 char		*rl_gets(void);
 
@@ -256,5 +253,8 @@ bool		checkifunset(char *var, char *envp_var);
 void		copynewenvp(void);
 int			countnewvars(void);
 void		modifyvar(char *var);
+
+//update_shlvl.c
+void		update_shlvl(void);
 
 #endif

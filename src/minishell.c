@@ -8,7 +8,7 @@ int	main(void)
 	extern char	**environ;
 
 	g_envp_copy = envp_cp(environ);
-	remove_shlvl();
+	update_shlvl();
 	print_intro();
 	cmd = NULL;
 	while (1)
