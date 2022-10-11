@@ -23,7 +23,7 @@ char	*stripstring(char *arg)
 
 	i = -1;
 	j = 0;
-	new_string = malloc(get_mem_len(arg) * sizeof (char));
+	new_string = ft_calloc((get_mem_len(arg) + 1), sizeof (char));
 	while (arg[++i])
 	{
 		if (arg[i] != '\'' && arg[i] != '"')
