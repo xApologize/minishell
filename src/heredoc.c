@@ -15,9 +15,11 @@ int		heredoc(t_data *data)
 		data->line++;
 		data->indexmeta++;
 	}
+	sig_ignore();
 	pid = fork();
 	if (pid == 0)
 	{
+		sig_heredoc();
 		start_heredoc(fd, data);
 		exit(0);
 	}

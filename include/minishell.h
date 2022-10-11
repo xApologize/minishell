@@ -229,12 +229,18 @@ void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
 
 //sig_utils.c
-void		sig_reset(void);
-void		sig_ignore(void);
-void		sig_handling(void);
-void		sigint_handler(int signum);
 void		quiet_handling(void);
-void		shush(int signum);
+void		sig_handling(void);
+void		sig_ignore(void);
+void		sig_reset(void);
+void		sig_heredoc(void);
+
+//sig_utils2.c
+void		sigint_handler(int signum);
+void		quit_handler(int signum);
+void		shush_handler(int signum);
+void		hd_handler(int signum);
+
 
 //singleton_statuscode.c
 int			*get_exit_code(void);
