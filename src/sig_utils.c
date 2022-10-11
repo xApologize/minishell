@@ -64,6 +64,11 @@ void	sig_reset(void)
 //handler function for sigint
 void	sigint_handler(int signum)
 {
+	struct termios	termios_new;
+
+	tcgetattr(0, &termios_new);
+	termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &termios_new);
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -75,6 +80,11 @@ void	sigint_handler(int signum)
 
 void	shush(int signum)
 {
+	struct termios	termios_new;
+
+	tcgetattr(0, &termios_new);
+	termios_new.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, 0, &termios_new);
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);

@@ -33,14 +33,12 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	pid = fork();
 	if (pid > 0)
 	{
-		sig_ignore();
 		close(pipe_fd[PIPE_WRITE]);
 		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
 		close(pipe_fd[PIPE_READ]);
 	}
 	if (pid == 0)
 	{
-		sig_reset();
 		redir_utils(cmd);
 		close(pipe_fd[PIPE_READ]);
 		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
@@ -74,8 +72,6 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 		}
 		exec_cmd(cmd, data);
 	}
-	else
-		sig_ignore();
 	restore_std(data);
 	close_fork_fd(cmd);
 	return (pid);

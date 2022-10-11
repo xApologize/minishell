@@ -83,6 +83,7 @@ void	search_cmd(t_data *data, t_cmd *cmd)
 	t_cmd	*tmp_cmd;
 
 	tmp_cmd = cmd;
+	quiet_handling();
 	while (*data->indexmeta != '\0')
 	{
 		if (*data->line == '\0' && ft_strchr("<>", *data->indexmeta))
