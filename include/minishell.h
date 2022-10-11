@@ -141,7 +141,7 @@ int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
-void		start_heredoc(int fd, t_data *data);
+void		start_heredoc(int fd, char *delim);
 
 //misc_utils.c
 int			get_mem_len(char *arg);
