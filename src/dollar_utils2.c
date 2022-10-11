@@ -9,7 +9,7 @@ bool	check_dollar(char *line)
 	quote = false;
 	while (line[++i])
 	{
-		if (line[i] == '\'')
+		if (line[i] == '\'' && quote == false)
 		{
 			quote = true;
 			i++;
@@ -38,7 +38,7 @@ char	*unwrap_dollar(char *line)
 			trigger = 0;	
 		if (*line == '\'' && trigger == 0)
 			trigger = 1;
-		while (*line == '$' && trigger == 0)
+		while (*line == '$' && trigger == 0 && check_dollar(line))
 		{
 			value = return_dollar(line);
 			new_line = ft_strjoinfree(new_line, value);
