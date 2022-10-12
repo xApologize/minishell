@@ -72,6 +72,7 @@ int	find_pwd(void)
 //the new path given when using cd. If either OLDPWD or
 //PWD are unset does nothing
 //if PWD and OLDPWD still exist, both updated. if PWD unset, no longer updated but OLDPWD updated. If OLDPWD unset gets recreated
+
 void	change_pwd(int index)
 {
 	char	*newpath;

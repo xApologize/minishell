@@ -83,7 +83,7 @@ void	exec_cmd(t_cmd *cmd, t_data *data)
 	if (cmd->cmd)
 		execve(cmd->cmd, cmd->argv, g_envp_copy);
 	else
-	 exit(0);
+		exit(0);
 	dprintf(2, "minicougarsh: %s: command not found\n", cmd->cmd);
 	free_data_cmd(cmd, data);
 	exit(127);

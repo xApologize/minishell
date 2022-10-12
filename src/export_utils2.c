@@ -51,7 +51,7 @@ void	modify_var(char *arg)
 //checks if the argument is already in the environment variables
 char	*return_stripped_env(char **split_arg)
 {
-	char *new_arg;
+	char	*new_arg;
 
 	new_arg = NULL;
 	split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
@@ -74,12 +74,14 @@ int	check_dup_env(char *arg)
 	else
 		new_arg = arg;
 	while (g_envp_copy[++i])
+	{
 		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
 		{
 			free_the_pp(split_arg);
 			free(new_arg);
 			return (1);
 		}
+	}
 	if (new_arg != arg)
 		free(new_arg);
 	free_the_pp(split_arg);

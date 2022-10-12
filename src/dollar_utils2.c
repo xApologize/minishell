@@ -35,7 +35,7 @@ char	*unwrap_dollar(char *line)
 	while (*line)
 	{
 		if (*line == '\'' && trigger == 1)
-			trigger = 0;	
+			trigger = 0;
 		if (*line == '\'' && trigger == 0)
 			trigger = 1;
 		while (*line == '$' && trigger == 0)

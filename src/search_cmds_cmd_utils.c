@@ -90,7 +90,7 @@ char	**get_argv(t_data *data)
 	char	**argv;
 
 	argv_count = get_argv_count(data);
-	argv = ft_calloc(sizeof(char*), argv_count + 1);
+	argv = ft_calloc (sizeof(char *), argv_count + 1);
 	i = 0;
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{
