@@ -79,7 +79,7 @@ bool		checkvalidarg(char *arg);
 int			clear_whitespace(int i, char *str);
 
 //dollar_utils.c
-char		*handle_dollar(char *line);
+char		*handle_dollar(char *line, int heredoc);
 char		*return_dollar(char *line);
 char		*return_var(char *line);
 int			find_var(char *arg);
@@ -88,6 +88,7 @@ char		*charjoinfree(const char *s1, const char c);
 //dollar_utils2.c
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
+char		*unwrap_dollar_heredoc(char *line);
 char		*skip_dollar(char *line);
 bool		check_question(char *line);
 char		*unwrap_enigma(char *line);
@@ -141,6 +142,7 @@ int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
+char		*expand(char *line);
 void		start_heredoc(int fd, char *delim);
 
 //misc_utils.c
