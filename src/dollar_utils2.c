@@ -52,6 +52,28 @@ char	*unwrap_dollar(char *line)
 	return (new_line);
 }
 
+char	*unwrap_dollar_heredoc(char *line)
+{
+	char	*new_line;
+	char	*value;
+
+	new_line = ft_calloc(10, 1);
+	while (*line)
+	{
+		while (*line == '$')
+		{
+			value = return_dollar(line);
+			new_line = ft_strjoinfree(new_line, value);
+			free(value);
+			value = NULL;
+			line = skip_dollar(line);
+		}
+		new_line = charjoinfree(new_line, *line);
+		line++;
+	}
+	return (new_line);
+}
+
 //skips the expansion so it is not copied into the new string
 char	*skip_dollar(char *line)
 {
