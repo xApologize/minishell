@@ -36,3 +36,15 @@ char	*stripstring(char *arg)
 	free(arg);
 	return (new_string);
 }
+
+char	*strip_outer_quotes(char *arg)
+{
+	char	*new_string;
+
+	new_string = NULL;
+	if (arg[0] == '\'')
+		return (new_string = ft_strtrimfree(arg, "'"));
+	else if (arg[0] == '"')
+		return (new_string = ft_strtrimfree(arg, "\""));
+	return (arg);
+}
