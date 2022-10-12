@@ -8,9 +8,20 @@ void	error_quotation(t_data *data)
 		dprintf(STDERR_FILENO, "minicougar: odd number of quotes\n");
 }
 
+static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
+{
+	while (data->line[*i])
+	{
+		if (data->line[*i] == *c)
+		{
+			*trigger = 0;
+			*c = 0;
+			break;
+		}
+		*i += 1;
+	}
+}
 
-//if encounters single || double, set trigger to 1 and store character encountered. if character encountered again set trigger to 0.
-//keep going until end of string
 void	double_check(t_data *data)
 {
 	int	i;
@@ -27,16 +38,7 @@ void	double_check(t_data *data)
 			c = data->line[i];
 			trigger = 1;
 			i++;
-			while (data->line[i])
-			{
-				if (data->line[i] == c)
-				{
-					trigger = 0;
-					c = 0;
-					break;
-				}
-				i++;
-			}
+			skip_quote(data, &i, &trigger, &c);
 		}
 		i++;
 	}
