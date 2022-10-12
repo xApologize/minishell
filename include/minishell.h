@@ -201,7 +201,7 @@ char		*rl_gets(void);
 char		*get_path(char *line_cp, t_data *data);
 int			get_argv_count(t_data *data);
 char		**get_argv(t_data *data);
-int			set_cmd(t_cmd *cmd, t_data *data);
+void		set_cmd(t_cmd *cmd, t_data *data);
 void		search_cmd(t_data *data, t_cmd *cmd);
 
 //search_cmds_cmd_utils.c
