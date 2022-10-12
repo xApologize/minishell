@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
 
 //checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
-char	*handle_dollar(char *line)
+char	*handle_dollar(char *line, int heredoc)
 {
 	char	*new_line;
 
@@ -11,6 +11,8 @@ char	*handle_dollar(char *line)
 		free(line);
 		line = new_line;
 	}
+	if (heredoc == 1)
+		return (unwrap_dollar_heredoc(line));
 	if (check_dollar(line))
 	{
 		new_line = unwrap_dollar(line);
