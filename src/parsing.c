@@ -79,20 +79,15 @@ int	quote(int i, t_data *data)
 	{
 		i++;
 		while (!ft_strchr("\'", data->line[i]))
-		{
 			i++;
-		}
 	}
 	if (ft_strchr("\"", data->line[i]))
 	{
 		i++;
 		while (!ft_strchr("\"", data->line[i]))
-		{
 			i++;
-		}
 	}
-	i++;
-	return (i - 1);
+	return (i);
 }
 
 void	findlenght(t_data *data)

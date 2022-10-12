@@ -39,10 +39,8 @@ char	*get_path(char *line_cp, t_data *data)
 	i = 0;
 	if (!data->path_split)
 		return (ft_strdup(line_cp));
-	if (*line_cp == '/')
+	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
-	if (*line_cp == '.')
-		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
 	while (data->path_split[i] != NULL)
 	{
@@ -100,18 +98,15 @@ char	**get_argv(t_data *data)
 	{
 		if (i == 0)
 		{
-			argv[i] = ft_strdup(data->line);
+			argv[i] = stripstring(ft_strdup(data->line));
 			i++;
 		}
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
 		{
 			while (*data->line == '\0' && *data->indexmeta == ' ')
-			{
-				data->line++;
-				data->indexmeta++;
-			}
+				skip_char(data);
 			if (*data->line != '\0')
-				argv[i] = ft_strdup(data->line);
+				argv[i] = stripstring(ft_strdup(data->line));
 			i++;
 		}
 		else
