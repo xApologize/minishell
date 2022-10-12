@@ -20,9 +20,11 @@ char	*access_relative_path(char *line)
 	char	*slash;
 	char	*pwd_join;
 
-	//gerer les erreur
+	pwd_join = NULL;
 	slash = ft_strjoin("/", line);
-	pwd_join = ft_strjoin(getenv("PWD"), slash);
+	pwd_join = ft_strjoinfree(getcwd(pwd_join, 0), slash);
+	if (!pwd_join)
+		return (ft_strdup(line));
 	if (access(pwd_join, X_OK) == 0)
 		return (pwd_join);
 	dprintf(2, "minicougar: %s: no such file or directory\n", line);
@@ -35,14 +37,11 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
-	//gerer les erreur
 	i = 0;
 	if (!data->path_split)
 		return (ft_strdup(line_cp));
-	if (*line_cp == '/')
+	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
-	if (*line_cp == '.')
-		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
 	while (data->path_split[i] != NULL)
 	{
