@@ -20,7 +20,7 @@ int	main(void)
 			free_the_pp(g_envp_copy);
 			exit(0);
 		}
-		data.line = handle_dollar(data.line);
+		data.line = handle_dollar(data.line, 0);
 		parsing(&data, cmd);
 	}
 	return (0);

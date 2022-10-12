@@ -38,6 +38,7 @@ void	start_heredoc(int fd, char *delim)
 		if (line == NULL || ft_strcmp(line, delim) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
+		return_line = handle_dollar(return_line, 1);
 		write(fd , return_line, ft_strlen(return_line));
 		free(line);
 		free(return_line);
