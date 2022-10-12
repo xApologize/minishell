@@ -56,26 +56,25 @@ int	is_builtin(char *line)
 	return (0);
 }
 
-int	set_cmd(t_cmd *cmd, t_data *data)
+void	set_cmd(t_cmd *cmd, t_data *data)
 {
 	int		i;
 	char	*line_cp;
 
 	i = 0;
 	line_cp = data->line;
-	if(is_builtin(line_cp) == 1)
+	if (is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = ft_strdup(line_cp);
+		cmd->cmd = stripstring(ft_strdup(line_cp));
 	}
 	else
-		cmd->cmd = get_path(line_cp, data);
+		cmd->cmd = get_path(stripstring(ft_strdup(data->line)), data);
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
-	return (i - 1);
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)
