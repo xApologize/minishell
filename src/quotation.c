@@ -12,13 +12,6 @@ void	error_quotation(t_data *data)
 
 void	double_check(t_data *data)
 {
-	char *line;
-
-	line = data->line;
-}
-
-void	double_check(t_data *data)
-{
 	int	i;
 	int	trigger;
 
