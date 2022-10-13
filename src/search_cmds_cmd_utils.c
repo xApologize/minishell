@@ -117,6 +117,6 @@ char	**get_argv(t_data *data)
 			data->line++;
 	}
 	if (i == 0)
-		argv[i] = ft_strdup(data->line);
+		argv[i] = handle_dollar(ft_strdup(data->line));
 	return (argv);
 }

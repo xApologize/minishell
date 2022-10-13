@@ -32,7 +32,7 @@ int	is_builtin(char *line)
 	char	**builtin;
 	int		i;
 
-	builtin = ft_calloc(8, sizeof (char *));
+	builtin = ft_calloc(9, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -40,7 +40,8 @@ int	is_builtin(char *line)
 	builtin[4] = "unset";
 	builtin[5] = "env";
 	builtin[6] = "exit";
-	builtin[7] = NULL;
+	builtin[7] = "pepe";
+	builtin[8] = NULL;
 	i = -1;
 	line = handle_dollar(line);
 	while (builtin[++i])

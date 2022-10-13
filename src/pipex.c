@@ -79,6 +79,7 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 
 void	exec_cmd(t_cmd *cmd, t_data *data)
 {
+	dprintf(STDERR_FILENO, "from child: %s, %s\n", cmd->cmd, cmd->argv[0]);
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	if (ft_strlen(cmd->cmd) != 0)
 		dprintf(2, "minicougar: %s: command not found\n", cmd->cmd);
