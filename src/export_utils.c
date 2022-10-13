@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
 
-//
 void	handle_export(t_cmd *cmd)
 {
 	int		i;

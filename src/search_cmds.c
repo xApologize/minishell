@@ -64,7 +64,8 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 	if (is_builtin(line_cp) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = stripstring(ft_strdup(line_cp));
+		cmd->cmd = handle_dollar(ft_strdup(line_cp));
+		cmd->cmd = stripstring(cmd->cmd);
 	}
 	else
 		cmd->cmd = get_path(stripstring(ft_strdup(data->line)), data);
