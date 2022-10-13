@@ -98,7 +98,10 @@ char	**get_argv(t_data *data)
 	{
 		if (i == 0)
 		{
-			argv[i] = stripstring(ft_strdup(data->line));
+			if (ft_strchr("\'\"", *data->line))
+				argv[i] = ft_strtrim(ft_strdup(data->line), *data->line);
+			else
+				argv[i] = ft_strdup(data->line);
 			i++;
 		}
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
@@ -106,7 +109,12 @@ char	**get_argv(t_data *data)
 			while (*data->line == '\0' && *data->indexmeta == ' ')
 				skip_char(data);
 			if (*data->line != '\0')
-				argv[i] = stripstring(ft_strdup(data->line));
+			{
+				if (ft_strchr("\'\"", *data->line))
+					argv[i] = ft_strtrim(ft_strdup(data->line), *data->line);
+				else
+					argv[i] = ft_strdup(data->line);
+			}
 			i++;
 		}
 		else
