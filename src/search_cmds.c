@@ -58,10 +58,8 @@ int	is_builtin(char *line)
 
 void	set_cmd(t_cmd *cmd, t_data *data)
 {
-	int		i;
 	char	*line_cp;
 
-	i = 0;
 	line_cp = data->line;
 	if (is_builtin(line_cp) == 1)
 	{
