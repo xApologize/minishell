@@ -97,24 +97,13 @@ char	**get_argv(t_data *data)
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{
 		if (i == 0)
-		{
-			if (ft_strchr("\'\"", *data->line))
-				argv[i] = ft_strtrim(ft_strdup(data->line), *data->line);
-			else
-				argv[i] = ft_strdup(data->line);
-			i++;
-		}
+			argv[i++] = trim_quotes(data);
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
 		{
 			while (*data->line == '\0' && *data->indexmeta == ' ')
 				skip_char(data);
 			if (*data->line != '\0')
-			{
-				if (ft_strchr("\'\"", *data->line))
-					argv[i] = ft_strtrim(ft_strdup(data->line), *data->line);
-				else
-					argv[i] = ft_strdup(data->line);
-			}
+				argv[i] = trim_quotes(data);
 			i++;
 		}
 		else
