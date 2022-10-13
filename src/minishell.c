@@ -15,7 +15,10 @@ int	main(void)
 		sig_handling();
 		data.line = rl_gets();
 		if (data.line == NULL)
+		{
+			free_the_pp(g_envp_copy);
 			exit(0);
+		}
 		data.line = handle_dollar(data.line);
 		parsing(&data, cmd);
 	}

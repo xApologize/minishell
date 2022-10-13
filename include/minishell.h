@@ -30,6 +30,7 @@ typedef struct s_data
 	char	*line;
 	char	*save_line;
 	char	*save_indexmeta;
+	bool	parse_status;
 	int		stdin_cp;
 	int		stdout_cp;
 	int		if_no_meta;
@@ -86,6 +87,8 @@ char		*charjoinfree(const char *s1, const char c);
 bool		check_dollar(char *line);
 char		*unwrap_dollar(char *line);
 char		*skip_dollar(char *line);
+bool		check_question(char *line);
+char		*unwrap_enigma(char *line);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
@@ -135,16 +138,17 @@ int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
+void		start_heredoc(int fd, t_data *data);
 
 //misc_utils.c
 int			get_mem_len(char *arg);
-char		*stripshit(char *arg);
+char		*stripstring(char *arg);
 
 //make_line.c
 char		*make_line(char **argv);
 
 //minishell_utils.c
-void	restore_std(t_data *data);
+void		restore_std(t_data *data);
 
 //parsing.c
 void		parsing(t_data *data, t_cmd *cmd);
@@ -156,6 +160,8 @@ void		print_line(t_data *data);
 //parsing_utils.c
 void		env_split(t_data *data);
 void		trim_path(t_data *data);
+void		set_trigger_on(int *i, int *trigger, t_data *data);
+void		print_parse_error(t_data *data);
 
 //pipex.c
 void		pipex(t_cmd *cmd, t_data *data);
@@ -173,7 +179,6 @@ void		wait_child(int *pid_child, int table_size);
 //print_intro.c
 void		print_intro(void);
 void		pepe(void);
-void		tlaid(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
@@ -186,8 +191,6 @@ void		error_quotation(t_data *data);
 void		double_check(t_data *data);
 void		single_check(t_data *data);
 
-//return_var.c
-
 //rl_gets.c
 char		*rl_gets(void);
 
@@ -199,6 +202,8 @@ int			set_cmd(t_cmd *cmd, t_data *data);
 void		search_cmd(t_data *data, t_cmd *cmd);
 
 //search_cmds_cmd_utils.c
+char		*access_absolute_path(char *line);
+char		*access_relative_path(char *line);
 char		*get_path(char *line_cp, t_data *data);
 int			get_argv_count(t_data *data);
 char		**get_argv(t_data *data);
@@ -212,6 +217,7 @@ void		close_fd(t_cmd *cmd);
 //search_cmd_utils.c
 void		handle_single_builtin(t_cmd *cmd, t_data *data);
 void		skip_char(t_data *data);
+char		*access_path(char *line);
 
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data);
@@ -230,11 +236,6 @@ void		shush(int signum);
 //singleton_statuscode.c
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
-
-//skip_single_quote.c
-
-//status_error.c
-void		status(t_data *data);
 
 //unset_utils.c
 void		handle_unset(t_cmd *cmd);
