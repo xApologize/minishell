@@ -77,3 +77,11 @@ char	*stripstring(char *arg)
 	}
 	return (arg);
 }
+
+char	*trim_quotes(t_data *data)
+{
+	if (ft_strchr("\'\"", *data->line))
+		return (ft_strtrim(ft_strdup(data->line), *data->line));
+	else
+		return (ft_strdup(data->line));
+}

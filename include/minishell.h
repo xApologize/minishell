@@ -146,6 +146,7 @@ void		start_heredoc(int fd, char *delim);
 //misc_utils.c
 int			get_mem_len(char *arg, char c);
 char		*stripstring(char *arg);
+char		*trim_quotes(t_data *data);
 
 //make_line.c
 char		*make_line(char **argv);

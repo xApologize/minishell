@@ -67,7 +67,12 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 		cmd->cmd = stripstring(ft_strdup(line_cp));
 	}
 	else
-		cmd->cmd = get_path(stripstring(ft_strdup(data->line)), data);
+	{
+		if (ft_strchr("\'\"", *data->line))
+			cmd->cmd = get_path(ft_strtrim(ft_strdup(data->line), *data->line), data);
+		else
+			cmd->cmd = get_path(ft_strdup(data->line), data);
+	}
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);
