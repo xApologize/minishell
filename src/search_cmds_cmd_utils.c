@@ -98,8 +98,8 @@ char	**get_argv(t_data *data)
 	{
 		if (i == 0)
 		{
-			argv[i] = handle_dollar(ft_strdup(data->line));
-			argv[i] = stripstring(argv[i]);
+			argv[i] = stripstring(ft_strdup(data->line));
+			argv[i] = handle_dollar(argv[i]);
 			i++;
 		}
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
@@ -108,8 +108,8 @@ char	**get_argv(t_data *data)
 				skip_char(data);
 			if (*data->line != '\0')
 			{
-				argv[i] = handle_dollar(ft_strdup(data->line));
-				argv[i] = stripstring(argv[i]);
+				argv[i] = stripstring(ft_strdup(data->line));
+				argv[i] = handle_dollar(argv[i]);
 			}
 			i++;
 		}
