@@ -2,8 +2,6 @@
 #include <unistd.h>
 
 //exits the program and frees all memory
-//test
-//takes an int as an argument that's used to set exit_status_code before exiting
 
 //if first arg is numeric will not exit and give
 //error message: bash: exit: too many arguments
