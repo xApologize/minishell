@@ -39,8 +39,8 @@ void	start_heredoc(int fd, char *delim)
 			break ;
 		return_line = ft_strjoin(line, "\n");
 		write(fd , return_line, ft_strlen(return_line));
-		free(line);
 		free(return_line);
+		free(line);
 	}
 	if (line)
 		free(line);
