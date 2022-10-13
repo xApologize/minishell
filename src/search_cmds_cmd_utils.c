@@ -84,7 +84,7 @@ int	get_argv_count(t_data *data)
 	}
 	return (argv_count);
 }
-
+//quote stripping before the expansion. expansion after the heredoc
 char	**get_argv(t_data *data)
 {
 	int		argv_count;
