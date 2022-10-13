@@ -48,3 +48,16 @@ char	*skip_single_quote(char *line)
 		line++;
 	return (line);
 }
+
+bool	check_if_num(const char *n)
+{
+	int	i;
+
+	i = -1;
+	while (n[++i])
+	{
+		if (ft_isdigit(n[i]) == 0)
+			return (false);
+	}
+	return (true);
+}

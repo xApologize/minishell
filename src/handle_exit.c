@@ -58,19 +58,6 @@ void	handle_exit(t_cmd *cmd, t_data *data)
 	exit(status);
 }
 
-bool	check_if_num(const char *n)
-{
-	int	i;
-
-	i = -1;
-	while (n[++i])
-	{
-		if (ft_isdigit(n[i]) == 0)
-			return (false);
-	}
-	return (true);
-}
-
 int	count_args(t_cmd *cmd)
 {
 	int	count;
