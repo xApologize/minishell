@@ -51,7 +51,12 @@ void	wait_child(int *pid_child, int table_size)
 	while (i < table_size)
 	{
 		waitpid(pid_child[i], &status, 0);
-		set_exit_code(WEXITSTATUS(status));
+		if (WIFEXITED(status) == true)
+			set_exit_code(WEXITSTATUS(status));
+		else if (WIFSIGNALED(status) == true)
+			set_exit_code(128 + WTERMSIG(status));
+		else
+			set_exit_code(128 + WSTOPSIG(status));
 		i++;
 	}
 }

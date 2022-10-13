@@ -63,6 +63,7 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
+		sig_reset();
 		redir_utils(cmd);
 		if (cmd->is_builtin == 1)
 		{

@@ -54,3 +54,10 @@ void	free_data_cmd(t_cmd *cmd, t_data *data)
 	free_cmd(cmd);
 	free_data(data);
 }
+
+void	free_all(t_cmd *cmd, t_data *data)
+{
+	free_cmd(cmd);
+	free_data(data);
+	free_the_pp(g_envp_copy);
+}

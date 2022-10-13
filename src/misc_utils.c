@@ -23,7 +23,7 @@ char	*stripstring(char *arg)
 
 	i = -1;
 	j = 0;
-	new_string = malloc(get_mem_len(arg) * sizeof (char));
+	new_string = ft_calloc((get_mem_len(arg) + 1), sizeof (char));
 	while (arg[++i])
 	{
 		if (arg[i] != '\'' && arg[i] != '"')
@@ -35,4 +35,16 @@ char	*stripstring(char *arg)
 	new_string[j] = '\0';
 	free(arg);
 	return (new_string);
+}
+
+char	*strip_outer_quotes(char *arg)
+{
+	char	*new_string;
+
+	new_string = NULL;
+	if (arg[0] == '\'')
+		return (new_string = ft_strtrimfree(arg, "'"));
+	else if (arg[0] == '"')
+		return (new_string = ft_strtrimfree(arg, "\""));
+	return (arg);
 }

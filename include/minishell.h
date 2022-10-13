@@ -13,6 +13,8 @@
 # include <stdbool.h>
 # include <signal.h>
 # include <string.h>
+# include <termios.h>
+# include <sys/ioctl.h>
 
 // option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
 # define PIPE_READ 0
@@ -118,6 +120,7 @@ void		free_cmd(t_cmd *cmd);
 void		free_data(t_data *data);
 void		free_the_pp(char **pp);
 void		free_data_cmd(t_cmd *cmd, t_data *data);
+void		free_all(t_cmd *cmd, t_data *data);
 
 // ft_strtrimfree.c
 char		*ft_strtrimfree(const char *s1, const char *set);
@@ -138,11 +141,12 @@ int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
-void		start_heredoc(int fd, t_data *data);
+void		start_heredoc(int fd, char *delim);
 
 //misc_utils.c
 int			get_mem_len(char *arg);
 char		*stripstring(char *arg);
+char		*strip_outer_quotes(char *arg);
 
 //make_line.c
 char		*make_line(char **argv);
@@ -227,11 +231,18 @@ void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
 t_cmd 		*get_last(t_cmd *cmd);
 
 //sig_utils.c
-void		sig_reset(void);
-void		sig_handling(void);
-void		sigint_handler(int signum);
 void		quiet_handling(void);
-void		shush(int signum);
+void		sig_handling(void);
+void		sig_ignore(void);
+void		sig_reset(void);
+void		sig_heredoc(void);
+
+//sig_utils2.c
+void		sigint_handler(int signum);
+void		quit_handler(int signum);
+void		shush_handler(int signum);
+void		hd_handler(int signum);
+
 
 //singleton_statuscode.c
 int			*get_exit_code(void);
@@ -243,5 +254,8 @@ bool		checkifunset(char *var, char *envp_var);
 void		copynewenvp(void);
 int			countnewvars(void);
 void		modifyvar(char *var);
+
+//update_shlvl.c
+void		update_shlvl(void);
 
 #endif
