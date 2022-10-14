@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //searches the environment variables for
 //the OLDPWD. Returns the index if found, -1 if not

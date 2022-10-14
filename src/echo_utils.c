@@ -1,7 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
-//priints the given arguments out followed by a \n by default. if n option used newline is omitted.
+//prints the given arguments out followed by a \n by default. if n option used newline is omitted.
 void	handle_echo(t_cmd *cmd)
 {
 	char	*line;

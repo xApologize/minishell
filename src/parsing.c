@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 void	check_validity(t_data *data)
 {
@@ -16,7 +15,7 @@ void	check_validity(t_data *data)
 		if (!ft_strchr("<>|", data->line[i]) && data->line[i] != ' ' \
 			&& ft_isprint(data->line[i]) == 1 && trigger == 1)
 			trigger = 0;
-		if (ft_strchr("\n<>|", data->line[i]) && trigger == 1)
+		if (ft_strchr("\n|", data->line[i]) && trigger == 1)
 		{
 			data->parse_status = true;
 			break ;

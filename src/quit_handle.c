@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 void	quit_handling(int signum)
 {

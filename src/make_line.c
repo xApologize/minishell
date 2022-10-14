@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //join strings together separated by a line space
 char	*make_line(char **argv)

@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //finds and removes specified arg from environment variables if found 
 void	handle_unset(t_cmd *cmd)

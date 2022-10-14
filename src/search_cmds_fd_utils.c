@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 void	set_fd_in(t_cmd *cmd, t_data *data)
 {

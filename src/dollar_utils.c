@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
 char	*handle_dollar(char *line)
@@ -70,6 +69,7 @@ int	find_var(char *arg)
 
 	index = -1;
 	arg_split = ft_split(arg, '=');
+	
 	while (g_envp_copy[++index])
 	{
 		envp_split = ft_split(g_envp_copy[index], '=');

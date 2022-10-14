@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 static int	find_shlvl(void)
 {
@@ -21,12 +20,24 @@ static int	find_shlvl(void)
 	return (-1);
 }
 
-void	update_shlvl(void)
+static void	change_shlvl(char **shlvl_split, int index)
 {
-	int		index;
 	int		level;
 	char	*string_level;
+
+	level = ft_atoi(shlvl_split[1]);
+	level++;
+	free(g_envp_copy[index]);
+	g_envp_copy[index] = ft_strdup("SHLVL=");
+	string_level = ft_itoa(level);
+	g_envp_copy[index] = ft_strjoinfree(g_envp_copy[index], string_level);
+	free(string_level);
+}
+
+void	update_shlvl(void)
+{
 	char	**shlvl_split;
+	int		index;
 
 	index = find_shlvl();
 	if (index == -1)
@@ -36,15 +47,13 @@ void	update_shlvl(void)
 		shlvl_split = ft_split(g_envp_copy[index], '=');
 		if (check_if_num(shlvl_split[1]) == true)
 		{
-			level = ft_atoi(shlvl_split[1]);
-			level++;
-			free(g_envp_copy[index]);
-			g_envp_copy[index] = ft_strdup("SHLVL=");
-			string_level = ft_itoa(level);
-			g_envp_copy[index] = ft_strjoinfree(g_envp_copy[index], string_level);
-			free(string_level);
+			change_shlvl(shlvl_split, index);
+			free_the_pp(shlvl_split);
 		}
 		else
+		{
+			free_the_pp(shlvl_split);
 			return ;
+		}
 	}
 }

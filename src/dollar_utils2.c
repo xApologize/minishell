@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //returns true if string contains a valid $ for expanding
 bool	check_dollar(char *line)

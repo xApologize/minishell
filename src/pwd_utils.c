@@ -1,5 +1,4 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
 //finds and prints the currrent working directory
 void	handle_pwd(t_cmd *cmd)
