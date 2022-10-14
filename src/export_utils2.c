@@ -54,7 +54,7 @@ char	*return_stripped_env(char **split_arg)
 	char *new_arg;
 
 	new_arg = NULL;
-	split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+	split_arg[1] = stripstring(split_arg[1]);
 	new_arg = ft_strdup(split_arg[0]);
 	new_arg = ft_strjoinfree(new_arg, "=");
 	new_arg = ft_strjoinfree(new_arg, split_arg[1]);

@@ -7,6 +7,11 @@ void	handle_export(t_cmd *cmd)
 	bool	valid_assign;
 
 	i = 0;
+	if (!cmd->argv[1])
+	{
+		handle_env(cmd);
+		return ;
+	}
 	while (cmd->argv[++i])
 	{
 		valid_env = checkvalidenv(cmd->argv[i]);

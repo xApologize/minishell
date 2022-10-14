@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+
 //returns true if string contains a valid $ for expanding
 bool	check_dollar(char *line)
 {

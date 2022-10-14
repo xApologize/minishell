@@ -69,6 +69,7 @@ int	find_var(char *arg)
 
 	index = -1;
 	arg_split = ft_split(arg, '=');
+	
 	while (g_envp_copy[++index])
 	{
 		envp_split = ft_split(g_envp_copy[index], '=');
