@@ -1,5 +1,18 @@
 #include "../include/minishell.h"
 
+int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
+{
+	if (cmd->redir_in == -1)
+		return(0);
+	else if (cmd->next != NULL)
+		return (pipex_redir(cmd, data));
+	else if (cmd->cmd == NULL)
+		return (0);
+	else
+		return (exec_fork_cmd(cmd, data));
+	return (0);
+}
+
 void	redir_utils(t_cmd *cmd)
 {
 	if (cmd->redir_in != STDIN_FILENO)
@@ -24,17 +37,20 @@ void	close_fork_fd(t_cmd *cmd)
 		close(cmd->redir_out);
 }
 
-int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
+void	redir_pipe(int pipe_fd[2], int std)
 {
-	if (cmd->redir_in == -1)
-		return(0);
-	else if (cmd->next != NULL)
-		return (pipex_redir(cmd, data));
-	else if (cmd->cmd == NULL)
-		return (0);
+	if (std == 0)
+	{
+		close(pipe_fd[PIPE_WRITE]);
+		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
+		close(pipe_fd[PIPE_READ]);
+	}
 	else
-		return (exec_fork_cmd(cmd, data));
-	return (0);
+	{
+		close(pipe_fd[PIPE_READ]);
+		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
+		close(pipe_fd[PIPE_WRITE]);
+	}
 }
 
 void	wait_child(int *pid_child, int table_size)

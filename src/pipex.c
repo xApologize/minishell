@@ -28,17 +28,11 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid > 0)
-	{
-		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-		close(pipe_fd[PIPE_READ]);
-	}
+		redir_pipe(pipe_fd, 0);
 	if (pid == 0)
 	{
 		redir_utils(cmd);
-		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-		close(pipe_fd[PIPE_WRITE]);
+		redir_pipe(pipe_fd, 1);
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
@@ -78,6 +72,8 @@ void	exec_cmd(t_cmd *cmd, t_data *data)
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	if (ft_strlen(cmd->cmd) != 0)
 		dprintf(2, "minicougar: %s: command not found\n", cmd->cmd);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
 	free_data_cmd(cmd, data);
 	free_the_pp(g_envp_copy);
 	exit(127);

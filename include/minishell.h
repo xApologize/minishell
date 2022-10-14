@@ -175,9 +175,10 @@ void		exec_cmd(t_cmd *cmd, t_data *data);
 int			table_length(t_cmd *cmd);
 
 //pipex_utils.c
+int			handle_pipe_cmd(t_cmd *cmd, t_data *data);
 void		redir_utils(t_cmd *cmd);
 void		close_fork_fd(t_cmd *cmd);
-int			handle_pipe_cmd(t_cmd *cmd, t_data *data);
+void		redir_pipe(int pipe_fd[2], int std);
 void		wait_child(int *pid_child, int table_size);
 
 //print_intro.c
