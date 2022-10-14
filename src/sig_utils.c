@@ -7,10 +7,9 @@ void	sig_handling(void)
 	struct sigaction	sa_sigquit;
 
 	sa_sigint.sa_handler = sigint_handler;
-	sa_sigint.sa_mask = 0;
 	sa_sigquit.sa_handler = SIG_IGN;
-	sa_sigquit.sa_mask = 0;
 	sigemptyset(&sa_sigint.sa_mask);
+	sigemptyset(&sa_sigquit.sa_mask);
 	sa_sigint.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa_sigint, NULL);
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
@@ -22,10 +21,9 @@ void	quiet_handling(void)
 	struct sigaction	sa_sigquit;
 
 	sa_sigint.sa_handler = shush_handler;
-	sa_sigint.sa_mask = 0;
 	sa_sigquit.sa_handler = quit_handler;
-	sa_sigquit.sa_mask = 0;
 	sigemptyset(&sa_sigint.sa_mask);
+	sigemptyset(&sa_sigquit.sa_mask);
 	sa_sigint.sa_flags = SA_RESTART;
 	sigaction(SIGINT, &sa_sigint, NULL);
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
@@ -41,8 +39,6 @@ void	sig_ignore(void)
 	sa_sigquit.sa_handler = SIG_IGN;
 	sigemptyset(&sa_sigint.sa_mask);
 	sigemptyset(&sa_sigquit.sa_mask);
-	sa_sigint.sa_flags = 0;
-	sa_sigquit.sa_flags = 0;
 	sigaction(SIGINT, &sa_sigint, NULL);
 	sigaction(SIGQUIT, &sa_sigquit, NULL);
 }
@@ -55,6 +51,7 @@ void	sig_reset(void)
 	sa_sigint.sa_handler = NULL;
 	sa_sigquit.sa_handler = NULL;
 	sigemptyset(&sa_sigint.sa_mask);
+	sigemptyset(&sa_sigquit.sa_mask);
 	sa_sigint.sa_flags = SA_RESETHAND;
 	sa_sigquit.sa_flags = SA_RESETHAND;
 	sigaction(SIGINT, &sa_sigint, NULL);
