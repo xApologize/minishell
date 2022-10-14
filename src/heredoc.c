@@ -1,8 +1,5 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <sys/fcntl.h>
-#include <sys/wait.h>
-#include <unistd.h>
+extern char **g_envp_copy;
 
 int		heredoc(t_data *data)
 {

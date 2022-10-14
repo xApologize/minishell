@@ -1,9 +1,5 @@
 #include "../include/minishell.h"
-#include <signal.h>
-#include <stdio.h>
-#include <sys/signal.h>
-#include <sys/wait.h>
-#include <unistd.h>
+extern char **g_envp_copy;
 
 void	redir_utils(t_cmd *cmd)
 {

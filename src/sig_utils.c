@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 //rewires sigint and sigquit
 void	sig_handling(void)

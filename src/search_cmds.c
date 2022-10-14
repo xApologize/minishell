@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <unistd.h>
+extern char **g_envp_copy;
 
 void	print_struct(t_cmd *cmd)
 {

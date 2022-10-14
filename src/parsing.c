@@ -1,5 +1,5 @@
 #include "../include/minishell.h"
-#include <unistd.h>
+extern char **g_envp_copy;
 
 void	check_validity(t_data *data)
 {

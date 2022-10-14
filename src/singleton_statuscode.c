@@ -1,6 +1,5 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <sys/wait.h>
+extern char **g_envp_copy;
 
 int	*get_exit_code(void)
 {

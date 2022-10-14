@@ -1,8 +1,5 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+extern char **g_envp_copy;
 
 void	pipex(t_cmd *cmd, t_data *data)
 {

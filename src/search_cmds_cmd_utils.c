@@ -1,9 +1,5 @@
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/unistd.h>
-#include <unistd.h>
+extern char **g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
