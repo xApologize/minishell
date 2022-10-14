@@ -67,7 +67,7 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 		cmd->cmd = handle_dollar(ft_strdup(line_cp));
 	}
 	else
-		cmd->cmd = get_path(handle_dollar(stripstring(ft_strdup(data->line))), data);
+		cmd->cmd = get_path(handle_dollar(stripstring(data->line)), data);
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);
