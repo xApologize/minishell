@@ -32,17 +32,11 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid > 0)
-	{
-		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-		close(pipe_fd[PIPE_READ]);
-	}
+		redir_pipe(pipe_fd, 0);
 	if (pid == 0)
 	{
 		redir_utils(cmd);
-		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-		close(pipe_fd[PIPE_WRITE]);
+		redir_pipe(pipe_fd, 1);
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
