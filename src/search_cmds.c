@@ -42,16 +42,16 @@ int	is_builtin(char *line)
 	builtin[6] = "exit";
 	builtin[7] = "pepe";
 	builtin[8] = NULL;
-	i = 0;
-	while (builtin[i])
-	{
+	i = -1;
+	line = handle_dollar(line);
+	while (builtin[++i])
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
+			free(line);
 			free(builtin);
 			return (1);
 		}
-		i++;
-	}
+	free(line);
 	free(builtin);
 	return (0);
 }
@@ -61,18 +61,13 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 	char	*line_cp;
 
 	line_cp = data->line;
-	if (is_builtin(line_cp) == 1)
+	if (is_builtin(ft_strdup(line_cp)) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = stripstring(ft_strdup(line_cp));
+		cmd->cmd = handle_dollar(ft_strdup(line_cp));
 	}
 	else
-	{
-		if (ft_strchr("\'\"", *data->line))
-			cmd->cmd = get_path(ft_strtrim(ft_strdup(data->line), *data->line), data);
-		else
-			cmd->cmd = get_path(ft_strdup(data->line), data);
-	}
+		cmd->cmd = get_path(handle_dollar(stripstring(ft_strdup(data->line))), data);
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);

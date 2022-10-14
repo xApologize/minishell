@@ -76,6 +76,8 @@ void	exec_cmd(t_cmd *cmd, t_data *data)
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	if (ft_strlen(cmd->cmd) != 0)
 		dprintf(2, "minicougar: %s: command not found\n", cmd->cmd);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
 	free_data_cmd(cmd, data);
 	free_the_pp(g_envp_copy);
 	exit(127);

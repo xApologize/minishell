@@ -122,7 +122,7 @@ void		free_the_pp(char **pp);
 void		free_data_cmd(t_cmd *cmd, t_data *data);
 void		free_all(t_cmd *cmd, t_data *data);
 
-// ft_strtrimfree.c
+//ft_strtrimfree.c
 char		*ft_strtrimfree(const char *s1, const char *set);
 
 //get_home.c
@@ -136,7 +136,6 @@ void		handle_env(t_cmd *cmd);
 
 //handle_exit.c
 void		handle_exit(t_cmd *cmd, t_data *data);
-bool		check_if_num(const char *n);
 int			count_args(t_cmd *cmd);
 
 //heredoc.c
@@ -146,7 +145,8 @@ void		start_heredoc(int fd, char *delim);
 //misc_utils.c
 int			get_mem_len(char *arg, char c);
 char		*stripstring(char *arg);
-char		*trim_quotes(t_data *data);
+char		*skip_single_quote(char *line);
+bool		check_if_num(const char *n);
 
 //make_line.c
 char		*make_line(char **argv);

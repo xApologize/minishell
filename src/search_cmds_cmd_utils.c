@@ -84,7 +84,7 @@ int	get_argv_count(t_data *data)
 	}
 	return (argv_count);
 }
-
+//quote stripping before the expansion. expansion after the heredoc
 char	**get_argv(t_data *data)
 {
 	int		argv_count;
@@ -97,19 +97,26 @@ char	**get_argv(t_data *data)
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{
 		if (i == 0)
-			argv[i++] = trim_quotes(data);
+		{
+			argv[i] = stripstring(ft_strdup(data->line));
+			argv[i] = handle_dollar(argv[i]);
+			i++;
+		}
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
 		{
 			while (*data->line == '\0' && *data->indexmeta == ' ')
 				skip_char(data);
 			if (*data->line != '\0')
-				argv[i] = trim_quotes(data);
+			{
+				argv[i] = stripstring(ft_strdup(data->line));
+				argv[i] = handle_dollar(argv[i]);
+			}
 			i++;
 		}
 		else
 			data->line++;
 	}
 	if (i == 0)
-		argv[i] = ft_strdup(data->line);
+		argv[i] = handle_dollar(ft_strdup(data->line));
 	return (argv);
 }
