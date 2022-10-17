@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 // Prints all the environment variables
 void	handle_env(t_cmd *cmd)

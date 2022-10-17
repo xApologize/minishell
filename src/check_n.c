@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 //checks if argument contains -n option. Works with multiple chained n's
 int	check_n(char *opt)

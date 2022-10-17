@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
@@ -32,6 +33,8 @@ char	*get_path(char *line_cp, t_data *data)
 
 	//gerer les erreur
 	i = 0;
+	line_cp = stripstring(line_cp);
+	line_cp = handle_dollar(line_cp);
 	if (!data->path_split)
 		return (ft_strdup(line_cp));
 	if (ft_strchr("./", *line_cp))
@@ -42,6 +45,7 @@ char	*get_path(char *line_cp, t_data *data)
 		access_try = ft_strjoin(data->path_split[i], slash);
 		if (access(access_try, X_OK) == 0)
 		{
+			free(line_cp);
 			free(slash);
 			return (access_try);
 		}

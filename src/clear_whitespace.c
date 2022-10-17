@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 int	clear_whitespace(int i, char *str)
 {

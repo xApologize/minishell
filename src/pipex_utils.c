@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 {

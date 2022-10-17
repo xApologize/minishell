@@ -1,5 +1,5 @@
 #include "../include/minishell.h"
-#include <unistd.h>
+extern char **g_envp_copy;
 
 void	restore_std(t_data *data)
 {

@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 //uses readline to get input from stdin. Adds the line to history
 char	*rl_gets(void)

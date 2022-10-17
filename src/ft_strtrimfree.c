@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 //same as ft_strtrim but frees string given as argument
 static int	ft_isinset(char const *set, char c)
