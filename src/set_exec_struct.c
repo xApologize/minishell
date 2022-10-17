@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 t_cmd	*set_exec_struct(t_data *data)
 {

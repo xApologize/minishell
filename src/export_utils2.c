@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 //adds the new variable to the environment
 void	addtoenv(char *arg)

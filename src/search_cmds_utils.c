@@ -1,4 +1,5 @@
 #include "../include/minishell.h"
+extern char **g_envp_copy;
 
 void	handle_single_builtin(t_cmd *cmd, t_data *data)
 {
