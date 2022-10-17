@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 static int	find_shlvl(void)
 {

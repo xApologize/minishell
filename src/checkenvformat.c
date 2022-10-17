@@ -1,7 +1,7 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
 
-//checks if 
+extern char	**g_envp_copy;
+
 int	checkenvformat(char *var)
 {
 	int	i;
