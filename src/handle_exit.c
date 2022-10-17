@@ -1,8 +1,8 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 //exits the program and frees all memory
-
 //if first arg is numeric will not exit and give
 //error message: bash: exit: too many arguments
 //if first arg has a letter exit will work but will 

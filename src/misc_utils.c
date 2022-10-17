@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 int	get_mem_len(char *arg, char c)
 {

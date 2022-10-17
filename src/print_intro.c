@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 //print intro when shell is first called
 void	print_intro(void)

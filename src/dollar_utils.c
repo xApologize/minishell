@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 //checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
 char	*handle_dollar(char *line)
@@ -50,7 +51,7 @@ char	*return_var(char *line)
 {
 	char	*var;
 
-	var = ft_calloc(10, 1);
+	var = ft_calloc(1, 1);
 	line++;
 	while (*line)
 	{

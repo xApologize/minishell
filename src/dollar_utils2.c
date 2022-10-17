@@ -1,5 +1,6 @@
 #include "../include/minishell.h"
-extern char **g_envp_copy;
+
+extern char	**g_envp_copy;
 
 //returns true if string contains a valid $ for expanding
 bool	check_dollar(char *line)
@@ -31,7 +32,8 @@ char	*unwrap_dollar(char *line)
 	char	*new_line;
 	char	*value;
 
-	new_line = ft_calloc(10, 1);
+	new_line = ft_calloc(1, 1);
+	value = NULL;
 	while (*line)
 	{
 		if (*line == '\'')
