@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-extern char	**g_envp_copy;
+char	**g_envp_copy;
 
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
 int	main(void)
