@@ -61,9 +61,7 @@ $(NAME):			$(PRE_OBJ)
 				@echo "Compiling $(PROJECT_NAME)..."
 				@$(MAKE) $(MAKE_C_FLAG) $(LIBFT_DIR)
 ifeq ($(MY_VAR), Linux)
-	@mv lib/libreadline.a ../
 	@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG_LINUX) $(LCURSES)
-	@mv ../libreadline.a ./lib
 else
 	@$(GCC) $(ERROR_FLAGS) $(DEBUG_FLAG) $(PRE_OBJ) $(O_FLAG) $(NAME) $(LIBRARY_FLAG) $(RL_FLAG_MAC) $(LCURSES)
 endif
