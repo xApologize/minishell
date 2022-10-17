@@ -42,7 +42,6 @@ int	is_builtin(char *line)
 	builtin[7] = "pepe";
 	builtin[8] = NULL;
 	i = -1;
-	line = handle_dollar(line);
 	while (builtin[++i])
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
@@ -63,10 +62,10 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 	if (is_builtin(ft_strdup(line_cp)) == 1)
 	{
 		cmd->is_builtin = 1;
-		cmd->cmd = handle_dollar(ft_strdup(line_cp));
+		cmd->cmd = ft_strdup(line_cp);
 	}
 	else
-		cmd->cmd = get_path(data->line, data);
+		cmd->cmd = get_path(ft_strdup(data->line), data);
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);

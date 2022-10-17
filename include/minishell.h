@@ -248,6 +248,9 @@ void		hd_handler(int signum);
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
 
+//string_manip.c
+void    	string_manip(t_data *data);
+
 //unset_utils.c
 void		handle_unset(t_cmd *cmd);
 bool		checkifunset(char *var, char *envp_var);

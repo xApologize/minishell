@@ -5,9 +5,13 @@ char	*access_absolute_path(char *line)
 {
 	//gerer les erreur
 	if (access(line, X_OK) == 0)
+	{
+		free(line);
 		return (ft_strdup(line));
+	}
 	else
 		dprintf(2, "minicougar: %s: no such file or directory\n", line);
+	free(line);
 	return (NULL);
 }
 
@@ -31,12 +35,11 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
-	//gerer les erreur
 	i = 0;
-	line_cp = stripstring(line_cp);
 	line_cp = handle_dollar(line_cp);
+	line_cp = stripstring(line_cp);
 	if (!data->path_split)
-		return (ft_strdup(line_cp));
+		return (line_cp);
 	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
@@ -53,7 +56,7 @@ char	*get_path(char *line_cp, t_data *data)
 		free(access_try);
 	}
 	free(slash);
-	return (ft_strdup(line_cp));
+	return (line_cp);
 }
 
 int	get_argv_count(t_data *data)
