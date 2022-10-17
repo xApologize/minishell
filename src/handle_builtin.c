@@ -21,4 +21,6 @@ void	handle_builtin(t_cmd *cmd, t_data *data)
 		handle_exit(cmd, data);
 	else if (ft_strcmp(cmd->argv[0], "pepe") == 0)
 		pepe();
+	else if (ft_strcmp(cmd->argv[0], "owo") == 0)
+		owo();
 }

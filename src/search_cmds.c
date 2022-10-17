@@ -32,7 +32,7 @@ int	is_builtin(char *line)
 	char	**builtin;
 	int		i;
 
-	builtin = ft_calloc(9, sizeof (char *));
+	builtin = ft_calloc(10, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -41,7 +41,8 @@ int	is_builtin(char *line)
 	builtin[5] = "env";
 	builtin[6] = "exit";
 	builtin[7] = "pepe";
-	builtin[8] = NULL;
+	builtin[8] = "owo";
+	builtin[9] = NULL;
 	i = -1;
 	while (builtin[++i])
 		if (ft_strcmp(line, builtin[i]) == 0)
