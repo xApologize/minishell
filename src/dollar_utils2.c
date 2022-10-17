@@ -45,6 +45,8 @@ char	*unwrap_dollar(char *line)
 			line = skip_dollar(line);
 		}
 		new_line = charjoinfree(new_line, *line);
+		if (!*line)
+			break;
 		line++;
 	}
 	return (new_line);
