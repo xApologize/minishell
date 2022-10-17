@@ -111,7 +111,7 @@ char	**get_argv(t_data *data)
 			if (*data->line != '\0')
 			{
 				argv[i] = handle_dollar(ft_strdup(data->line));
-				argv[i] = stripstring(ft_strdup(argv[i]));
+				argv[i] = stripstring(argv[i]);
 			}
 			i++;
 		}
