@@ -13,8 +13,9 @@
 
 extern char	**g_envp_copy;
 
-//same as find_oldpwd. Returns the index if found, -1 if not
-int	find_pwd(void)
+//searches the environment variables for
+//the OLDPWD. Returns the index if found, -1 if not
+int	find_oldpwd(void)
 {
 	int		index;
 	char	**envp_split;
@@ -23,7 +24,7 @@ int	find_pwd(void)
 	while (g_envp_copy[++index])
 	{
 		envp_split = ft_split(g_envp_copy[index], '=');
-		if (ft_strcmp("PWD", envp_split[0]) == 0)
+		if (ft_strcmp("OLDPWD", envp_split[0]) == 0)
 		{
 			free_the_pp(envp_split);
 			return (index);
