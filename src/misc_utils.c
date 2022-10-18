@@ -45,6 +45,8 @@ char	*stripstring(char *arg)
 
 char	*skip_single_quote(char *line)
 {
+	if (*(line - 1) == '"')
+		return (line + 1);
 	line++;
 	while (*line != '\'' && *line)
 		line++;

@@ -26,29 +26,35 @@ bool	check_dollar(char *line)
 	return (false);
 }
 
+char	*get_dollar(char *new_line, char *line)
+{
+	char	*value;
+	
+	value = return_dollar(line);
+	new_line = ft_strjoinfree(new_line, value);
+	free(value);
+	value = NULL;
+	return (new_line);
+}
+
 //returns the expanded line. Copies char by char. if it encounters an expansion it finds it and adds it to the string. if not found, adds nothing
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
-	char	*value;
 
 	new_line = ft_calloc(1, 1);
-	value = NULL;
 	while (*line)
 	{
 		if (*line == '\'')
 			line = skip_single_quote(line);
 		while (*line == '$' && check_dollar(line))
 		{
-			value = return_dollar(line);
-			new_line = ft_strjoinfree(new_line, value);
-			free(value);
-			value = NULL;
+			new_line = get_dollar(new_line, line);
 			line = skip_dollar(line);
 		}
-		new_line = charjoinfree(new_line, *line);
 		if (!*line)
 			break;
+		new_line = charjoinfree(new_line, *line);
 		line++;
 	}
 	return (new_line);
