@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:32:21 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:32:23 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern char	**g_envp_copy;
@@ -31,7 +43,8 @@ void	handle_unset(t_cmd *cmd)
 		copynewenvp();
 }
 
-//checks if var is part of the environment variables. returns true if found, false otherwise
+//checks if var is part of the environment variables.
+//returns true if found, false otherwise
 bool	checkifunset(char *var, char *envp_var)
 {
 	char	**split_envp;
@@ -88,7 +101,8 @@ int	countnewvars(void)
 	return (j);
 }
 
-//sets var to !dncp so it does not get copied over into the new environment variables
+//sets var to !dncp so it does not get copied
+//over into the new environment variables
 void	modifyvar(char *var)
 {
 	int	i;
