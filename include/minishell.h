@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 16:39:18 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -17,12 +28,13 @@
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 
-// option de compil macos + homebrew: gcc minishell.c rl_gets.c  -lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I /opt/homebrew/Cellar//readline/8.1.2/include
+// option de compil macos + homebrew: gcc minishell.c rl_gets.c 
+//-lreadline -L /opt/homebrew/Cellar/readline/8.1.2/lib -I
+///opt/homebrew/Cellar//readline/8.1.2/include
 # define PIPE_READ 0
 # define PIPE_WRITE 1
 # define METACHAR "|<>\n"
 # define WS "\v\t\n\f\r "
-# define DEBUG printf("debug\n");
 # define WS_METACHAR "|<>\n\v\t\n\f\r "
 # define QUOTES "\'\""
 
@@ -45,7 +57,8 @@ typedef struct s_data
 }			t_data;
 
 //cmd = path au complet. ex: /usr/bin/cat, le access.
-//argv = le split de la command. ex argv[0] : cat, argv[1] : file, argv[2] : NULL.
+//argv = le split de la command. ex argv[0]
+//: cat, argv[1] : file, argv[2] : NULL.
 //environ = envp/environ du main.
 //next = la prochaine node.
 typedef struct s_cmd
@@ -95,6 +108,7 @@ char		*unwrap_enigma(char *line);
 void		d_quote_on(bool *d_quote, int *i);
 void		quote_on(bool *d_quote, int *i);
 char		*met_quote(char *new_line, char **line, bool *d_quote);
+char		*get_dollar(char *new_line, char *line);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
@@ -231,9 +245,9 @@ char		*access_path(char *line);
 //set_exec_struct.c
 t_cmd		*set_exec_struct(t_data *data);
 int			nb_pipes(t_data *data);
-t_cmd 		*create_nodes(char **env);
-void 		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
-t_cmd 		*get_last(t_cmd *cmd);
+t_cmd		*create_nodes(char **env);
+void		add_nodes(t_cmd **cmd, t_cmd *new_cmd);
+t_cmd		*get_last(t_cmd *cmd);
 
 //sig_utils.c
 void		quiet_handling(void);
@@ -248,13 +262,12 @@ void		quit_handler(int signum);
 void		shush_handler(int signum);
 void		hd_handler(int signum);
 
-
 //singleton_statuscode.c
 int			*get_exit_code(void);
 void		set_exit_code(int status_code);
 
 //string_manip.c
-void    	string_manip(t_data *data);
+void		string_manip(t_data *data);
 
 //unset_utils.c
 void		handle_unset(t_cmd *cmd);
