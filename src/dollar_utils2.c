@@ -26,6 +26,8 @@ bool	check_dollar(char *line)
 	return (false);
 }
 
+int	skip_double_quote(char *line, )
+
 char	*get_dollar(char *new_line, char *line)
 {
 	char	*value;
@@ -45,7 +47,7 @@ char	*unwrap_dollar(char *line)
 	new_line = ft_calloc(1, 1);
 	while (*line)
 	{
-		if (*line == '\'')
+		if (*line == '\'' && *(line - 1) != '"')
 			line = skip_single_quote(line);
 		while (*line == '$' && check_dollar(line))
 		{
