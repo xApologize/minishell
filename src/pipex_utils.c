@@ -16,7 +16,7 @@ extern char	**g_envp_copy;
 int	handle_pipe_cmd(t_cmd *cmd, t_data *data)
 {
 	if (cmd->redir_in == -1)
-		return(0);
+		return (0);
 	else if (cmd->next != NULL)
 		return (pipex_redir(cmd, data));
 	else if (cmd->cmd == NULL)
@@ -85,4 +85,3 @@ void	wait_child(int *pid_child, int table_size)
 		i++;
 	}
 }
-

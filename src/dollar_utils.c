@@ -13,7 +13,8 @@
 
 extern char	**g_envp_copy;
 
-//checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
+//checks if line contains a valid $ for unwrapping.
+//if so unwrap dollar returns and replaces the value if found
 char	*handle_dollar(char *line)
 {
 	char	*new_line;
@@ -57,7 +58,8 @@ char	*return_dollar(char *line)
 	return (return_line);
 }
 
-//copies the variables up until a token, newline, space or the end of the string is reached
+//copies the variables up until a token,
+//newline, space or the end of the string is reached
 char	*return_var(char *line)
 {
 	char	*var;
@@ -74,7 +76,8 @@ char	*return_var(char *line)
 	return (var);
 }
 
-//returns the index of the variable if found in the environment variables. returns -1 if not found
+//returns the index of the variable if found
+//in the environment variables. returns -1 if not found
 int	find_var(char *arg)
 {
 	int		index;
@@ -83,7 +86,6 @@ int	find_var(char *arg)
 
 	index = -1;
 	arg_split = ft_split(arg, '=');
-	
 	while (g_envp_copy[++index])
 	{
 		envp_split = ft_split(g_envp_copy[index], '=');

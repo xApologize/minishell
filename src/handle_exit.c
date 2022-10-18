@@ -47,10 +47,8 @@ static void	normal_exit(t_cmd *cmd, t_data *data)
 
 void	handle_exit(t_cmd *cmd, t_data *data)
 {
-	//int				exit_status;
 	unsigned char	status;
 
-	//exit_status = 0;
 	status = 0;
 	if (count_args(cmd) == 1)
 		normal_exit(cmd, data);

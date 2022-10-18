@@ -13,7 +13,8 @@
 
 extern char	**g_envp_copy;
 
-//prints the given arguments out followed by a \n by default. if n option used newline is omitted.
+//prints the given arguments out followed by
+//a \n by default. if n option used newline is omitted.
 void	handle_echo(t_cmd *cmd)
 {
 	char	*line;
@@ -59,7 +60,8 @@ int	skip_n(char *line)
 			trigger = 1;
 		if (trigger == 1 && (line[i] == ' ' || line[i] == '\t'))
 			trigger = 0;
-		if (trigger == 0 && (ft_isalnum(line[i]) == 1 || ft_strchr("<>|", line[i])))
+		if (trigger == 0 && (ft_isalnum(line[i]) == 1
+				|| ft_strchr("<>|", line[i])))
 			return (i);
 		if (trigger == 1 && ft_isalnum(line[i]) == 1 && line[i] != 'n')
 		{

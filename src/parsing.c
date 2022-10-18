@@ -36,7 +36,6 @@ void	check_validity(t_data *data)
 	}
 }
 
-
 void	parsing(t_data *data, t_cmd *cmd)
 {
 	error_quotation(data);

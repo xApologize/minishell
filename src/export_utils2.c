@@ -33,7 +33,8 @@ void	addtoenv(char *arg)
 	g_envp_copy = new_envp;
 }
 
-//if the argument was already part of the environement variables, modifies it to the new value
+//if the argument was already part of the
+//environement variables, modifies it to the new value
 void	modify_var(char *arg)
 {
 	int		index;
@@ -64,7 +65,7 @@ void	modify_var(char *arg)
 //checks if the argument is already in the environment variables
 char	*return_stripped_env(char **split_arg)
 {
-	char *new_arg;
+	char	*new_arg;
 
 	new_arg = NULL;
 	split_arg[1] = stripstring(split_arg[1]);
@@ -87,12 +88,14 @@ int	check_dup_env(char *arg)
 	else
 		new_arg = ft_strdup(arg);
 	while (g_envp_copy[++i])
+	{
 		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
 		{
 			free_the_pp(split_arg);
 			free(new_arg);
 			return (1);
 		}
+	}
 	free(new_arg);
 	free_the_pp(split_arg);
 	return (0);
@@ -110,24 +113,4 @@ bool	checkassign(char *arg)
 			return (true);
 	}
 	return (false);
-}
-
-char	*strip_quotes(char *arg)
-{
-	char	**split_arg;
-	char	*new_arg;
-
-	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
-	{
-		split_arg[1] = stripstring(split_arg[1]);
-		new_arg = ft_strdup(split_arg[0]);
-		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
-		free_the_pp(split_arg);
-		return (new_arg);
-	}
-	free_the_pp(split_arg);
-	return (ft_strdup(arg));
 }

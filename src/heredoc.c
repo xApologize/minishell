@@ -13,7 +13,7 @@
 
 extern char	**g_envp_copy;
 
-int		heredoc(t_data *data)
+int	heredoc(t_data *data)
 {
 	int		fd;
 	int		pid;
@@ -47,7 +47,7 @@ void	start_heredoc(int fd, char *delim)
 		if (line == NULL || ft_strcmp(line, delim) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
-		write(fd , return_line, ft_strlen(return_line));
+		write(fd, return_line, ft_strlen(return_line));
 		free(return_line);
 		free(line);
 	}

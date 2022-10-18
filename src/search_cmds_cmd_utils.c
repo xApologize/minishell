@@ -15,7 +15,6 @@ extern char	**g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
-	//gerer les erreur
 	if (access(line, X_OK) == 0)
 	{
 		free(line);
@@ -32,7 +31,6 @@ char	*access_relative_path(char *line)
 	char	*slash;
 	char	*pwd_join;
 
-	//gerer les erreur
 	slash = ft_strjoin("/", line);
 	pwd_join = ft_strjoin(getenv("PWD"), slash);
 	if (access(pwd_join, X_OK) == 0)
@@ -107,7 +105,7 @@ char	**get_argv(t_data *data)
 	char	**argv;
 
 	argv_count = get_argv_count(data);
-	argv = ft_calloc(sizeof(char*), (argv_count + 1));
+	argv = ft_calloc(sizeof(char *), (argv_count + 1));
 	i = 0;
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{

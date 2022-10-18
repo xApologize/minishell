@@ -30,3 +30,14 @@ char	*met_quote(char *new_line, char **line, bool *d_quote)
 	*line += 1;
 	return (new_line);
 }
+
+char	*get_dollar(char *new_line, char *line)
+{
+	char	*value;
+
+	value = return_dollar(line);
+	new_line = ft_strjoinfree(new_line, value);
+	free(value);
+	value = NULL;
+	return (new_line);
+}

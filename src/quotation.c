@@ -29,7 +29,7 @@ static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
 		{
 			*trigger = 0;
 			*c = 0;
-			break;
+			break ;
 		}
 		*i += 1;
 	}
@@ -37,10 +37,10 @@ static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
 
 void	double_check(t_data *data)
 {
-	int	i;
-	int	trigger;
-	char c;
-	
+	int		i;
+	int		trigger;
+	char	c;
+
 	i = 0;
 	c = 0;
 	trigger = 0;

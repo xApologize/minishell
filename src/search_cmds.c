@@ -13,29 +13,10 @@
 
 extern char	**g_envp_copy;
 
-void	print_struct(t_cmd *cmd)
+static void	free_both(char *line, char **builtin)
 {
-	t_cmd	*tmp;
-	int		i;
-	int		j;
-
-	tmp = cmd;
-	i = 0;
-	j = 0;
-	while (tmp != NULL)
-	{
-		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
-		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
-		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
-		while (tmp->argv[i + 1] != NULL)
-		{
-			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
-			i++;
-		}
-		i = 0;
-		j++;
-		tmp = tmp->next;
-	}
+	free(line);
+	free(builtin);
 }
 
 int	is_builtin(char *line)
@@ -56,14 +37,14 @@ int	is_builtin(char *line)
 	builtin[9] = NULL;
 	i = -1;
 	while (builtin[++i])
+	{
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
-			free(line);
-			free(builtin);
+			free_both(line, builtin);
 			return (1);
 		}
-	free(line);
-	free(builtin);
+	}
+	free_both(line, builtin);
 	return (0);
 }
 

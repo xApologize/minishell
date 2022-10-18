@@ -40,17 +40,6 @@ bool	check_dollar(char *line)
 	return (false);
 }
 
-char	*get_dollar(char *new_line, char *line)
-{
-	char	*value;
-	
-	value = return_dollar(line);
-	new_line = ft_strjoinfree(new_line, value);
-	free(value);
-	value = NULL;
-	return (new_line);
-}
-
 //returns the expanded line. Copies char by char. if it encounters
 //an expansion it finds it and adds it to the string. if not found, adds nothing
 char	*unwrap_dollar(char *line)
@@ -72,7 +61,7 @@ char	*unwrap_dollar(char *line)
 		if (*line == '"' && d_quote == true)
 			d_quote = false;
 		if (!*line)
-			break;
+			break ;
 		new_line = charjoinfree(new_line, *line);
 		line++;
 	}
@@ -109,7 +98,7 @@ bool	check_question(char *line)
 		if (line[i] == '\'' && quote == true)
 			quote = false;
 	}
-	return (false);	
+	return (false);
 }
 
 char	*unwrap_enigma(char *line)
@@ -123,7 +112,7 @@ char	*unwrap_enigma(char *line)
 	while (*line)
 	{
 		if (*line == '\'' && trigger == 1)
-			trigger = 0;	
+			trigger = 0;
 		if (*line == '\'' && trigger == 0)
 			trigger = 1;
 		while ((*line == '$' && *(line + 1) == '?') && trigger == 0)
