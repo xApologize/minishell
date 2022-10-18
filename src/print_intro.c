@@ -9,7 +9,6 @@
 /*   Updated: 2022/10/18 13:23:54 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/minishell.h"
 #include <stdio.h>
 #include <unistd.h>
