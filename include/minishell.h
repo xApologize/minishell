@@ -108,7 +108,13 @@ char		*unwrap_enigma(char *line);
 void		d_quote_on(bool *d_quote, int *i);
 void		quote_on(bool *d_quote, int *i);
 char		*met_quote(char *new_line, char **line, bool *d_quote);
+char		*met_d_quote(char *new_line, char **line, bool *d_quote);
 char		*get_dollar(char *new_line, char *line);
+
+//dollar_utils4.c
+char	*set_quotes_on(char	*new_line, char **line, bool *quote, bool *d_quote);
+void	set_quotes_off(char line, bool *quote, bool *d_quote);
+char	*fuck_norm(char *new_line, char **line, bool *quote, bool *d_quote);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);

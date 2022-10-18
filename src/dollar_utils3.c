@@ -31,6 +31,14 @@ char	*met_quote(char *new_line, char **line, bool *d_quote)
 	return (new_line);
 }
 
+char	*met_d_quote(char *new_line, char **line, bool *d_quote)
+{
+	*d_quote = true;
+	new_line = charjoinfree(new_line, **line);
+	*line += 1;
+	return (new_line);
+}
+
 char	*get_dollar(char *new_line, char *line)
 {
 	char	*value;

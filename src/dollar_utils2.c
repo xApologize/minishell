@@ -45,25 +45,27 @@ bool	check_dollar(char *line)
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
+	bool	quote;
 	bool	d_quote;
+	bool	skip;
 
 	new_line = ft_calloc(1, 1);
+	quote = false;
 	d_quote = false;
 	while (*line)
 	{
-		if (*line == '"' && d_quote == false)
-			new_line = met_quote(new_line, &line, &d_quote);
-		while (*line == '$' && check_dollar(line))
+		skip = false;
+		new_line = set_quotes_on(new_line, &line, &quote, &d_quote);
+		while (*line == '$' && check_dollar(line) && quote == false)
 		{
 			new_line = get_dollar(new_line, line);
 			line = skip_dollar(line);
+			skip = true;
 		}
-		if (*line == '"' && d_quote == true)
-			d_quote = false;
 		if (!*line)
 			break ;
-		new_line = charjoinfree(new_line, *line);
-		line++;
+		if (skip != true)
+			new_line = fuck_norm(new_line, &line, &quote, &d_quote);
 	}
 	return (new_line);
 }
