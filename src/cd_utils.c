@@ -13,27 +13,6 @@
 
 extern char	**g_envp_copy;
 
-//searches the environment variables for
-//the OLDPWD. Returns the index if found, -1 if not
-int	find_oldpwd(void)
-{
-	int		index;
-	char	**envp_split;
-
-	index = -1;
-	while (g_envp_copy[++index])
-	{
-		envp_split = ft_split(g_envp_copy[index], '=');
-		if (ft_strcmp("OLDPWD", envp_split[0]) == 0)
-		{
-			free_the_pp(envp_split);
-			return (index);
-		}
-		free_the_pp(envp_split);
-	}
-	return (-1);
-}
-
 //same as find_oldpwd. Returns the index if found, -1 if not
 int	find_pwd(void)
 {
@@ -57,7 +36,8 @@ int	find_pwd(void)
 //updates OLDPWD and PWD environment variables according to
 //the new path given when using cd. If either OLDPWD or
 //PWD are unset does nothing
-//if PWD and OLDPWD still exist, both updated. if PWD unset, no longer updated but OLDPWD updated. If OLDPWD unset gets recreated
+//if PWD and OLDPWD still exist, both updated. if PWD unset, 
+//no longer updated but OLDPWD updated. If OLDPWD unset gets recreated
 void	change_pwd(int index)
 {
 	char	*newpath;

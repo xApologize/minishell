@@ -147,7 +147,6 @@ int			heredoc(t_data *data);
 void		start_heredoc(int fd, char *delim);
 
 //misc_utils.c
-int			get_mem_len(char *arg, char c);
 char		*stripstring(char *arg);
 char		*skip_single_quote(char *line);
 bool		check_if_num(const char *n);

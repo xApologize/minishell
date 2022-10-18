@@ -9,7 +9,6 @@
 /*   Updated: 2022/10/18 13:17:09 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../include/minishell.h"
 
 void	quote_on(bool *quote, int *i)
