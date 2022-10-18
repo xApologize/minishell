@@ -62,6 +62,7 @@ char	*return_var(char *line)
 	}
 	return (var);
 }
+
 //returns the index of the variable if found in the environment variables. returns -1 if not found
 int	find_var(char *arg)
 {
@@ -86,6 +87,7 @@ int	find_var(char *arg)
 	free_the_pp(arg_split);
 	return (-1);
 }
+
 //copies one character at a time into a string
 char	*charjoinfree(const char *s1, const char c)
 {

@@ -39,8 +39,6 @@ void	free_the_pp(char **pp)
 	pp = NULL;
 }
 
-
-
 void	free_data(t_data *data)
 {
 	data->indexmeta = data->save_indexmeta;
