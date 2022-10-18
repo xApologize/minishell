@@ -7,12 +7,21 @@ bool	check_dollar(char *line)
 {
 	int		i;
 	bool	quote;
+	bool	d_quote;
 
 	i = -1;
 	quote = false;
+	d_quote = false;
 	while (line[++i])
 	{
-		if (line[i] == '\'' && quote == false)
+		if (line[i] == '"' && d_quote == false)
+		{
+			d_quote = true;
+			i++;
+		}
+		else
+			d_quote = false;
+		if (line[i] == '\'' && d_quote == false && quote == false)
 		{
 			quote = true;
 			i++;
@@ -20,13 +29,11 @@ bool	check_dollar(char *line)
 		if (line[i] == '$' && (ft_isalnum(line[i + 1]) == 1 \
 		|| line[i + 1] == '_') && quote == false)
 			return (true);
-		if (line[i] == '\'' && quote == true)
+		if (line[i] == '\'' && quote == true && d_quote == false)
 			quote = false;
 	}
 	return (false);
 }
-
-int	skip_double_quote(char *line, )
 
 char	*get_dollar(char *new_line, char *line)
 {
@@ -43,17 +50,24 @@ char	*get_dollar(char *new_line, char *line)
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
+	bool	d_quote;
 
 	new_line = ft_calloc(1, 1);
+	d_quote = false;
 	while (*line)
 	{
-		if (*line == '\'' && *(line - 1) != '"')
-			line = skip_single_quote(line);
+		if (*line == '"' && d_quote == false)
+		{
+			d_quote = true;
+			line++;
+		}
 		while (*line == '$' && check_dollar(line))
 		{
 			new_line = get_dollar(new_line, line);
 			line = skip_dollar(line);
 		}
+		if (*line == '"' && d_quote == true)
+			d_quote = false;
 		if (!*line)
 			break;
 		new_line = charjoinfree(new_line, *line);
