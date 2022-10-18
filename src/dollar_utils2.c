@@ -15,20 +15,14 @@ bool	check_dollar(char *line)
 	while (line[++i])
 	{
 		if (line[i] == '"' && d_quote == false)
-		{
-			d_quote = true;
-			i++;
-		}
-		else
-			d_quote = false;
+			d_quote_on(&d_quote, &i);
 		if (line[i] == '\'' && d_quote == false && quote == false)
-		{
-			quote = true;
-			i++;
-		}
+			quote_on(&quote, &i);
 		if (line[i] == '$' && (ft_isalnum(line[i + 1]) == 1 \
 		|| line[i + 1] == '_') && quote == false)
 			return (true);
+		if (line[i] == '"' && d_quote == true)
+			d_quote = false;
 		if (line[i] == '\'' && quote == true && d_quote == false)
 			quote = false;
 	}
@@ -46,7 +40,8 @@ char	*get_dollar(char *new_line, char *line)
 	return (new_line);
 }
 
-//returns the expanded line. Copies char by char. if it encounters an expansion it finds it and adds it to the string. if not found, adds nothing
+//returns the expanded line. Copies char by char. if it encounters
+//an expansion it finds it and adds it to the string. if not found, adds nothing
 char	*unwrap_dollar(char *line)
 {
 	char	*new_line;
@@ -57,10 +52,7 @@ char	*unwrap_dollar(char *line)
 	while (*line)
 	{
 		if (*line == '"' && d_quote == false)
-		{
-			d_quote = true;
-			line++;
-		}
+			new_line = met_quote(new_line, &line, &d_quote);
 		while (*line == '$' && check_dollar(line))
 		{
 			new_line = get_dollar(new_line, line);

@@ -91,6 +91,11 @@ char		*skip_dollar(char *line);
 bool		check_question(char *line);
 char		*unwrap_enigma(char *line);
 
+//dollar_utils3.c
+void		d_quote_on(bool *d_quote, int *i);
+void		quote_on(bool *d_quote, int *i);
+char		*met_quote(char *new_line, char **line, bool *d_quote);
+
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
 int			skip_echo(char *line);
