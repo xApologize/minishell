@@ -20,14 +20,14 @@ extern char	**g_envp_copy;
 //print error message: bash: exit: 4324a: numeric argument required
 static void	arg_error(void)
 {
-	printf("exit\n");
+	dprintf(STDERR_FILENO, "exit\n");
 	dprintf(STDERR_FILENO, "minicougar: exit: too many arguments\n");
 	set_exit_code(1);
 }
 
 static void	num_error(t_cmd *cmd, t_data *data)
 {
-	printf("exit\n");
+	dprintf(STDERR_FILENO, "exit\n");
 	dprintf(STDERR_FILENO, "minicougar: exit: %s: \
 numeric argument required\n", cmd->argv[1]);
 	free_all(cmd, data);
@@ -41,7 +41,7 @@ static void	normal_exit(t_cmd *cmd, t_data *data)
 	free_all(cmd, data);
 	close(data->stdin_cp);
 	close(data->stdout_cp);
-	printf("exit\n");
+	dprintf(STDERR_FILENO, "exit\n");
 	exit(0);
 }
 
