@@ -29,6 +29,9 @@ int	heredoc(t_data *data)
 	{
 		sig_heredoc();
 		start_heredoc(fd, placeholder);
+		close(data->stdin_cp);
+		close(data->stdout_cp);
+		free_the_pp(g_envp_copy);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);

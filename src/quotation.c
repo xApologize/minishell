@@ -18,7 +18,10 @@ void	error_quotation(t_data *data)
 	data->error_quotes = false;
 	double_check(data);
 	if (data->error_quotes == true)
+	{
 		dprintf(STDERR_FILENO, "minicougar: odd number of quotes\n");
+		free(data->line);
+	}
 }
 
 static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
