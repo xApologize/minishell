@@ -20,7 +20,7 @@ char	*strip_quotes(char *arg)
 
 	split_arg = ft_split(arg, '=');
 	new_arg = NULL;
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	if (split_arg[1] && (split_arg[1][0] == '"' || split_arg[1][0] == '\''))
 	{
 		split_arg[1] = stripstring(split_arg[1]);
 		new_arg = ft_strdup(split_arg[0]);
