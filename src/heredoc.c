@@ -17,19 +17,22 @@ int	heredoc(t_data *data)
 {
 	int		fd;
 	int		pid;
+	char	*placeholder;
 
 	fd = open("/tmp/minishell_heredoc.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	while (*data->line == '\0')
 		skip_char(data);
+	placeholder = stripstring(ft_strdup(data->line));
 	sig_ignore();
 	pid = fork();
 	if (pid == 0)
 	{
 		sig_heredoc();
-		start_heredoc(fd, stripstring(ft_strdup(data->line)));
+		start_heredoc(fd, placeholder);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
+	free(placeholder);
 	while (*data->line != '\0')
 		data->line++;
 	close(fd);
