@@ -26,11 +26,12 @@ void	print_n(t_cmd *cmd)
 		if (check_n(cmd->argv[i]) == 0)
 			break ;
 	}
-	while (cmd->argv[++i])
+	while (cmd->argv[i])
 	{
 		printf("%s", cmd->argv[i]);
 		if (cmd->argv[i + 1])
 			printf(" ");
+		i++;
 	}
 }
 
