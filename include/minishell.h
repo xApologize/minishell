@@ -118,10 +118,9 @@ char	*fuck_norm(char *new_line, char **line, bool *quote, bool *d_quote);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
-int			skip_echo(char *line);
-int			skip_n(char *line);
-void		print_echo_with_n(char *line);
-void		print_echo_without_n(char *line);
+void		print_n(t_cmd *cmd);
+void		print_no_n(t_cmd *cmd);
+int			check_n(char *opt);
 
 //envp_cp.c
 char		**envp_cp(char **envp);

@@ -14,7 +14,7 @@
 char	**g_envp_copy;
 
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_data		data;
 	t_cmd		*cmd;
