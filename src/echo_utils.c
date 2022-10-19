@@ -15,18 +15,47 @@ extern char	**g_envp_copy;
 
 //prints the given arguments out followed by
 //a \n by default. if n option used newline is omitted.
+
+void	print_n(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->argv[++i])
+	{
+		if (check_n(cmd->argv[i]) == 0)
+			break ;
+	}
+	while (cmd->argv[++i])
+	{
+		printf("%s", cmd->argv[i]);
+		if (cmd->argv[i + 1])
+			printf(" ");
+	}
+}
+
+void	print_no_n(t_cmd *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd->argv[++i])
+	{
+		printf("%s", cmd->argv[i]);
+		if (cmd->argv[i + 1])
+			printf(" ");
+	}
+	printf("\n");
+}
+
 void	handle_echo(t_cmd *cmd)
 {
-	char	*line;
-
 	if (cmd->argv[1])
 	{
-		line = make_line(cmd->argv);
 		if (check_n(cmd->argv[1]) == 1)
-			print_echo_with_n(line);
+			print_n(cmd);
 		else
-			print_echo_without_n(line);
-		free(line);
+			print_no_n(cmd);
 	}
 	else
 		printf("\n");
