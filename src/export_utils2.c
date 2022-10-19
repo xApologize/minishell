@@ -44,7 +44,7 @@ void	modify_var(char *arg)
 	index = find_var(arg);
 	split_arg = ft_split(arg, '=');
 	new_arg = NULL;
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	if (split_arg[1] && (split_arg[1][0] == '"' || split_arg[1][0] == '\''))
 	{
 		split_arg[1] = stripstring(split_arg[1]);
 		new_arg = ft_strdup(split_arg[0]);
@@ -83,7 +83,7 @@ int	check_dup_env(char *arg)
 
 	i = -1;
 	split_arg = ft_split(arg, '=');
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	if (split_arg[1] && (split_arg[1][0] == '"' || split_arg[1][0] == '\''))
 		new_arg = return_stripped_env(split_arg);
 	else
 		new_arg = ft_strdup(arg);
