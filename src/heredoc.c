@@ -6,10 +6,11 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:19:09 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 11:12:44 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:42:24 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
+#include <unistd.h>
 
 extern char	**g_envp_copy;
 
@@ -28,7 +29,7 @@ int	heredoc(t_data *data)
 	if (pid == 0)
 	{
 		sig_heredoc();
-		start_heredoc(fd[1], placeholder);
+		start_heredoc(fd, placeholder);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -39,7 +40,7 @@ int	heredoc(t_data *data)
 	return (fd[0]);
 }
 
-void	start_heredoc(int fd, char *delim)
+void	start_heredoc(int fd[2], char *delim)
 {
 	char	*line;
 	char	*return_line;
@@ -50,10 +51,12 @@ void	start_heredoc(int fd, char *delim)
 		if (line == NULL || ft_strcmp(line, delim) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
-		write(fd, return_line, ft_strlen(return_line));
+		write(fd[1], return_line, ft_strlen(return_line));
 		free(return_line);
 		free(line);
 	}
 	if (line)
 		free(line);
+	close(fd[1]);
+	close(fd[0]);
 }
