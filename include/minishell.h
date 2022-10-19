@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 09:48:15 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:41:53 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -164,7 +164,7 @@ int			count_args(t_cmd *cmd);
 
 //heredoc.c
 int			heredoc(t_data *data);
-void		start_heredoc(int fd, char *delim);
+void		start_heredoc(int fd[2], char *delim);
 
 //misc_utils.c
 char		*stripstring(char *arg);
