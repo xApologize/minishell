@@ -42,6 +42,7 @@ void	set_fd_in(t_cmd *cmd, t_data *data)
 void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 {
 	char	*placeholder;
+
 	if (!cmd || !data->line)
 		return ;
 	while (*data->line == '\0' && ft_strchr(" >", *data->indexmeta))
