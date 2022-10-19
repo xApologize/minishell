@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 16:39:18 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:48:15 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -170,6 +170,7 @@ void		start_heredoc(int fd, char *delim);
 char		*stripstring(char *arg);
 char		*skip_single_quote(char *line);
 bool		check_if_num(const char *n);
+char		*handle_string(char *str);
 
 //make_line.c
 char		*make_line(char **argv);

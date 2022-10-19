@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:31:01 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:31:03 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:47:55 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -53,7 +53,7 @@ char	*get_path(char *line_cp, t_data *data)
 	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
-	while (data->path_split[i] != NULL)
+	while (data->path_split[i++] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
 		if (access(access_try, X_OK) == 0)
@@ -62,7 +62,6 @@ char	*get_path(char *line_cp, t_data *data)
 			free(slash);
 			return (access_try);
 		}
-		i++;
 		free(access_try);
 	}
 	free(slash);
@@ -110,20 +109,13 @@ char	**get_argv(t_data *data)
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{
 		if (i == 0)
-		{
-			argv[i] = handle_dollar(ft_strdup(data->line));
-			argv[i] = stripstring(argv[i]);
-			i++;
-		}
+			argv[i++] = handle_string(ft_strdup(data->line));
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
 		{
 			while (*data->line == '\0' && *data->indexmeta == ' ')
 				skip_char(data);
 			if (*data->line != '\0')
-			{
-				argv[i] = handle_dollar(ft_strdup(data->line));
-				argv[i] = stripstring(argv[i]);
-			}
+				argv[i] = handle_string(ft_strdup(data->line));
 			i++;
 		}
 		else
