@@ -110,7 +110,7 @@ char	*unwrap_enigma(char *line)
 	int		trigger;
 
 	trigger = 0;
-	new_line = ft_calloc(10, 1);
+	new_line = ft_calloc(1, 1);
 	while (*line)
 	{
 		if (*line == '\'' && trigger == 1)
@@ -125,6 +125,8 @@ char	*unwrap_enigma(char *line)
 			value = NULL;
 			line += 2;
 		}
+		if (!*line)
+			break ;
 		new_line = charjoinfree(new_line, *line);
 		line++;
 	}
