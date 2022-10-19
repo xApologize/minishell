@@ -108,7 +108,7 @@ void	handle_cd(t_cmd *cmd)
 	if (res == -1)
 	{
 		dprintf(STDERR_FILENO, "minicougar: cd: \
-		%s: %s\n", strerror(errno), cmd->argv[1]);
+%s: %s\n", strerror(errno), cmd->argv[1]);
 		set_exit_code(1);
 	}
 }
