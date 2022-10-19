@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:19:55 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:19:56 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/19 09:48:12 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -59,4 +59,11 @@ bool	check_if_num(const char *n)
 			return (false);
 	}
 	return (true);
+}
+
+char	*handle_string(char *str)
+{
+	str = handle_dollar(str);
+	str = stripstring(str);
+	return (str);
 }
