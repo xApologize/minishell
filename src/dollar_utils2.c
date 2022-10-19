@@ -75,7 +75,7 @@ char	*skip_dollar(char *line)
 {
 	while (++line)
 	{
-		if (ft_isalnum(*line) == 0)
+		if (ft_isalpha(*line) == 0)
 			break ;
 	}
 	return (line);
