@@ -123,7 +123,6 @@ char	*unwrap_enigma(char *line)
 			value = ft_itoa(*get_exit_code());
 			new_line = ft_strjoinfree(new_line, value);
 			free(value);
-			value = NULL;
 			line += 2;
 		}
 		if (!*line)

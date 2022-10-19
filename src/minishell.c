@@ -14,23 +14,15 @@
 char	**g_envp_copy;
 
 // need to fix prompt that shows up twice when using ctrl-c when signal is reset
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_data		data;
 	t_cmd		*cmd;
 	extern char	**environ;
 
 	g_envp_copy = envp_cp(environ);
-	update_shlvl();
 	cmd = NULL;
-	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	{
-		int *exit_code;
-		data.line = ft_strjoin(argv[2], "\n");
-    	parsing(&data, cmd);
-		exit_code = get_exit_code();
-    	exit(*exit_code);
-	}
+	update_shlvl();
 	print_intro();
 	while (1)
 	{
