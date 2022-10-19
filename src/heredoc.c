@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:19:09 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:19:11 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/19 11:12:44 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -15,11 +15,11 @@ extern char	**g_envp_copy;
 
 int	heredoc(t_data *data)
 {
-	int		fd;
+	int		fd[2];
 	int		pid;
 	char	*placeholder;
 
-	fd = open("/tmp/minishell_heredoc.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
+	pipe(fd);
 	while (*data->line == '\0')
 		skip_char(data);
 	placeholder = stripstring(ft_strdup(data->line));
@@ -28,15 +28,15 @@ int	heredoc(t_data *data)
 	if (pid == 0)
 	{
 		sig_heredoc();
-		start_heredoc(fd, placeholder);
+		start_heredoc(fd[1], placeholder);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
 	free(placeholder);
 	while (*data->line != '\0')
 		data->line++;
-	close(fd);
-	return (open("/tmp/minishell_heredoc.txt", O_RDONLY));
+	close(fd[1]);
+	return (fd[0]);
 }
 
 void	start_heredoc(int fd, char *delim)
@@ -56,5 +56,4 @@ void	start_heredoc(int fd, char *delim)
 	}
 	if (line)
 		free(line);
-	close(fd);
 }
