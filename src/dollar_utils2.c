@@ -73,6 +73,7 @@ char	*unwrap_dollar(char *line)
 //skips the expansion so it is not copied into the new string
 char	*skip_dollar(char *line)
 {
+	line++;
 	while (++line)
 	{
 		if (ft_isalpha(*line) == 0)
