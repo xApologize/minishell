@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:16:58 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:17:00 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:44:27 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -65,7 +65,7 @@ char	*unwrap_dollar(char *line)
 		if (!*line)
 			break ;
 		if (skip != true)
-			new_line = fuck_norm(new_line, &line, &quote, &d_quote);
+			new_line = set_quotes_off_free(new_line, &line, &quote, &d_quote);
 	}
 	return (new_line);
 }

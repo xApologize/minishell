@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 11:41:53 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/19 16:44:06 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -112,9 +112,9 @@ char		*met_d_quote(char *new_line, char **line, bool *d_quote);
 char		*get_dollar(char *new_line, char *line);
 
 //dollar_utils4.c
-char	*set_quotes_on(char	*new_line, char **line, bool *quote, bool *d_quote);
-void	set_quotes_off(char line, bool *quote, bool *d_quote);
-char	*fuck_norm(char *new_line, char **line, bool *quote, bool *d_quote);
+char		*set_quotes_on(char	*new_line, char **line, bool *quote, bool *d_quote);
+void		set_quotes_off(char line, bool *quote, bool *d_quote);
+char		*set_quotes_off_free(char *new_line, char **line, bool *quote, bool *d_quote);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);
