@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 16:44:06 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:21:58 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef MINISHELL_H
@@ -224,9 +224,8 @@ void		single_check(t_data *data);
 char		*rl_gets(void);
 
 //search_cmds.c
+char		**create_table(void);
 char		*get_path(char *line_cp, t_data *data);
-int			get_argv_count(t_data *data);
-char		**get_argv(t_data *data);
 void		set_cmd(t_cmd *cmd, t_data *data);
 void		search_cmd(t_data *data, t_cmd *cmd);
 

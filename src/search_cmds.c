@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:30:05 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:30:07 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/20 10:27:01 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -19,10 +19,9 @@ static void	free_both(char *line, char **builtin)
 	free(builtin);
 }
 
-int	is_builtin(char *line)
+char	**create_table(void)
 {
 	char	**builtin;
-	int		i;
 
 	builtin = ft_calloc(10, sizeof (char *));
 	builtin[0] = "echo";
@@ -35,7 +34,17 @@ int	is_builtin(char *line)
 	builtin[7] = "pepe";
 	builtin[8] = "owo";
 	builtin[9] = NULL;
+	return (builtin);
+}
+
+int	is_builtin(char *line)
+{
+	int		i;
+	char	**builtin;
+
 	i = -1;
+	builtin = create_table();
+	line = handle_string(line);
 	while (builtin[++i])
 	{
 		if (ft_strcmp(line, builtin[i]) == 0)
