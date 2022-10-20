@@ -94,7 +94,8 @@ bool	check_question(char *line)
 		if (line[i] == '\'')
 		{
 			quote = true;
-			i++;
+			if (line[i + 1])
+				i++;
 		}
 		if (line[i] == '$' && line[i + 1] == '?' && quote == false)
 			return (true);
