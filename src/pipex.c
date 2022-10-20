@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:20:28 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:20:29 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/20 15:49:18 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -42,8 +42,8 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 		redir_pipe(pipe_fd, 0);
 	if (pid == 0)
 	{
-		redir_utils(cmd);
 		redir_pipe(pipe_fd, 1);
+		redir_utils(cmd);
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
