@@ -27,7 +27,7 @@ void	addtoenv(char *arg)
 	new_envp = malloc((i + 2) * sizeof(char *));
 	while (g_envp_copy[++j])
 		new_envp[j] = ft_strdup(g_envp_copy[j]);
-	new_envp[i] = strip_quotes(arg);
+	new_envp[i] = ft_strdup(arg);
 	new_envp[i + 1] = NULL;
 	free_the_pp(g_envp_copy);
 	g_envp_copy = new_envp;

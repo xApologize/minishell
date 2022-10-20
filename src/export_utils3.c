@@ -44,6 +44,5 @@ char	*make_arg(char **split_arg)
 	i = 0;
 	while (split_arg[++i])
 		line = ft_strjoinfree(line, split_arg[i]);
-	line = stripstring(line);
 	return (line);
 }
