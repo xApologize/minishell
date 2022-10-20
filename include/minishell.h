@@ -165,7 +165,7 @@ void		handle_exit(t_cmd *cmd, t_data *data);
 int			count_args(t_cmd *cmd);
 
 //heredoc.c
-int			heredoc(t_data *data);
+int			heredoc(t_data *data, t_cmd *cmd);
 void		start_heredoc(int fd[2], char *delim);
 
 //misc_utils.c

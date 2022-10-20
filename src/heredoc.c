@@ -14,7 +14,7 @@
 
 extern char	**g_envp_copy;
 
-int	heredoc(t_data *data)
+int	heredoc(t_data *data, t_cmd *cmd)
 {
 	int		fd[2];
 	int		pid;
@@ -32,7 +32,7 @@ int	heredoc(t_data *data)
 		start_heredoc(fd, placeholder);
 		close(data->stdin_cp);
 		close(data->stdout_cp);
-		free_the_pp(g_envp_copy);
+		free_all(cmd, data);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
@@ -60,6 +60,7 @@ void	start_heredoc(int fd[2], char *delim)
 	}
 	if (line)
 		free(line);
+	free(delim);
 	close(fd[1]);
 	close(fd[0]);
 }

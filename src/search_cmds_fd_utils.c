@@ -74,7 +74,7 @@ void	get_fd(t_cmd *cmd, t_data *data, char meta)
 	if (meta == '<')
 	{
 		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
-			cmd->redir_in = heredoc(data);
+			cmd->redir_in = heredoc(data, cmd);
 		else
 			set_fd_in(cmd, data);
 	}
