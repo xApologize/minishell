@@ -40,17 +40,18 @@ void	modify_var(char *arg)
 	int		index;
 	char	**split_arg;
 	char	*new_arg;
+	char	*line;
 
 	index = find_var(arg);
 	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
 	if (split_arg[1] && (split_arg[1][0] == '"' || split_arg[1][0] == '\''))
 	{
-		split_arg[1] = stripstring(split_arg[1]);
+		line = make_arg(split_arg);
 		new_arg = ft_strdup(split_arg[0]);
 		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+		new_arg = ft_strjoinfree(new_arg, line);
 		free(g_envp_copy[index]);
+		free(line);
 		g_envp_copy[index] = ft_strdup(new_arg);
 		free(new_arg);
 	}

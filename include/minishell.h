@@ -135,8 +135,11 @@ int			check_modify_env(char *arg);
 void		addtoenv(char *arg);
 void		modify_var(char *arg);
 int			check_dup_env(char *arg);
-char		*strip_quotes(char *arg);
 bool		checkassign(char *arg);
+
+//export_utils3.c
+char		*strip_quotes(char *arg);
+char		*make_arg(char **split_arg);
 
 //free_memory.c
 void		free_cmd(t_cmd *cmd);
