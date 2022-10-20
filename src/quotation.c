@@ -55,6 +55,8 @@ void	double_check(t_data *data)
 			trigger = 1;
 			i++;
 			skip_quote(data, &i, &trigger, &c);
+			if (!data->line[i])
+				break ;
 		}
 		i++;
 	}
