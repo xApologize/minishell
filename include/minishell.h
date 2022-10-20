@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/20 10:21:58 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:30:34 by tberube-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef MINISHELL_H
+
 # define MINISHELL_H
 
 # include "../libft/include/libft.h"
@@ -211,6 +211,7 @@ void		wait_child(int *pid_child, int table_size);
 void		print_intro(void);
 void		pepe(void);
 void		owo(void);
+void		smile(void);
 
 //pwd_utils.c
 void		handle_pwd(t_cmd *cmd);
