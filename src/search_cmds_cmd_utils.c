@@ -48,7 +48,7 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
-	i = 0;
+	i = -1;
 	line_cp = handle_dollar(line_cp);
 	line_cp = stripstring(line_cp);
 	if (!data->path_split)
@@ -56,7 +56,7 @@ char	*get_path(char *line_cp, t_data *data)
 	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
-	while (data->path_split[i++] != NULL)
+	while (data->path_split[++i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
 		if (access(access_try, X_OK) == 0)
