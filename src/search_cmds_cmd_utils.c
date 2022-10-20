@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:31:01 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 09:47:55 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:00:05 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -15,10 +15,13 @@ extern char	**g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
+	char	*path;
+
 	if (access(line, X_OK) == 0)
 	{
+		path = ft_strdup(line);
 		free(line);
-		return (ft_strdup(line));
+		return (path);
 	}
 	else
 		dprintf(2, "minicougar: %s: no such file or directory\n", line);
