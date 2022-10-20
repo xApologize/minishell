@@ -16,11 +16,10 @@ extern char	**g_envp_copy;
 void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
-	int	*pid_child;
+	int	pid_child[1000];
 	int	table_size;
 
 	table_size = table_length(cmd);
-	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
 	while (cmd != NULL)
 	{
@@ -30,7 +29,6 @@ void	pipex(t_cmd *cmd, t_data *data)
 	}
 	wait_child(pid_child, table_size);
 	restore_std(data);
-	free(pid_child);
 }
 
 int	pipex_redir(t_cmd *cmd, t_data *data)

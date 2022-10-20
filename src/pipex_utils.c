@@ -72,6 +72,7 @@ void	wait_child(int *pid_child, int table_size)
 	int	i;
 
 	i = 0;
+	status = 0;
 	sig_ignore();
 	while (i < table_size)
 	{
