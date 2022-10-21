@@ -6,7 +6,7 @@
 /*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:23:51 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/20 12:52:28 by tberube-         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:00:55 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	owo(void)
 void	smile(void)
 {
 	printf("\033[0;34m");
-	printf("!Better smile Mofo!\n");
+	printf("!Better smile!\n");
 	printf("\033[0;34m");
 	printf("\033[0;37m");
 	printf("                                  .^^^^:~777!!!!!!777!!7~^^^:.                                     \n\
