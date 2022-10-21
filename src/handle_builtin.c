@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   handle_builtin.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:18:33 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:18:35 by yst-laur         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:11:05 by tberube-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern char	**g_envp_copy;
@@ -34,4 +35,6 @@ void	handle_builtin(t_cmd *cmd, t_data *data)
 		pepe();
 	else if (ft_strcmp(cmd->argv[0], "owo") == 0)
 		owo();
+	else if (ft_strcmp(cmd->argv[0], "smile") == 0)
+		smile();
 }
