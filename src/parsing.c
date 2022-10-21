@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:20:06 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:20:08 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <unistd.h>
+
+extern char	**g_envp_copy;
 
 void	check_validity(t_data *data)
 {
@@ -16,14 +28,13 @@ void	check_validity(t_data *data)
 		if (!ft_strchr("<>|", data->line[i]) && data->line[i] != ' ' \
 			&& ft_isprint(data->line[i]) == 1 && trigger == 1)
 			trigger = 0;
-		if (ft_strchr("\n<>|", data->line[i]) && trigger == 1)
+		if (ft_strchr("\n|", data->line[i]) && trigger == 1)
 		{
 			data->parse_status = true;
 			break ;
 		}
 	}
 }
-
 
 void	parsing(t_data *data, t_cmd *cmd)
 {
@@ -79,20 +90,15 @@ int	quote(int i, t_data *data)
 	{
 		i++;
 		while (!ft_strchr("\'", data->line[i]))
-		{
 			i++;
-		}
 	}
 	if (ft_strchr("\"", data->line[i]))
 	{
 		i++;
 		while (!ft_strchr("\"", data->line[i]))
-		{
 			i++;
-		}
 	}
-	i++;
-	return (i - 1);
+	return (i);
 }
 
 void	findlenght(t_data *data)

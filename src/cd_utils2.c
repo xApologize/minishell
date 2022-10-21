@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkenvformat.c                                   :+:      :+:    :+:   */
+/*   cd_utils2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:16:00 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:16:05 by yst-laur         ###   ########.fr       */
+/*   Created: 2022/10/18 15:40:46 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 15:40:51 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
 extern char	**g_envp_copy;
 
-int	checkenvformat(char *var)
+//searches the environment variables for
+//the OLDPWD. Returns the index if found, -1 if not
+int	find_pwd(void)
 {
-	int	i;
+	int		index;
+	char	**envp_split;
 
-	i = -1;
-	while (var[++i])
+	index = -1;
+	while (g_envp_copy[++index])
 	{
-		if (var[i] == '=' && \
-		ft_isprint(var[i - 1]) == 1 && ft_isprint(var[i + 1]) == 1)
-			return (1);
+		envp_split = ft_split(g_envp_copy[index], '=');
+		if (ft_strcmp("PWD", envp_split[0]) == 0)
+		{
+			free_the_pp(envp_split);
+			return (index);
+		}
+		free_the_pp(envp_split);
 	}
-	return (0);
+	return (-1);
 }

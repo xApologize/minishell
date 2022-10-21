@@ -1,50 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   misc_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:19:55 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/19 09:48:12 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
 
-int	get_mem_len(char *arg)
-{
-	int	i;
-	int	count;
-
-	i = -1;
-	count = 0;
-	while (arg[++i])
-	{
-		if (arg[i] != '\'' && arg[i] != '"')
-			count++;
-	}
-	return (count);
-}
+extern char	**g_envp_copy;
 
 char	*stripstring(char *arg)
 {
 	char	*new_string;
 	int		i;
-	int		j;
+	char	c;
 
 	i = -1;
-	j = 0;
-	new_string = ft_calloc((get_mem_len(arg) + 1), sizeof (char));
+	new_string = ft_calloc(1, 1);
 	while (arg[++i])
 	{
-		if (arg[i] != '\'' && arg[i] != '"')
+		while (arg[i] == '\'' || arg[i] == '"')
 		{
-			new_string[j] = arg[i];
-			j++;
+			c = arg[i];
+			while (arg[++i] != c)
+				new_string = charjoinfree(new_string, arg[i]);
+			i++;
 		}
+		if (!arg[i])
+			break ;
+		new_string = charjoinfree(new_string, arg[i]);
 	}
-	new_string[j] = '\0';
 	free(arg);
 	return (new_string);
 }
 
-char	*strip_outer_quotes(char *arg)
+char	*skip_single_quote(char *line)
 {
-	char	*new_string;
+	if (*(line - 1) == '"')
+		return (line + 1);
+	line++;
+	while (*line != '\'' && *line)
+		line++;
+	return (line);
+}
 
-	new_string = NULL;
-	if (arg[0] == '\'')
-		return (new_string = ft_strtrimfree(arg, "'"));
-	else if (arg[0] == '"')
-		return (new_string = ft_strtrimfree(arg, "\""));
-	return (arg);
+bool	check_if_num(const char *n)
+{
+	int	i;
+
+	i = -1;
+	while (n[++i])
+	{
+		if (ft_isdigit(n[i]) == 0)
+			return (false);
+	}
+	return (true);
+}
+
+char	*handle_string(char *str)
+{
+	str = handle_dollar(str);
+	str = stripstring(str);
+	return (str);
 }

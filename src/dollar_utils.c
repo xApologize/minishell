@@ -1,6 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dollar_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:16:50 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:16:52 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
 
-//checks if line contains a valid $ for unwrapping. if so unwrap dollar returns and replaces the value if found
+extern char	**g_envp_copy;
+
+//checks if line contains a valid $ for unwrapping.
+//if so unwrap dollar returns and replaces the value if found
 char	*handle_dollar(char *line)
 {
 	char	*new_line;
@@ -44,12 +58,13 @@ char	*return_dollar(char *line)
 	return (return_line);
 }
 
-//copies the variables up until a token, newline, space or the end of the string is reached
+//copies the variables up until a token,
+//newline, space or the end of the string is reached
 char	*return_var(char *line)
 {
 	char	*var;
 
-	var = ft_calloc(10, 1);
+	var = ft_calloc(1, 1);
 	line++;
 	while (*line)
 	{
@@ -60,7 +75,9 @@ char	*return_var(char *line)
 	}
 	return (var);
 }
-//returns the index of the variable if found in the environment variables. returns -1 if not found
+
+//returns the index of the variable if found
+//in the environment variables. returns -1 if not found
 int	find_var(char *arg)
 {
 	int		index;
@@ -83,6 +100,7 @@ int	find_var(char *arg)
 	free_the_pp(arg_split);
 	return (-1);
 }
+
 //copies one character at a time into a string
 char	*charjoinfree(const char *s1, const char c)
 {

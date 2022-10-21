@@ -1,43 +1,70 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search_cmds_fd_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:30:24 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/20 12:56:38 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <stdio.h>
+#include <unistd.h>
+
+extern char	**g_envp_copy;
 
 void	set_fd_in(t_cmd *cmd, t_data *data)
 {
+	char	*placeholder;
+
 	if (!cmd || !data)
 		return ;
 	while (*data->line == '\0' && ft_strchr(" <", *data->indexmeta))
-	{
-		data->line++;
-		data->indexmeta++;
-	}
+		skip_char(data);
 	if (*data->line == '\0' && *data->indexmeta == ' ')
 		return ;
-	if (access(stripstring(ft_strdup(data->line)), F_OK) == 0)
-		cmd->redir_in = open(stripstring(ft_strdup(data->line)), O_RDWR);
+	placeholder = stripstring(ft_strdup(data->line));
+	if (access(placeholder, F_OK) == 0)
+	{
+		if (cmd->redir_in != STDIN_FILENO)
+			close(cmd->redir_in);
+		cmd->redir_in = open(placeholder, O_RDWR);
+	}
 	else
 	{
 		cmd->redir_in = -1;
 		dprintf(2, "minicougar: %s: No such file or directory\n", data->line);
 	}
+	free(placeholder);
 	while (*data->line != '\0')
 		data->line++;
 }
 
 void	set_fd_out(t_cmd *cmd, int append, t_data *data)
 {
+	char	*placeholder;
+
 	if (!cmd || !data->line)
 		return ;
 	while (*data->line == '\0' && ft_strchr(" >", *data->indexmeta))
-	{
-		data->line++;
-		data->indexmeta++;
-	}
+		skip_char(data);
+	placeholder = stripstring(ft_strdup(data->line));
 	if (append == 0)
-		cmd->redir_out = open(stripstring(ft_strdup(data->line)),
+	{
+		if (cmd->redir_out != STDOUT_FILENO)
+			close(cmd->redir_out);
+		cmd->redir_out = open(placeholder,
 				O_RDWR | O_TRUNC | O_CREAT, 0777);
+	}
 	else
-		cmd->redir_out = open(stripstring(ft_strdup(data->line)),
+	{
+		if (cmd->redir_out != STDOUT_FILENO)
+			close(cmd->redir_out);
+		cmd->redir_out = open(placeholder,
 				O_RDWR | O_APPEND | O_CREAT, 0777);
+	}
+	free(placeholder);
 	while (*data->line != '\0')
 		data->line++;
 }
@@ -47,7 +74,11 @@ void	get_fd(t_cmd *cmd, t_data *data, char meta)
 	if (meta == '<')
 	{
 		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
-			cmd->redir_in = heredoc(data);
+		{
+			if (cmd->redir_in != STDIN_FILENO)
+				close(cmd->redir_in);
+			cmd->redir_in = heredoc(data, cmd);
+		}
 		else
 			set_fd_in(cmd, data);
 	}

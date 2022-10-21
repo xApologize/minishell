@@ -1,33 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:19:09 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/20 12:55:33 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <sys/fcntl.h>
-#include <sys/wait.h>
 #include <unistd.h>
 
-int		heredoc(t_data *data)
-{
-	int		fd;
-	int		pid;
+extern char	**g_envp_copy;
 
-	fd = open("/tmp/minishell_heredoc.txt", O_RDWR | O_CREAT | O_TRUNC, 0777);
+int	heredoc(t_data *data, t_cmd *cmd)
+{
+	int		fd[2];
+	int		pid;
+	char	*placeholder;
+
+	pipe(fd);
 	while (*data->line == '\0')
 		skip_char(data);
+	placeholder = stripstring(ft_strdup(data->line));
 	sig_ignore();
 	pid = fork();
 	if (pid == 0)
 	{
 		sig_heredoc();
-		start_heredoc(fd, stripstring(ft_strdup(data->line)));
+		start_heredoc(fd, placeholder);
+		close(data->stdin_cp);
+		close(data->stdout_cp);
+		free_all(cmd, data);
 		exit(0);
 	}
 	waitpid(pid, NULL, 0);
+	free(placeholder);
 	while (*data->line != '\0')
 		data->line++;
-	close(fd);
-	return (open("/tmp/minishell_heredoc.txt", O_RDONLY));
+	close(fd[1]);
+	return (fd[0]);
 }
 
-void	start_heredoc(int fd, char *delim)
+void	start_heredoc(int fd[2], char *delim)
 {
 	char	*line;
 	char	*return_line;
@@ -38,11 +54,13 @@ void	start_heredoc(int fd, char *delim)
 		if (line == NULL || ft_strcmp(line, delim) == 0)
 			break ;
 		return_line = ft_strjoin(line, "\n");
-		write(fd , return_line, ft_strlen(return_line));
+		write(fd[1], return_line, ft_strlen(return_line));
 		free(return_line);
 		free(line);
 	}
 	if (line)
 		free(line);
-	close(fd);
+	free(delim);
+	close(fd[1]);
+	close(fd[0]);
 }

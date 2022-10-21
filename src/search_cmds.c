@@ -1,38 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search_cmds.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:30:05 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/20 15:50:11 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
 #include <stdio.h>
-#include <unistd.h>
 
-void	print_struct(t_cmd *cmd)
+extern char	**g_envp_copy;
+
+static void	free_both(char *line, char **builtin)
 {
-	t_cmd	*tmp;
-	int		i;
-	int		j;
-
-	tmp = cmd;
-	i = 0;
-	j = 0;
-	while (tmp != NULL)
-	{
-		printf("cmd[%i]->redir_in: %i\n", j, tmp->redir_in);
-		printf("cmd[%i]->redir_out: %i\n", j, tmp->redir_out);
-		printf("cmd[%i]->cmd: %s\n", j, tmp->cmd);
-		while (tmp->argv[i + 1] != NULL)
-		{
-			printf("cmd[%i]->argv: %s\n", j, tmp->argv[i]);
-			i++;
-		}
-		i = 0;
-		j++;
-		tmp = tmp->next;
-	}
+	free(line);
+	free(builtin);
 }
 
-int	is_builtin(char *line)
+char	**create_table(void)
 {
 	char	**builtin;
-	int		i;
 
-	builtin = ft_calloc(9, sizeof (char *));
+	builtin = ft_calloc(10, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -41,41 +33,68 @@ int	is_builtin(char *line)
 	builtin[5] = "env";
 	builtin[6] = "exit";
 	builtin[7] = "pepe";
-	builtin[8] = NULL;
-	i = 0;
-	while (builtin[i])
+	builtin[8] = "owo";
+	builtin[9] = NULL;
+	return (builtin);
+}
+
+int	is_builtin(char *line)
+{
+	int		i;
+	char	**builtin;
+
+	i = -1;
+	builtin = create_table();
+	line = handle_string(line);
+	while (builtin[++i])
 	{
 		if (ft_strcmp(line, builtin[i]) == 0)
 		{
-			free(builtin);
+			free_both(line, builtin);
 			return (1);
 		}
-		i++;
 	}
-	free(builtin);
+	free_both(line, builtin);
 	return (0);
 }
 
-int	set_cmd(t_cmd *cmd, t_data *data)
+void	set_cmd(t_cmd *cmd, t_data *data)
 {
-	int		i;
 	char	*line_cp;
 
-	i = 0;
 	line_cp = data->line;
-	if(is_builtin(line_cp) == 1)
+	if (is_builtin(ft_strdup(line_cp)) == 1)
 	{
 		cmd->is_builtin = 1;
 		cmd->cmd = ft_strdup(line_cp);
 	}
 	else
-		cmd->cmd = get_path(line_cp, data);
+		cmd->cmd = get_path(ft_strdup(data->line), data);
 	while (*line_cp != '\0')
 		line_cp++;
 	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
-	return (i - 1);
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	t_cmd *tmp = cmd;
+	int i = 0;
+	while (tmp != NULL)
+	{
+		printf("cmd.redir_in: %i\n", tmp->redir_in);
+		printf("cmd.redir_out: %i\n", tmp->redir_out);
+		printf("cmd.cmd: %s\n", tmp->cmd);
+		printf("cmd.is_builtin: %i\n", tmp->is_builtin);
+		while (tmp->argv[i])
+		{
+			printf("cmd.argv[%i]: %s\n", i, tmp->argv[i]);
+			i++;
+		}
+		i = 0;
+		tmp = tmp->next;
+	}
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)

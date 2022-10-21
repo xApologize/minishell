@@ -1,11 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   quotation.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:29:51 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:29:52 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
+
+extern char	**g_envp_copy;
 
 void	error_quotation(t_data *data)
 {
 	data->error_quotes = false;
 	double_check(data);
 	if (data->error_quotes == true)
+	{
 		dprintf(STDERR_FILENO, "minicougar: odd number of quotes\n");
+		free(data->line);
+	}
 }
 
 static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
@@ -16,7 +32,7 @@ static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
 		{
 			*trigger = 0;
 			*c = 0;
-			break;
+			break ;
 		}
 		*i += 1;
 	}
@@ -24,10 +40,10 @@ static void	skip_quote(t_data *data, int *i, int *trigger, char *c)
 
 void	double_check(t_data *data)
 {
-	int	i;
-	int	trigger;
-	char c;
-	
+	int		i;
+	int		trigger;
+	char	c;
+
 	i = 0;
 	c = 0;
 	trigger = 0;
@@ -39,6 +55,8 @@ void	double_check(t_data *data)
 			trigger = 1;
 			i++;
 			skip_quote(data, &i, &trigger, &c);
+			if (!data->line[i])
+				break ;
 		}
 		i++;
 	}
