@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:17:51 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:17:53 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
+
+extern char	**g_envp_copy;
 
 //adds the new variable to the environment
 void	addtoenv(char *arg)
@@ -14,29 +27,31 @@ void	addtoenv(char *arg)
 	new_envp = malloc((i + 2) * sizeof(char *));
 	while (g_envp_copy[++j])
 		new_envp[j] = ft_strdup(g_envp_copy[j]);
-	new_envp[i] = strip_quotes(arg);
+	new_envp[i] = ft_strdup(arg);
 	new_envp[i + 1] = NULL;
 	free_the_pp(g_envp_copy);
 	g_envp_copy = new_envp;
 }
 
-//if the argument was already part of the environement variables, modifies it to the new value
+//if the argument was already part of the
+//environement variables, modifies it to the new value
 void	modify_var(char *arg)
 {
 	int		index;
 	char	**split_arg;
 	char	*new_arg;
+	char	*line;
 
 	index = find_var(arg);
 	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
+	if (split_arg[1])
 	{
-		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+		line = make_arg(split_arg);
 		new_arg = ft_strdup(split_arg[0]);
 		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
+		new_arg = ft_strjoinfree(new_arg, line);
 		free(g_envp_copy[index]);
+		free(line);
 		g_envp_copy[index] = ft_strdup(new_arg);
 		free(new_arg);
 	}
@@ -51,10 +66,10 @@ void	modify_var(char *arg)
 //checks if the argument is already in the environment variables
 char	*return_stripped_env(char **split_arg)
 {
-	char *new_arg;
+	char	*new_arg;
 
 	new_arg = NULL;
-	split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
+	split_arg[1] = stripstring(split_arg[1]);
 	new_arg = ft_strdup(split_arg[0]);
 	new_arg = ft_strjoinfree(new_arg, "=");
 	new_arg = ft_strjoinfree(new_arg, split_arg[1]);
@@ -64,25 +79,19 @@ char	*return_stripped_env(char **split_arg)
 int	check_dup_env(char *arg)
 {
 	int		i;
-	char	**split_arg;
 	char	*new_arg;
 
 	i = -1;
-	split_arg = ft_split(arg, '=');
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
-		new_arg = return_stripped_env(split_arg);
-	else
-		new_arg = arg;
+	new_arg = ft_strdup(arg);
 	while (g_envp_copy[++i])
+	{
 		if (ft_strcmp(g_envp_copy[i], new_arg) == 0)
 		{
-			free_the_pp(split_arg);
 			free(new_arg);
 			return (1);
 		}
-	if (new_arg != arg)
-		free(new_arg);
-	free_the_pp(split_arg);
+	}
+	free(new_arg);
 	return (0);
 }
 
@@ -98,24 +107,4 @@ bool	checkassign(char *arg)
 			return (true);
 	}
 	return (false);
-}
-
-char	*strip_quotes(char *arg)
-{
-	char	**split_arg;
-	char	*new_arg;
-
-	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
-	if (split_arg[1][0] == '"' || split_arg[1][0] == '\'')
-	{
-		split_arg[1] = ft_strtrimfree(split_arg[1], "'\" ");
-		new_arg = ft_strdup(split_arg[0]);
-		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, split_arg[1]);
-		free_the_pp(split_arg);
-		return (new_arg);
-	}
-	free_the_pp(split_arg);
-	return (ft_strdup(arg));
 }

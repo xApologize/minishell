@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:17:37 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:17:39 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
 
-//
+extern char	**g_envp_copy;
+
 void	handle_export(t_cmd *cmd)
 {
 	int		i;
@@ -8,6 +20,11 @@ void	handle_export(t_cmd *cmd)
 	bool	valid_assign;
 
 	i = 0;
+	if (!cmd->argv[1])
+	{
+		handle_env(cmd);
+		return ;
+	}
 	while (cmd->argv[++i])
 	{
 		valid_env = checkvalidenv(cmd->argv[i]);

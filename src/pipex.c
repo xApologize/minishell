@@ -1,17 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:20:28 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/20 15:49:18 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/wait.h>
-#include <unistd.h>
+
+extern char	**g_envp_copy;
 
 void	pipex(t_cmd *cmd, t_data *data)
 {
 	int	i;
-	int	*pid_child;
+	int	pid_child[1000];
 	int	table_size;
 
 	table_size = table_length(cmd);
-	pid_child = malloc(sizeof(int) * table_size);
 	i = 0;
 	while (cmd != NULL)
 	{
@@ -21,7 +29,6 @@ void	pipex(t_cmd *cmd, t_data *data)
 	}
 	wait_child(pid_child, table_size);
 	restore_std(data);
-	free(pid_child);
 }
 
 int	pipex_redir(t_cmd *cmd, t_data *data)
@@ -32,17 +39,11 @@ int	pipex_redir(t_cmd *cmd, t_data *data)
 	pipe(pipe_fd);
 	pid = fork();
 	if (pid > 0)
-	{
-		close(pipe_fd[PIPE_WRITE]);
-		dup2(pipe_fd[PIPE_READ], STDIN_FILENO);
-		close(pipe_fd[PIPE_READ]);
-	}
+		redir_pipe(pipe_fd, 0);
 	if (pid == 0)
 	{
+		redir_pipe(pipe_fd, 1);
 		redir_utils(cmd);
-		close(pipe_fd[PIPE_READ]);
-		dup2(pipe_fd[PIPE_WRITE], STDOUT_FILENO);
-		close(pipe_fd[PIPE_WRITE]);
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
@@ -68,7 +69,7 @@ int	exec_fork_cmd(t_cmd	*cmd, t_data *data)
 		if (cmd->is_builtin == 1)
 		{
 			handle_builtin(cmd, data);
-			exit(1);
+			exit(0);
 		}
 		exec_cmd(cmd, data);
 	}
@@ -82,6 +83,8 @@ void	exec_cmd(t_cmd *cmd, t_data *data)
 	execve(cmd->cmd, cmd->argv, cmd->env);
 	if (ft_strlen(cmd->cmd) != 0)
 		dprintf(2, "minicougar: %s: command not found\n", cmd->cmd);
+	close(data->stdin_cp);
+	close(data->stdout_cp);
 	free_data_cmd(cmd, data);
 	free_the_pp(g_envp_copy);
 	exit(127);

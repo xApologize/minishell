@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checkenvformat.c                                   :+:      :+:    :+:   */
+/*   export_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/18 13:16:00 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/18 13:16:05 by yst-laur         ###   ########.fr       */
+/*   Created: 2022/10/18 16:12:35 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 16:12:37 by yst-laur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
 
 extern char	**g_envp_copy;
 
-int	checkenvformat(char *var)
+char	*make_arg(char **split_arg)
 {
-	int	i;
+	char	*line;
+	int		i;
 
-	i = -1;
-	while (var[++i])
-	{
-		if (var[i] == '=' && \
-		ft_isprint(var[i - 1]) == 1 && ft_isprint(var[i + 1]) == 1)
-			return (1);
-	}
-	return (0);
+	line = ft_calloc(1, 1);
+	i = 0;
+	while (split_arg[++i])
+		line = ft_strjoinfree(line, split_arg[i]);
+	return (line);
 }

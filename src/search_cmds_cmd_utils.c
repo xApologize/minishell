@@ -1,17 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   search_cmds_cmd_utils.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:31:01 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/20 12:00:05 by jrossign         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/unistd.h>
-#include <unistd.h>
+
+extern char	**g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
-	//gerer les erreur
+	char	*path;
+
 	if (access(line, X_OK) == 0)
-		return (ft_strdup(line));
+	{
+		path = ft_strdup(line);
+		free(line);
+		return (path);
+	}
 	else
 		dprintf(2, "minicougar: %s: no such file or directory\n", line);
+	free(line);
 	return (NULL);
 }
 
@@ -20,7 +34,6 @@ char	*access_relative_path(char *line)
 	char	*slash;
 	char	*pwd_join;
 
-	//gerer les erreur
 	slash = ft_strjoin("/", line);
 	pwd_join = ft_strjoin(getenv("PWD"), slash);
 	if (access(pwd_join, X_OK) == 0)
@@ -35,28 +48,27 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
-	//gerer les erreur
-	i = 0;
+	i = -1;
+	line_cp = handle_dollar(line_cp);
+	line_cp = stripstring(line_cp);
 	if (!data->path_split)
-		return (ft_strdup(line_cp));
-	if (*line_cp == '/')
+		return (line_cp);
+	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
-	if (*line_cp == '.')
-		return (access_relative_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
-	while (data->path_split[i] != NULL)
+	while (data->path_split[++i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
 		if (access(access_try, X_OK) == 0)
 		{
+			free(line_cp);
 			free(slash);
 			return (access_try);
 		}
-		i++;
 		free(access_try);
 	}
 	free(slash);
-	return (ft_strdup(line_cp));
+	return (line_cp);
 }
 
 int	get_argv_count(t_data *data)
@@ -87,6 +99,7 @@ int	get_argv_count(t_data *data)
 	return (argv_count);
 }
 
+//quote stripping before the expansion. expansion after the heredoc
 char	**get_argv(t_data *data)
 {
 	int		argv_count;
@@ -94,24 +107,18 @@ char	**get_argv(t_data *data)
 	char	**argv;
 
 	argv_count = get_argv_count(data);
-	argv = ft_calloc(sizeof(char*), argv_count + 1);
+	argv = ft_calloc(sizeof(char *), (argv_count + 1));
 	i = 0;
 	while (!ft_strchr("<>|\n", *data->indexmeta))
 	{
 		if (i == 0)
-		{
-			argv[i] = ft_strdup(data->line);
-			i++;
-		}
+			argv[i++] = handle_string(ft_strdup(data->line));
 		if (*data->line == '\0' && ft_strchr(" \n", *data->indexmeta))
 		{
 			while (*data->line == '\0' && *data->indexmeta == ' ')
-			{
-				data->line++;
-				data->indexmeta++;
-			}
+				skip_char(data);
 			if (*data->line != '\0')
-				argv[i] = ft_strdup(data->line);
+				argv[i] = handle_string(ft_strdup(data->line));
 			i++;
 		}
 		else

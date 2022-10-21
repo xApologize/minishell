@@ -1,5 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free_memory.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/18 13:18:01 by yst-laur          #+#    #+#             */
+/*   Updated: 2022/10/18 13:18:02 by yst-laur         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 #include "../include/minishell.h"
-#include <stdlib.h>
+
+extern char	**g_envp_copy;
 
 void	free_cmd(t_cmd *cmd)
 {
@@ -38,8 +50,6 @@ void	free_the_pp(char **pp)
 	pp = NULL;
 }
 
-
-
 void	free_data(t_data *data)
 {
 	data->indexmeta = data->save_indexmeta;
@@ -53,4 +63,11 @@ void	free_data_cmd(t_cmd *cmd, t_data *data)
 {
 	free_cmd(cmd);
 	free_data(data);
+}
+
+void	free_all(t_cmd *cmd, t_data *data)
+{
+	free_cmd(cmd);
+	free_data(data);
+	free_the_pp(g_envp_copy);
 }
