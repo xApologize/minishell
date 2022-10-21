@@ -13,28 +13,6 @@
 
 extern char	**g_envp_copy;
 
-char	*strip_quotes(char *arg)
-{
-	char	**split_arg;
-	char	*new_arg;
-	char	*line;
-
-	split_arg = ft_split(arg, '=');
-	new_arg = NULL;
-	if (split_arg[1] && (split_arg[1][0] == '"' || split_arg[1][0] == '\''))
-	{
-		line = make_arg(split_arg);
-		new_arg = ft_strdup(split_arg[0]);
-		new_arg = ft_strjoinfree(new_arg, "=");
-		new_arg = ft_strjoinfree(new_arg, line);
-		free_the_pp(split_arg);
-		free(line);
-		return (new_arg);
-	}
-	free_the_pp(split_arg);
-	return (ft_strdup(arg));
-}
-
 char	*make_arg(char **split_arg)
 {
 	char	*line;

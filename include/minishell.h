@@ -138,7 +138,6 @@ int			check_dup_env(char *arg);
 bool		checkassign(char *arg);
 
 //export_utils3.c
-char		*strip_quotes(char *arg);
 char		*make_arg(char **split_arg);
 
 //free_memory.c
