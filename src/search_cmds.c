@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include <stdio.h>
 
 extern char	**g_envp_copy;
 
@@ -76,6 +77,26 @@ void	set_cmd(t_cmd *cmd, t_data *data)
 	cmd->argv = get_argv(data);
 	while (*data->line != '\0')
 		data->line++;
+}
+
+void	print_cmd(t_cmd *cmd)
+{
+	t_cmd *tmp = cmd;
+	int i = 0;
+	while (tmp != NULL)
+	{
+		printf("cmd.redir_in: %i\n", tmp->redir_in);
+		printf("cmd.redir_out: %i\n", tmp->redir_out);
+		printf("cmd.cmd: %s\n", tmp->cmd);
+		printf("cmd.is_builtin: %i\n", tmp->is_builtin);
+		while (tmp->argv[i])
+		{
+			printf("cmd.argv[%i]: %s\n", i, tmp->argv[i]);
+			i++;
+		}
+		i = 0;
+		tmp = tmp->next;
+	}
 }
 
 void	search_cmd(t_data *data, t_cmd *cmd)

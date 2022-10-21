@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:31:01 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 09:47:55 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:00:05 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -15,10 +15,13 @@ extern char	**g_envp_copy;
 
 char	*access_absolute_path(char *line)
 {
+	char	*path;
+
 	if (access(line, X_OK) == 0)
 	{
+		path = ft_strdup(line);
 		free(line);
-		return (ft_strdup(line));
+		return (path);
 	}
 	else
 		dprintf(2, "minicougar: %s: no such file or directory\n", line);
@@ -45,7 +48,7 @@ char	*get_path(char *line_cp, t_data *data)
 	char	*slash;
 	char	*access_try;
 
-	i = 0;
+	i = -1;
 	line_cp = handle_dollar(line_cp);
 	line_cp = stripstring(line_cp);
 	if (!data->path_split)
@@ -53,7 +56,7 @@ char	*get_path(char *line_cp, t_data *data)
 	if (ft_strchr("./", *line_cp))
 		return (access_absolute_path(line_cp));
 	slash = ft_strjoin("/", line_cp);
-	while (data->path_split[i++] != NULL)
+	while (data->path_split[++i] != NULL)
 	{
 		access_try = ft_strjoin(data->path_split[i], slash);
 		if (access(access_try, X_OK) == 0)
