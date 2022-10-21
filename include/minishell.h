@@ -6,7 +6,7 @@
 /*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/20 11:39:42 by tberube-         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:52:59 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,11 @@ char		*met_d_quote(char *new_line, char **line, bool *d_quote);
 char		*get_dollar(char *new_line, char *line);
 
 //dollar_utils4.c
-char		*set_quotes_on(char	*new_line, char **line, bool *quote, bool *d_quote);
+char		*set_quotes_on(char	*new_line, char **line,
+				bool *quote, bool *d_quote);
 void		set_quotes_off(char line, bool *quote, bool *d_quote);
-char		*set_quotes_off_free(char *new_line, char **line, bool *quote, bool *d_quote);
+char		*set_quotes_off_free(char *new_line, char **line,
+				bool *quote, bool *d_quote);
 
 //echo_utils.c
 void		handle_echo(t_cmd *cmd);

@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 18:46:34 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 16:43:35 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/21 11:11:47 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -28,7 +28,8 @@ void	set_quotes_off(char line, bool *quote, bool *d_quote)
 		*quote = false;
 }
 
-char	*set_quotes_off_free(char *new_line, char **line, bool *quote, bool *d_quote)
+char	*set_quotes_off_free(char *new_line, char **line,
+		bool *quote, bool *d_quote)
 {
 	new_line = charjoinfree(new_line, **line);
 	set_quotes_off(**line, quote, d_quote);
