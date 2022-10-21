@@ -6,7 +6,7 @@
 /*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:30:24 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/19 16:35:12 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 12:56:38 by jrossign         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../include/minishell.h"
@@ -74,7 +74,11 @@ void	get_fd(t_cmd *cmd, t_data *data, char meta)
 	if (meta == '<')
 	{
 		if (data->line[1] == '\0' && data->indexmeta[1] == '<')
+		{
+			if (cmd->redir_in != STDIN_FILENO)
+				close(cmd->redir_in);
 			cmd->redir_in = heredoc(data, cmd);
+		}
 		else
 			set_fd_in(cmd, data);
 	}
