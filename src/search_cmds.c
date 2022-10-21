@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   search_cmds.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yst-laur <marvin@42quebec.com>             +#+  +:+       +#+        */
+/*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 13:30:05 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/20 10:27:01 by jrossign         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:50:25 by tberube-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../include/minishell.h"
 
 extern char	**g_envp_copy;
@@ -23,7 +24,7 @@ char	**create_table(void)
 {
 	char	**builtin;
 
-	builtin = ft_calloc(10, sizeof (char *));
+	builtin = ft_calloc(11, sizeof (char *));
 	builtin[0] = "echo";
 	builtin[1] = "cd";
 	builtin[2] = "pwd";
@@ -33,7 +34,8 @@ char	**create_table(void)
 	builtin[6] = "exit";
 	builtin[7] = "pepe";
 	builtin[8] = "owo";
-	builtin[9] = NULL;
+	builtin[9] = "smile";
+	builtin[10] = NULL;
 	return (builtin);
 }
 

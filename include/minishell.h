@@ -6,10 +6,11 @@
 /*   By: tberube- <tberube-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:39:14 by yst-laur          #+#    #+#             */
-/*   Updated: 2022/10/20 11:30:34 by tberube-         ###   ########.fr       */
+/*   Updated: 2022/10/20 11:39:42 by tberube-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include "../libft/include/libft.h"
