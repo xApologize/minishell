@@ -50,7 +50,10 @@ char	*return_dollar(char *line)
 	if (index != -1)
 	{
 		split_path = ft_split(g_envp_copy[index], '=');
-		return_line = ft_strdup(split_path[1]);
+		if (split_path[1])
+			return_line = ft_strdup(split_path[1]);
+		else
+			return_line = ft_strdup("");
 		free_the_pp(split_path);
 	}
 	else
